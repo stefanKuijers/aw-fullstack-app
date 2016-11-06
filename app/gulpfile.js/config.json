@@ -1,0 +1,37 @@
+{
+    "production": false,
+
+    "watch": [
+        "c:/Users/S/dev/aw-fullstack/public_html/**/*",
+        "c:/Users/S/dev/aw-fullstack/bower.json"
+    ],
+
+    "sass": {
+        "dir": "c:/Users/S/dev/aw-fullstack/public_html/style/",
+        "path": [
+            "c:/Users/S/dev/aw-fullstack/public_html/style/src/var.scss",
+            "c:/Users/S/dev/aw-fullstack/public_html/style/src/base.scss",
+            "c:/Users/S/dev/aw-fullstack/public_html/style/src/**/*.scss"
+        ]
+    },
+    
+    "javascript":  {
+        "dir": "c:/Users/S/dev/aw-fullstack/public_html/js/",
+        "path": [
+            "c:/Users/S/dev/aw-fullstack/public_html/js/src/**/app.js",
+            "c:/Users/S/dev/aw-fullstack/public_html/js/src/**/index.js",
+            "c:/Users/S/dev/aw-fullstack/public_html/js/src/**/*.module.js",
+            "c:/Users/S/dev/aw-fullstack/public_html/js/src/**/*.js"
+        ]
+    },
+
+    "bower": {
+        "overrides": {}
+    },
+
+    "dir": {
+        "root": "c:/Users/S/dev/aw-fullstack/public_html",
+        "source": "src",
+        "distribution": "dist"
+    }
+}

@@ -6,49 +6,26 @@ const initialState = {
 	running: false
 };
 
+var watch; 
+
 export default function server(
 	state: Object = initialState, 
 	action: Object
 ) {
   switch (action.type) {
     case START_SERVER:
-	 //    sass.render({
-		//   file: "./style.scss"
-		// }, function(err, result) {
-		// 	console.log('result', result);
-		// });
-		var config = {
-			dir: {
-				root: 'app'
-			}
-		};
-
-		var options = {
-            open: 'external',
-            ghostMode: {
-                clicks: true,
-                location: true,
-                forms: true,
-                scroll: true
-            }
-        };
-
-        if (config.host) {
-            options.proxy = config.host;
-        } else {
-            options.server = config.dir.root;
-        }
-
-        browserSync.init( options );
-		
-
+    	config.browserSync.task();
+    	watch = config.watch.task();
+	
     	return {
     		...state,
     		running: true
 
     	};
     case STOP_SERVER:
-
+	    plugin.browserSync.exit();
+	    watch.close();
+	    
     	return {
     		...state,
     		running: false
