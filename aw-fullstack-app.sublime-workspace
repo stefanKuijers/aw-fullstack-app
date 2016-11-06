@@ -519,6 +519,121 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "app/components/Home.js",
+			"settings":
+			{
+				"buffer_size": 637,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/actions/counter.js",
+			"settings":
+			{
+				"buffer_size": 648,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/reducers/counter.js",
+			"settings":
+			{
+				"buffer_size": 322,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/containers/CounterPage.js",
+			"settings":
+			{
+				"buffer_size": 440,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/containers/HomePage.js",
+			"settings":
+			{
+				"buffer_size": 432,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "// @flow\n\nimport { START_SERVER, STOP_SERVER } from '../actions/server';\n\nconst initialState = {\n\trunning: false\n};\n\nexport default function server(\n\tstate: Object = initialState, \n\taction: Object\n) {\n  switch (action.type) {\n    case START_SERVER:   \n    \t \t\n    \treturn {\n    \t\t...state,\n    \t\trunning: true\n    \t};\n    case STOP_SERVER:\n    \treturn {\n    \t\t...state,\n    \t\trunning: false\n    \t};\n    default:\n        return state;\n  }\n}\n",
+			"file": "app/reducers/server.js",
+			"file_size": 461,
+			"file_write_time": 131229116677947539,
+			"settings":
+			{
+				"buffer_size": 440,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 4798,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/components/Home.css",
+			"settings":
+			{
+				"buffer_size": 551,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/app.html",
+			"settings":
+			{
+				"buffer_size": 781,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/index.js",
+			"settings":
+			{
+				"buffer_size": 562,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/reducers/index.js",
+			"settings":
+			{
+				"buffer_size": 306,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/actions/server.js",
+			"settings":
+			{
+				"buffer_size": 459,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/components/Counter.js",
+			"settings":
+			{
+				"buffer_size": 1312,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -527,10 +642,38 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 311.0,
-		"last_filter": "save",
+		"height": 242.0,
+		"last_filter": "set bab",
 		"selected_items":
 		[
+			[
+				"set bab",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
+				"rein",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"setsy bab",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
 			[
 				"save",
 				"Project: Save As"
@@ -542,10 +685,6 @@
 			[
 				"close",
 				"Project: Close"
-			],
-			[
-				"install",
-				"Package Control: Install Package"
 			],
 			[
 				"projec",
@@ -582,10 +721,6 @@
 			[
 				"set php",
 				"Set Syntax: PHP"
-			],
-			[
-				"rein",
-				"Indentation: Reindent Lines"
 			],
 			[
 				"inde",
@@ -704,10 +839,6 @@
 				"Package Control: Install Package"
 			],
 			[
-				"insta",
-				"Package Control: Install Package"
-			],
-			[
 				"git commit",
 				"Git (SideBarGit): Commit…"
 			],
@@ -768,10 +899,6 @@
 				"View: Toggle Tabs"
 			],
 			[
-				"remove",
-				"Package Control: Remove Package"
-			],
-			[
 				"disab",
 				"Package Control: Disable Package"
 			],
@@ -794,10 +921,6 @@
 			[
 				"html",
 				"Set Syntax: HTML"
-			],
-			[
-				"list",
-				"Package Control: List Packages"
 			],
 			[
 				"dow",
@@ -924,7 +1047,7 @@
 				"Convert Case: Upper Case"
 			]
 		],
-		"width": 528.0
+		"width": 664.0
 	},
 	"console":
 	{
@@ -952,7 +1075,14 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Users/S/dev/aw-fullstack-app"
+		"/C/Users/S/dev/aw-fullstack-app",
+		"/C/Users/S/dev/aw-fullstack-app/app",
+		"/C/Users/S/dev/aw-fullstack-app/app/actions",
+		"/C/Users/S/dev/aw-fullstack-app/app/components",
+		"/C/Users/S/dev/aw-fullstack-app/app/containers",
+		"/C/Users/S/dev/aw-fullstack-app/app/reducers",
+		"/C/Users/S/dev/aw-fullstack-app/app/store",
+		"/C/Users/S/dev/aw-fullstack-app/app/utils"
 	],
 	"file_history":
 	[
@@ -1133,6 +1263,15 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"server",
+			"div",
+			"serve",
+			"counter",
+			"rootReducer",
+			"configureStore",
+			"DECREMENT_COUNTER",
+			"INCREMENT_COUNTER",
+			"div",
 			"rebuild",
 			"electron",
 			"www.scnet-dev.com",
@@ -1251,16 +1390,7 @@
 			"component.szelesseg",
 			"min",
 			".$viewValue",
-			"text",
-			"edge2Length",
-			"szinazanos_elzaras",
-			"material",
-			"material.",
-			"$set",
-			"keyword",
-			"boardOrder",
-			"anyagkod",
-			"image_id"
+			"text"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1279,8 +1409,379 @@
 	"groups":
 	[
 		{
+			"selected": 6,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "app/components/Home.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 637,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								121,
+								121
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/actions/counter.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 648,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								270,
+								270
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/reducers/counter.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 322,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								322,
+								322
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/containers/CounterPage.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 440,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								192,
+								440
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/containers/HomePage.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 432,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								268,
+								268
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 192.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/reducers/server.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 440,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								257,
+								257
+							]
+						],
+						"settings":
+						{
+							"open_with_edit": true,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "package.json",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 4798,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2190,
+								2190
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": -0.0,
+						"translation.y": 768.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "app/components/Home.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 551,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								247,
+								247
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 312.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "app/app.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 781,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								776,
+								776
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 214.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "app/index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 562,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								367,
+								367
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "app/reducers/index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 306,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								276,
+								276
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "app/actions/server.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 459,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								348,
+								348
+							],
+							[
+								393,
+								393
+							]
+						],
+						"settings":
+						{
+							"open_with_edit": true,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "app/components/Counter.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1312,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								416,
+								416
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1342,7 +1843,15 @@
 		[
 			[
 				"",
-				"electron-react-boilerplate\\app\\index.js"
+				"app\\reducers\\index.js"
+			],
+			[
+				"count",
+				"app\\reducers\\counter.js"
+			],
+			[
+				"coun",
+				"app\\actions\\counter.js"
 			],
 			[
 				"sass",
@@ -1843,14 +2352,6 @@
 			[
 				"api.remote",
 				"app\\app\\shared\\api\\apiService.remote.js"
-			],
-			[
-				"menu",
-				"app\\app\\shared\\menu\\menuController.js"
-			],
-			[
-				"directive",
-				"app\\app\\component\\settings\\notifications\\notificationSettings.listDirective.js"
 			]
 		],
 		"width": 0.0
@@ -1858,9 +2359,13 @@
 	"select_project":
 	{
 		"height": 625.0,
-		"last_filter": "preco",
+		"last_filter": "aw-",
 		"selected_items":
 		[
+			[
+				"aw-",
+				"C:\\Users\\S\\dev\\aw-fullstack\\aw-fullstack.sublime-project"
+			],
 			[
 				"preco",
 				"C:\\Users\\S\\dev\\precognox-massnetwork\\precognox-massnetwork.sublime-project"

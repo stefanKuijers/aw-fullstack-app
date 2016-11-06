@@ -1,0 +1,14 @@
+{
+    "production": false,
+
+    "watch": [
+        "./public_html/**/*",
+        "./bower.json"
+    ],
+
+    "dir": {
+        "root": "./public_html",
+        "source": "src",
+        "distribution": "dist"
+    }
+}

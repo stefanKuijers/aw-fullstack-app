@@ -8,6 +8,8 @@ import routes from './routes';
 import configureStore from './store/configureStore';
 import './app.global.css';
 
+// import BrowserSync from 'browser-sync';
+
 const store = configureStore();
 const history = syncHistoryWithStore(hashHistory, store);
 

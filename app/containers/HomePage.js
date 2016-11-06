@@ -2,11 +2,11 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Home from '../components/Home';
-import * as ServeActions from '../actions/serve';
+import * as ServeActions from '../actions/server';
 
 function mapStateToProps(state) {
   return {
-  	serving: state.serve
+  	serving: state.server.running
   };
 }
 

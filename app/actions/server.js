@@ -16,10 +16,10 @@ export function stopServer() {
 
 export function toggleServer() {
 	return (dispatch: Function, getState: Function) => {
-	    const { serve } = getState();
+	    const { server } = getState();
 
 	    dispatch(
-	    	serve ?
+	    	server.running ?
 		    	stopServer():
 		    	startServer()
 	    );
