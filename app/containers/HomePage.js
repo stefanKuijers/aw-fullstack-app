@@ -1,11 +1,17 @@
 // @flow
-import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import Home from '../components/Home';
+import * as ServeActions from '../actions/serve';
 
-export default class HomePage extends Component {
-  render() {
-    return (
-      <Home />
-    );
-  }
+function mapStateToProps(state) {
+  return {
+  	serving: state.serve
+  };
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(ServeActions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

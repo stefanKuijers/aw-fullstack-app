@@ -6,13 +6,21 @@ import styles from './Home.css';
 
 export default class Home extends Component {
   render() {
+	const {toggleServer, serving} = this.props;
     return (
-      <div>
-        <div className={styles.container}>
-          <h2>Home</h2>
+      <article className={styles.container}>
+        <header>
+          <h2>Project</h2>
+        </header>
+        <section>
+          <button className={styles.btn} onClick={toggleServer}>
+            {serving ? 'stop server' : 'start server'}
+          </button>
+        </section>
+        <footer>
           <Link to="/counter">to Counter</Link>
-        </div>
-      </div>
+        </footer>
+      </article>
     );
   }
 }
