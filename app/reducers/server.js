@@ -12,13 +12,35 @@ export default function server(
 ) {
   switch (action.type) {
     case START_SERVER:
-	    var exec = require('child_process').exec;
-		var cmd = 'gulp';
+	 //    sass.render({
+		//   file: "./style.scss"
+		// }, function(err, result) {
+		// 	console.log('result', result);
+		// });
+		var config = {
+			dir: {
+				root: 'app'
+			}
+		};
 
-		exec(cmd, function(error, stdout, stderr) {
-			console.log('ls', error, stdout, stderr);
-		  // command output is in stdout
-		});
+		var options = {
+            open: 'external',
+            ghostMode: {
+                clicks: true,
+                location: true,
+                forms: true,
+                scroll: true
+            }
+        };
+
+        if (config.host) {
+            options.proxy = config.host;
+        } else {
+            options.server = config.dir.root;
+        }
+
+        browserSync.init( options );
+		
 
     	return {
     		...state,
