@@ -141,9 +141,7 @@
     "webpack-validator": "^2.2.9"
   },
   "dependencies": {
-    "css-modules-require-hook": "^4.0.5",
-    "electron-debug": "^1.0.1",
-    "postcss": "^5.2.4",
+  	"electron-debug": "^1.0.1",
     "font-awesome": "^4.7.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
@@ -152,31 +150,7 @@
     "react-router-redux": "^4.0.6",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
-    "source-map-support": "^0.4.6",
-
-    "babel-preset-latest": "^6.16.0",
-    "browser-sync": "^2.14.0",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-babel": "^6.1.2",
-    "gulp-clean-css": "^2.0.12",
-    "gulp-concat": "^2.6.0",
-    "gulp-debug": "^2.1.2",
-    "gulp-filter": "^4.0.0",
-    "gulp-flatten": "^0.3.0",
-    "gulp-main-bower-files": "^1.5.2",
-    "gulp-minify": "0.0.13",
-    "gulp-notify": "^2.2.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-replace": "^0.5.4",
-    "gulp-sass": "^2.3.2",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.5.4",
-    "gulp-watch": "^4.3.9",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-file": "^2.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "source-map-support": "^0.4.6"
   },
   "devEngines": {
     "node": ">=6.x",
