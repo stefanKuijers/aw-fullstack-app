@@ -6,6 +6,12 @@
 		},
 		{
 			"path": "C:\\Users\\S\\dev\\aw-fullstack"
+<<<<<<< HEAD
+=======
+		},
+		{
+			"path": "C:\\Users\\S\\dev\\electron-react-boilerplate"
+>>>>>>> master
 		}
 	]
 }

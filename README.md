@@ -17,9 +17,8 @@
 
 ## Install
 
-* **Note: requires a node version >= 4 and an npm version >= 3.**
+* **Note: requires a node version >= 6 and an npm version >= 3.**
 * **If you have installation or compilation issues with this project, please see [our debugging guide](https://github.com/chentsulin/electron-react-boilerplate/issues/400)**
-
 
 First, clone the repo via git:
 
@@ -33,6 +32,8 @@ And then install dependencies.
 ```bash
 $ cd your-project-name && npm install
 ```
+
+:bulb: *In order to remove boilerplate sample code, simply run `npm run cleanup`. After this is run, the initial sample boilerplate code will be removed in order for a clean project for starting custom dev*
 
 ## Run
 
@@ -105,17 +106,9 @@ externals: [
 ]
 ```
 
-For a common example, to install Bootstrap, `npm i --save bootstrap` and link them in the head of app.html
-
-```html
-<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css" />
-<link rel="image/svg+xml" href="../node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.eot" />
-...
-```
-
-Make sure to list bootstrap in externals in `webpack.config.base.js` or the app won't include them in the package:
+For a common example, to install bcrypt, `npm i --save bcrypt`, and make sure to list bcrypt in externals in `webpack.config.base.js` or the app won't include them in the package:
 ```js
-externals: ['bootstrap']
+externals: ['bcrypt']
 ```
 
 
@@ -129,8 +122,16 @@ All `.css` file extensions will use css-modules unless it has `.global.css`.
 If you need global styles, stylesheets with `.global.css` will not go through the
 css-modules loader. e.g. `app.global.css`
 
+If you want to import global css libraries (like `bootstrap`), you can just write the following code in `.global.css`:
 
-## Package
+```css
+@import "~bootstrap/dist/css/bootstrap.css";
+```
+
+
+## Packaging
+
+To package apps for the local platform:
 
 ```bash
 $ npm run package
@@ -138,6 +139,9 @@ $ npm run package
 
 To package apps for all platforms:
 
+First, refer to [Multi Platform Build](https://github.com/electron-userland/electron-builder/wiki/Multi-Platform-Build) for dependencies.
+
+Then,
 ```bash
 $ npm run package-all
 ```
@@ -150,25 +154,15 @@ $ npm run package -- --[option]
 
 #### Options
 
-- --name, -n: Application name (default: ElectronReact)
-- --version, -v: Electron version (default: latest version)
-- --asar, -a: [asar](https://github.com/atom/asar) support (default: false)
-- --icon, -i: Application icon
-- --all: pack for all platforms
+See [electron-builder CLI Usage](https://github.com/electron-userland/electron-builder#cli-usage)
 
-Use `electron-packager` to pack your app with `--all` options for darwin (osx), linux and win32 (windows) platform. After build, you will find them in `release` folder. Otherwise, you will only find one for your os.
+#### Module Structure
 
-`test`, `tools`, `release` folder and devDependencies in `package.json` will be ignored by default.
+This boilerplate uses a [two package.json structure](https://github.com/electron-userland/electron-builder#two-packagejson-structure).
 
-#### Default Ignore modules
-
-We add some module's `peerDependencies` to ignore option as default for application size reduction.
-
-- `babel-core` is required by `babel-loader` and its size is ~19 MB
-- `node-libs-browser` is required by `webpack` and its size is ~3MB.
-
-> **Note:** If you want to use any above modules in runtime, for example: `require('babel/register')`, you should move them from `devDependencies` to `dependencies`.
-
+1. If the module is native to a platform or otherwise should be included with the published package (i.e. bcrypt, openbci), it should be listed under `dependencies` in `./app/package.json` and `externals` in `webpack.config.base.js`.   See [Externals](#externals).
+2. If a module is `import`ed by another module, include it in `dependencies` in `./package.json`.   See [this ESLint rule](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md).
+3. Otherwise, modules used for building, testing and debugging should be included in `devDependencies` in `./package.json`.
 
 ## Static Type Checking
 This project comes with Flow support out of the box! You can annotate your code with types, [get Flow errors as ESLint errors](https://github.com/amilajack/eslint-plugin-flowtype-errors), and get [type errors during runtime](https://github.com/gcanti/babel-plugin-tcomb-boilerplate) during development. Types are completely optional.
@@ -176,10 +170,6 @@ This project comes with Flow support out of the box! You can annotate your code 
 ## Native-like UI
 
 If you want to have native-like User Interface (OS X El Capitan and Windows 10), [react-desktop](https://github.com/gabrielbull/react-desktop) may perfect suit for you.
-
-#### Building windows apps from non-windows platforms
-
-Please checkout [Building windows apps from non-windows platforms](https://github.com/maxogden/electron-packager#building-windows-apps-from-non-windows-platforms).
 
 ## Dispatching redux actions from main process
 
