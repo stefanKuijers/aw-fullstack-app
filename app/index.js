@@ -8,7 +8,6 @@ import routes from './routes';
 import configureStore from './store/configureStore';
 import './app.global.css';
 
-// import BrowserSync from 'browser-sync';
 
 const store = configureStore();
 const history = syncHistoryWithStore(hashHistory, store);
@@ -18,5 +17,5 @@ render(
   <Provider store={store}>
     <Router history={history} routes={routes} />
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('app')
 );

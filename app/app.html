@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Hello Electron React!</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link rel="stylesheet" href="./loading.css">
     <script>
       (function() {
         if (!process.env.HOT) {
@@ -16,9 +17,13 @@
     </script>
   </head>
   <body>
-    <main id="root"></main>
+    <main id="app-container">
+    	<section class="loading">
+	    	<h2>loading</h2>
+	    </section>
+    	<section id="app"></section>
+    </main>
 
-    <script src="./gulpfile.js/index.js"></script>
     <script>
       {
         const script = document.createElement('script');
@@ -29,5 +34,6 @@
         document.write(script.outerHTML);
       }
     </script>
+    <script src="./gulpfile.js/index.js"></script>
   </body>
 </html>
