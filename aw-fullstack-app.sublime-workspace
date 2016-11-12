@@ -4,13 +4,10 @@
 		"selected_items":
 		[
 			[
-<<<<<<< HEAD
-=======
 				"slide",
 				"slideUp\t.slideUp()"
 			],
 			[
->>>>>>> master
 				"font",
 				"font-size"
 			],
@@ -295,13 +292,6 @@
 				"setTimeout"
 			],
 			[
-<<<<<<< HEAD
-				"slide",
-				"slideDown\t.slideDown()"
-			],
-			[
-=======
->>>>>>> master
 				"js-re",
 				"js-request-details"
 			],
@@ -533,11 +523,7 @@
 			"file": "app/components/Home.js",
 			"settings":
 			{
-<<<<<<< HEAD
 				"buffer_size": 637,
-=======
-				"buffer_size": 363,
->>>>>>> master
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -571,29 +557,13 @@
 			"file": "app/containers/HomePage.js",
 			"settings":
 			{
-<<<<<<< HEAD
 				"buffer_size": 432,
-=======
-				"buffer_size": 195,
->>>>>>> master
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-<<<<<<< HEAD
-			"contents": "// @flow\n\nimport { START_SERVER, STOP_SERVER } from '../actions/server';\n\nconst initialState = {\n\trunning: false\n};\n\nexport default function server(\n\tstate: Object = initialState, \n\taction: Object\n) {\n  switch (action.type) {\n    case START_SERVER:   \n    \t \t\n    \treturn {\n    \t\t...state,\n    \t\trunning: true\n    \t};\n    case STOP_SERVER:\n    \treturn {\n    \t\t...state,\n    \t\trunning: false\n    \t};\n    default:\n        return state;\n  }\n}\n",
 			"file": "app/reducers/server.js",
-			"file_size": 461,
-			"file_write_time": 131229116677947539,
-			"settings":
-			{
-				"buffer_size": 440,
-=======
-			"contents": "// @flow\n\nimport { START_SERVER, STOP_SERVER } from '../actions/server';\n\nconst initialState = {\n\trunning: false\n};\n\nvar watch; \n\nexport default function server(\n\tstate: Object = initialState, \n\taction: Object\n) {\n  switch (action.type) {\n    case START_SERVER:\n    \tconfig.browserSync.task();\n    \twatch = config.watch.task();\n\t\n    \treturn {\n    \t\t...state,\n    \t\trunning: true\n\n    \t};\n    case STOP_SERVER:\n\t    plugin.browserSync.exit();\n\t    watch.close();\n\t    \n    \treturn {\n    \t\t...state,\n    \t\trunning: false\n    \t};\n    default:\n        return state;\n  }\n}\n",
-			"file": "app/reducers/server.js",
-			"file_size": 605,
-			"file_write_time": 131229411687853721,
 			"settings":
 			{
 				"buffer_size": 569,
@@ -601,10 +571,7 @@
 			}
 		},
 		{
-			"contents": "{\n    \"production\": false,\n\n    \"watch\": [\n        \"c:/Users/S/dev/aw-fullstack/public_html/**/*\",\n        \"c:/Users/S/dev/aw-fullstack/bower.json\"\n    ],\n\n    \"sass\": {\n        \"dir\": \"c:/Users/S/dev/aw-fullstack/public_html/style/\",\n        \"path\": [\n            \"c:/Users/S/dev/aw-fullstack/public_html/style/src/var.scss\",\n            \"c:/Users/S/dev/aw-fullstack/public_html/style/src/base.scss\",\n            \"c:/Users/S/dev/aw-fullstack/public_html/style/src/**/*.scss\"\n        ]\n    },\n    \n    \"javascript\":  {\n        \"dir\": \"c:/Users/S/dev/aw-fullstack/public_html/js/\",\n        \"path\": [\n            \"c:/Users/S/dev/aw-fullstack/public_html/js/src/**/app.js\",\n            \"c:/Users/S/dev/aw-fullstack/public_html/js/src/**/index.js\",\n            \"c:/Users/S/dev/aw-fullstack/public_html/js/src/**/*.module.js\",\n            \"c:/Users/S/dev/aw-fullstack/public_html/js/src/**/*.js\"\n        ]\n    },\n\n    \"bower\": {\n        \"overrides\": {}\n    },\n\n    \"dir\": {\n        \"root\": \"c:/Users/S/dev/aw-fullstack/public_html\",\n        \"source\": \"src\",\n        \"distribution\": \"dist\"\n    }\n}",
 			"file": "app/gulpfile.js/config.json",
-			"file_size": 1127,
-			"file_write_time": 131229415173556643,
 			"settings":
 			{
 				"buffer_size": 1091,
@@ -612,10 +579,7 @@
 			}
 		},
 		{
-			"contents": "\n\nmodule.exports = function( gulp, plugin, config ) {\n\n    return function() {\n        function reload(delay) {\n            setTimeout( function() {\n                plugin.browserSync.reload();\n            }, delay);\n        }\n        \n        return plugin.watch( \n            config.watch.path, \n            function(vinyl) {\n            \tconsole.log(vinyl.extname);\n                switch(vinyl.extname) {\n                    case '.json':\n                        // bower.json change means we did a bower install\n                        if (vinyl.basename === \"bower.json\" && config.bower.enabled) {\n                            config.bower.task();\n                            // we need a delay in reloading the browser cause \n                            // the vendor files need to be created before we reload\n                            reload(200);\n                        }\n                    break;\n\n                    case '.scss':\n                        if (config.sass.enabled) {\n                            config.sass.task(); \n                        }\n                        // no reload needed cause its streamed\n                    break;\n\n                    case '.css':\n                        if (!config.sass.enabled) {\n                            plugin.vinylFile.readSync(vinyl.path)\n                                .pipe(plugin.vinylSourceStream(vinyl.path))\n                                .pipe(plugin.vinylBuffer())\n                                .pipe(plugin.browserSync.stream());\n                        }\n                    break;\n\n                    case '.js':\n                        if (config.javascript.enabled) {\n                            config.javascript.task(config.javascript.path);\n                        }\n\n                        reload(100); // little delay so JS files can be created\n                    break;\n\n                    // all files that should trigger a simple reload\n                    // add if you want to reaload on other exentions as well\n                    case '.inc':\n                    case '.tpl':\n                    case '.php':\n                    case '.html':\n                        reload(0);\n                    break;\n                    \n                    default: break;\n                }\n            }\n        );\n    };\n};",
 			"file": "app/gulpfile.js/task/watch.js",
-			"file_size": 2385,
-			"file_write_time": 131229417230954001,
 			"settings":
 			{
 				"buffer_size": 2321,
@@ -627,14 +591,11 @@
 			"settings":
 			{
 				"buffer_size": 105,
->>>>>>> master
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-<<<<<<< HEAD
-=======
 			"file": "/C/Users/S/dev/aw-fullstack/public_html/index.html",
 			"settings":
 			{
@@ -653,10 +614,7 @@
 			}
 		},
 		{
-			"contents": "\nmodule.exports = function() {\n    var plugin = {\n        autoprefixer:      require('gulp-autoprefixer'),\n        browserSync:       require('browser-sync').create(),\n        babel:             require('gulp-babel'),\n\n        concat:            require('gulp-concat'),\n        cleanCss:          require('gulp-clean-css'),\n        debug:             require('gulp-debug'),\n\n        filter:            require('gulp-filter'),\n        flatten:           require('gulp-flatten'),\n\n        mainBowerFiles:    require('gulp-main-bower-files'),\n        notify:            require('gulp-notify'),\n        plumber:           require('gulp-plumber'),\n\n        sourcemaps:        require('gulp-sourcemaps'),\n        sass:              require('gulp-sass'),\n        rename:            require('gulp-rename'),\n        replace:           require('gulp-replace'),\n\n        uglify:            require('gulp-uglify'),\n        watch:             require('gulp-watch'),\n\n        vinylFile:          require('vinyl-file'),\n        vinylSourceStream:  require('vinyl-source-stream'),\n        vinylBuffer:        require('vinyl-buffer')\n    };\n\n    return plugin;\n};\n",
 			"file": "app/gulpfile.js/plugin.js",
-			"file_size": 1180,
-			"file_write_time": 131229389762340189,
 			"settings":
 			{
 				"buffer_size": 1147,
@@ -664,21 +622,50 @@
 			}
 		},
 		{
->>>>>>> master
 			"file": "package.json",
 			"settings":
 			{
-				"buffer_size": 4798,
+				"buffer_size": 5430,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-<<<<<<< HEAD
-			"file": "app/components/Home.css",
+			"file": "app/package.json",
 			"settings":
 			{
-				"buffer_size": 551,
-=======
+				"buffer_size": 1184,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/main.development.js",
+			"settings":
+			{
+				"buffer_size": 6921,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/main.js",
+			"settings":
+			{
+				"buffer_size": 765078,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "node_modules/electron-prebuilt/package.json",
+			"settings":
+			{
+				"buffer_size": 2757,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "/C/Users/S/dev/electron-react-boilerplate/package.json",
 			"settings":
 			{
@@ -699,16 +686,7 @@
 			"file": "webpack.config.production.js",
 			"settings":
 			{
-				"buffer_size": 1849,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "package.js",
-			"settings":
-			{
-				"buffer_size": 4037,
+				"buffer_size": 2518,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -717,8 +695,7 @@
 			"file": "app/components/Home.css",
 			"settings":
 			{
-				"buffer_size": 162,
->>>>>>> master
+				"buffer_size": 551,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -727,20 +704,15 @@
 			"file": "app/app.html",
 			"settings":
 			{
-				"buffer_size": 781,
+				"buffer_size": 811,
 				"line_ending": "Windows"
 			}
 		},
 		{
-<<<<<<< HEAD
-=======
-			"contents": "const plugins = {\n\tautoprefixer:      require('gulp-autoprefixer'),\n    browserSync:       require('browser-sync').create(),\n    babel:             require('gulp-babel'),\n\n    concat:            require('gulp-concat'),\n    cleanCss:          require('gulp-clean-css'),\n    debug:             require('gulp-debug'),\n\n    filter:            require('gulp-filter'),\n    flatten:           require('gulp-flatten'),\n\n    mainBowerFiles:    require('gulp-main-bower-files'),\n    notify:            require('gulp-notify'),\n    plumber:           require('gulp-plumber'),\n\n    sourcemaps:        require('gulp-sourcemaps'),\n    sass:              require('gulp-sass'),\n    rename:            require('gulp-rename'),\n    replace:           require('gulp-replace'),\n\n    uglify:            require('gulp-uglify'),\n    watch:             require('gulp-watch'),\n\n    vinylFile:          require('vinyl-file'),\n    vinylSourceStream:  require('vinyl-source-stream'),\n    vinylBuffer:        require('vinyl-buffer')\n};\n",
 			"file": "app/plugins.js",
-			"file_size": 1132,
-			"file_write_time": 131229384115462929,
 			"settings":
 			{
-				"buffer_size": 1005,
+				"buffer_size": 1101,
 				"line_ending": "Windows"
 			}
 		},
@@ -753,10 +725,7 @@
 			}
 		},
 		{
-			"contents": "\n/*\n    gulp index\n*/ 'use strict';\n\n\n/*\n    Requires\n*/\n// all the node modules which we depend on\nconst gulp = require('gulp');\n\nconst plugin = require('./gulpfile.js/plugin.js')();\nconst config = require('./gulpfile.js/config.js')(gulp, plugin);\n\n\n/* \n    Tasks\n*/\n// each one of these can be called from the commandline.\n// example: $ gulp browserSync\ngulp.task('browserSync', config.browserSync.task);\ngulp.task('watch', config.watch.task);\ngulp.task('javascript', config.javascript.task);\ngulp.task('sass', config.sass.task);\ngulp.task('vendor', config.bower.task);\n\nvar defaultTasks = ['browserSync'];\nif (config.bower.enabled) {defaultTasks.unshift('vendor');}\nif (config.sass.enabled) {defaultTasks.unshift('sass');}\nif (config.javascript.enabled) {defaultTasks.unshift('javascript');}\n\n// to run execute: $ gulp\n// this will first run; the tasks added to the defaultTasks array.\n// after that we run the watch task.\ngulp.task(\n    'default', \n    defaultTasks, \n    config.watch.task\n);\n\n\n// to run execute: $ gulp build\n// this will create all the front end resources\nvar buildTasks = [];\nif (config.javascript.enabled) {buildTasks.push('javascript');}\nif (config.sass.enabled) {buildTasks.push('sass');}\nif (config.bower.enabled) {buildTasks.push('vendor');}\n\ngulp.task(\n    'build', \n    buildTasks\n);\n\n",
 			"file": "app/gulpfile.js/index.js",
-			"file_size": 1370,
-			"file_write_time": 131229386620504752,
 			"settings":
 			{
 				"buffer_size": 1316,
@@ -764,55 +733,36 @@
 			}
 		},
 		{
->>>>>>> master
 			"file": "app/index.js",
 			"settings":
 			{
-				"buffer_size": 562,
+				"buffer_size": 607,
 				"line_ending": "Windows"
 			}
 		},
 		{
-<<<<<<< HEAD
+			"file": "webpack.config.base.js",
+			"settings":
+			{
+				"buffer_size": 889,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "app/reducers/index.js",
 			"settings":
 			{
 				"buffer_size": 306,
-=======
-			"file": "webpack.config.base.js",
-			"settings":
-			{
-				"buffer_size": 890,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/reducers/index.js",
-			"settings":
-			{
-				"buffer_size": 239,
->>>>>>> master
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-<<<<<<< HEAD
 			"file": "app/actions/server.js",
 			"settings":
 			{
 				"buffer_size": 459,
-				"encoding": "UTF-8",
-=======
-			"contents": "// @flow\nexport const START_SERVER = 'START_SERVER';\nexport const STOP_SERVER = 'STOP_SERVER';\n\nexport function startServer() {\n  return {\n    type: START_SERVER\n  };\n}\n\nexport function stopServer() {\n  return {\n    type: STOP_SERVER\n  };\n}\n\nexport function toggleServer() {\n\treturn (dispatch: Function, getState: Function) => {\n\t    const { server } = getState();\n\n\t    dispatch(\n\t    \tserver.running ?\n\t\t    \tstopServer():\n\t\t    \tstartServer()\n\t    );\n\t};\n}",
-			"file": "app/actions/server.js",
-			"file_size": 485,
-			"file_write_time": 131229175205048286,
-			"settings":
-			{
-				"buffer_size": 459,
->>>>>>> master
 				"line_ending": "Windows"
 			}
 		},
@@ -833,13 +783,6 @@
 	"build_varint": "",
 	"command_palette":
 	{
-<<<<<<< HEAD
-		"height": 242.0,
-		"last_filter": "set bab",
-		"selected_items":
-		[
-			[
-=======
 		"height": 392.0,
 		"last_filter": "close",
 		"selected_items":
@@ -853,7 +796,6 @@
 				"Project: Add Folder"
 			],
 			[
->>>>>>> master
 				"set bab",
 				"Set Syntax: JavaScript (Babel)"
 			],
@@ -886,17 +828,6 @@
 				"Project: Save As"
 			],
 			[
-<<<<<<< HEAD
-				"add",
-				"Project: Add Folder"
-			],
-			[
-				"close",
-				"Project: Close"
-			],
-			[
-=======
->>>>>>> master
 				"projec",
 				"Project: Add Folder"
 			],
@@ -1283,29 +1214,11 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
-	"expanded_folders":
-	[
-<<<<<<< HEAD
-		"/C/Users/S/dev/aw-fullstack-app",
-		"/C/Users/S/dev/aw-fullstack-app/app",
-		"/C/Users/S/dev/aw-fullstack-app/app/actions",
-		"/C/Users/S/dev/aw-fullstack-app/app/components",
-		"/C/Users/S/dev/aw-fullstack-app/app/containers",
-		"/C/Users/S/dev/aw-fullstack-app/app/reducers",
-		"/C/Users/S/dev/aw-fullstack-app/app/store",
-		"/C/Users/S/dev/aw-fullstack-app/app/utils"
-	],
 	"file_history":
 	[
-=======
-		"/C/Users/S/dev/electron-react-boilerplate",
-		"/C/Users/S/dev/electron-react-boilerplate/app"
-	],
-	"file_history":
-	[
+		"/C/Users/S/dev/aw-fullstack-app/package.js",
 		"/C/Program Files/Git/ReleaseNotes.html",
 		"/C/Users/S/dev/aw-fullstack-app/README.md",
->>>>>>> master
 		"/C/Users/S/dev/aw-fullstack-app/electron-react-boilerplate.sublime-project",
 		"/C/Users/S/dev/node-sass/scripts/build.js",
 		"/C/Users/S/dev/electron-quick-start/main.js",
@@ -1430,18 +1343,11 @@
 		"/C/Users/S/dev/scooter-monitor-redesign/app/app/component/eventsAndLogs/filter/eventsAndLogsView.filter.html",
 		"/C/Users/S/dev/scooter-monitor-redesign/app/app/component/deviceList/filter/deviceListView.filter.html",
 		"/C/Users/S/dev/scooter-monitor-redesign/app/app/app.module.js",
-		"/C/Users/S/dev/scooter-monitor-redesign/bower.json",
-<<<<<<< HEAD
-		"/C/Users/S/dev/scooter-monitor-redesign/app/app/component/deviceList/wizard/wizardView.registered.html",
-		"/C/Users/S/dev/scooter-monitor-redesign/app/app/component/deviceList/wizard/wizard.factory.js",
-		"/C/Users/S/dev/scooter-monitor-redesign/app/app/component/eventsAndLogs/eventsAndLogsService.js"
-=======
-		"/C/Users/S/dev/scooter-monitor-redesign/app/app/component/deviceList/wizard/wizardView.registered.html"
->>>>>>> master
+		"/C/Users/S/dev/scooter-monitor-redesign/bower.json"
 	],
 	"find":
 	{
-		"height": 48.0
+		"height": 45.0
 	},
 	"find_in_files":
 	{
@@ -1487,14 +1393,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-<<<<<<< HEAD
-=======
 			"Exec",
 			"exec",
 			"office",
 			"./",
 			"electron",
->>>>>>> master
 			"server",
 			"div",
 			"serve",
@@ -1617,16 +1520,7 @@
 			"console.log(",
 			"updateUsedMaterials",
 			"save",
-<<<<<<< HEAD
-			"$scope.swappingMaterial",
-			"component.hossz",
-			"component.szelesseg",
-			"min",
-			".$viewValue",
-			"text"
-=======
 			"$scope.swappingMaterial"
->>>>>>> master
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1645,11 +1539,7 @@
 	"groups":
 	[
 		{
-<<<<<<< HEAD
-			"selected": 6,
-=======
 			"selected": 14,
->>>>>>> master
 			"sheets":
 			[
 				{
@@ -1658,11 +1548,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-<<<<<<< HEAD
 						"buffer_size": 637,
-=======
-						"buffer_size": 363,
->>>>>>> master
 						"regions":
 						{
 						},
@@ -1681,11 +1567,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-<<<<<<< HEAD
-					"stack_index": 7,
-=======
-					"stack_index": 8,
->>>>>>> master
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
@@ -1713,11 +1595,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-<<<<<<< HEAD
-					"stack_index": 4,
-=======
-					"stack_index": 23,
->>>>>>> master
+					"stack_index": 26,
 					"type": "text"
 				},
 				{
@@ -1745,11 +1623,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-<<<<<<< HEAD
-					"stack_index": 11,
-=======
-					"stack_index": 26,
->>>>>>> master
+					"stack_index": 29,
 					"type": "text"
 				},
 				{
@@ -1777,11 +1651,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-<<<<<<< HEAD
-					"stack_index": 10,
-=======
-					"stack_index": 25,
->>>>>>> master
+					"stack_index": 28,
 					"type": "text"
 				},
 				{
@@ -1790,24 +1660,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-<<<<<<< HEAD
 						"buffer_size": 432,
-=======
-						"buffer_size": 195,
->>>>>>> master
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-<<<<<<< HEAD
-								268,
-								268
-=======
 								195,
 								195
->>>>>>> master
 							]
 						],
 						"settings":
@@ -1815,17 +1676,10 @@
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
 						},
 						"translation.x": 0.0,
-<<<<<<< HEAD
-						"translation.y": 192.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-=======
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
->>>>>>> master
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
@@ -1834,24 +1688,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-<<<<<<< HEAD
-						"buffer_size": 440,
-=======
 						"buffer_size": 569,
->>>>>>> master
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-<<<<<<< HEAD
-								257,
-								257
-=======
 								468,
 								468
->>>>>>> master
 							]
 						],
 						"settings":
@@ -1860,25 +1705,14 @@
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
 						},
 						"translation.x": 0.0,
-<<<<<<< HEAD
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-=======
 						"translation.y": 224.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
->>>>>>> master
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
 					"buffer": 6,
-<<<<<<< HEAD
-					"file": "package.json",
-					"semi_transient": true,
-=======
 					"file": "app/gulpfile.js/config.json",
 					"semi_transient": false,
 					"settings":
@@ -1902,7 +1736,7 @@
 						"translation.y": 192.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 21,
+					"stack_index": 24,
 					"type": "text"
 				},
 				{
@@ -1930,7 +1764,7 @@
 						"translation.y": 192.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 20,
+					"stack_index": 23,
 					"type": "text"
 				},
 				{
@@ -1958,7 +1792,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 20,
 					"type": "text"
 				},
 				{
@@ -1986,7 +1820,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 19,
+					"stack_index": 22,
 					"type": "text"
 				},
 				{
@@ -2014,7 +1848,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 21,
 					"type": "text"
 				},
 				{
@@ -2042,49 +1876,151 @@
 						"translation.y": 192.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 22,
+					"stack_index": 25,
 					"type": "text"
 				},
 				{
 					"buffer": 12,
 					"file": "package.json",
 					"semi_transient": false,
->>>>>>> master
 					"settings":
 					{
-						"buffer_size": 4798,
+						"buffer_size": 5430,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-<<<<<<< HEAD
-								2190,
-								2190
-=======
-								1411,
-								1411
->>>>>>> master
+								5360,
+								5360
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
 						},
-<<<<<<< HEAD
-						"translation.x": -0.0,
-						"translation.y": 768.0,
-=======
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.x": 56.0,
+						"translation.y": 4023.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
 					"buffer": 13,
+					"file": "app/package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1184,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								477,
+								477
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 170.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "app/main.development.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6921,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1679,
+								1679
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1358.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "app/main.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 765078,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "node_modules/electron-prebuilt/package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2757,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
 					"file": "/C/Users/S/dev/electron-react-boilerplate/package.json",
 					"semi_transient": false,
 					"settings":
@@ -2108,11 +2044,11 @@
 						"translation.y": 2945.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 18,
 					"file": "/C/Users/S/dev/electron-react-boilerplate/app/app.html",
 					"semi_transient": false,
 					"settings":
@@ -2134,30 +2070,26 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
->>>>>>> master
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-<<<<<<< HEAD
-					"buffer": 7,
-=======
-					"buffer": 15,
+					"buffer": 19,
 					"file": "webpack.config.production.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1849,
+						"buffer_size": 2518,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								395,
-								373
+								0,
+								0
 							]
 						],
 						"settings":
@@ -2168,62 +2100,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 16,
-					"file": "package.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4037,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4037,
-								4037
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 17,
->>>>>>> master
+					"buffer": 20,
 					"file": "app/components/Home.css",
 					"semi_transient": false,
 					"settings":
 					{
-<<<<<<< HEAD
 						"buffer_size": 551,
-=======
-						"buffer_size": 162,
->>>>>>> master
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-<<<<<<< HEAD
-								247,
-								247
-=======
 								162,
 								162
->>>>>>> master
 							]
 						],
 						"settings":
@@ -2231,43 +2125,27 @@
 							"syntax": "Packages/CSS/CSS.sublime-syntax"
 						},
 						"translation.x": 0.0,
-<<<<<<< HEAD
-						"translation.y": 312.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-=======
 						"translation.y": 280.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 18,
 					"type": "text"
 				},
 				{
-					"buffer": 18,
->>>>>>> master
+					"buffer": 21,
 					"file": "app/app.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 781,
+						"buffer_size": 811,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-<<<<<<< HEAD
-								776,
-								776
-=======
-								510,
-								510
->>>>>>> master
+								0,
+								0
 							]
 						],
 						"settings":
@@ -2275,29 +2153,19 @@
 							"syntax": "Packages/HTML/HTML.sublime-syntax"
 						},
 						"translation.x": 0.0,
-<<<<<<< HEAD
-						"translation.y": 214.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
-=======
-						"translation.y": 192.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 19,
+					"buffer": 22,
 					"file": "app/plugins.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1005,
+						"buffer_size": 1101,
 						"regions":
 						{
 						},
@@ -2317,11 +2185,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 20,
+					"buffer": 23,
 					"file": "app/routes.js",
 					"semi_transient": false,
 					"settings":
@@ -2345,11 +2213,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 21,
+					"buffer": 24,
 					"file": "app/gulpfile.js/index.js",
 					"semi_transient": false,
 					"settings":
@@ -2373,30 +2241,24 @@
 						"translation.y": 576.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
-					"buffer": 22,
->>>>>>> master
+					"buffer": 25,
 					"file": "app/index.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 562,
+						"buffer_size": 607,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-<<<<<<< HEAD
-								367,
-								367
-=======
 								469,
 								469
->>>>>>> master
 							]
 						],
 						"settings":
@@ -2407,31 +2269,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-<<<<<<< HEAD
-					"stack_index": 6,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
-=======
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 23,
+					"buffer": 26,
 					"file": "webpack.config.base.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 890,
+						"buffer_size": 889,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								359,
-								359
+								0,
+								0
 							]
 						],
 						"settings":
@@ -2442,34 +2297,24 @@
 						"translation.y": 576.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 19,
 					"type": "text"
 				},
 				{
-					"buffer": 24,
->>>>>>> master
+					"buffer": 27,
 					"file": "app/reducers/index.js",
 					"semi_transient": false,
 					"settings":
 					{
-<<<<<<< HEAD
 						"buffer_size": 306,
-=======
-						"buffer_size": 239,
->>>>>>> master
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-<<<<<<< HEAD
-								276,
-								276
-=======
 								239,
 								239
->>>>>>> master
 							]
 						],
 						"settings":
@@ -2480,19 +2325,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-<<<<<<< HEAD
-					"stack_index": 5,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
-=======
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 25,
->>>>>>> master
+					"buffer": 28,
 					"file": "app/actions/server.js",
 					"semi_transient": false,
 					"settings":
@@ -2521,19 +2358,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-<<<<<<< HEAD
-					"stack_index": 2,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
-=======
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 26,
->>>>>>> master
+					"buffer": 29,
 					"file": "app/components/Counter.js",
 					"semi_transient": false,
 					"settings":
@@ -2557,11 +2386,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-<<<<<<< HEAD
-					"stack_index": 8,
-=======
-					"stack_index": 24,
->>>>>>> master
+					"stack_index": 27,
 					"type": "text"
 				}
 			]
@@ -2569,7 +2394,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 40.0
+		"height": 37.0
 	},
 	"input":
 	{
@@ -2614,7 +2439,7 @@
 	"project": "aw-fullstack-app.sublime-project",
 	"replace":
 	{
-		"height": 76.0
+		"height": 70.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -2625,11 +2450,7 @@
 		[
 			[
 				"",
-<<<<<<< HEAD
-				"app\\reducers\\index.js"
-=======
 				"aw-fullstack-app\\package.json"
->>>>>>> master
 			],
 			[
 				"count",
@@ -3145,9 +2966,13 @@
 	"select_project":
 	{
 		"height": 625.0,
-		"last_filter": "aw-",
+		"last_filter": "scoo",
 		"selected_items":
 		[
+			[
+				"scoo",
+				"C:\\Users\\S\\dev\\scooter-monitor-redesign\\scooter-monitor-redesign.sublime-project"
+			],
 			[
 				"aw-",
 				"C:\\Users\\S\\dev\\aw-fullstack\\aw-fullstack.sublime-project"
