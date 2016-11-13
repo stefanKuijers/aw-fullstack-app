@@ -1,0 +1,16 @@
+.titleBar {
+	-webkit-app-region: drag;
+	user-select: none;  
+}
+
+.btnGroup {
+	padding: 7px 0;
+}
+
+.btnGroup svg {
+	color: #3b3a3a !important;
+}
+
+.btnGroup button:last-child {
+	padding-right: 0 !important;
+}
