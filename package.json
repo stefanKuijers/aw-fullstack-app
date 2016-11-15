@@ -142,6 +142,7 @@
   },
   "dependencies": {
     "electron-debug": "^1.0.1",
+    "electron-json-storage": "^2.1.0",
     "font-awesome": "^4.7.0",
     "material-ui": "^0.16.1",
     "react": "^15.3.2",

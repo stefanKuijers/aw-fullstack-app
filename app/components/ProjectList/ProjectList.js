@@ -13,7 +13,7 @@ export default class ProjectList extends Component {
 
 	createListItems() {
 		return this.props.projects.map((project) => {
-			return (<Project data={project}/>);
+			return (<Project key={project.id} data={project}/>);
 		});
 	}
 

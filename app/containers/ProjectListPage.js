@@ -2,7 +2,13 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ProjectList from '../components/ProjectList/ProjectList';
-import * as ServeActions from '../actions/server';
+import * as ProjectActions from '../actions/projects';
+
+(function ProjectListInit() {
+	let element = document.getElementById('app-container');
+	element.className = 'app-loaded';
+})();
+
 
 function mapStateToProps(state) {
   return {
@@ -12,14 +18,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(ServeActions, dispatch);
+  return bindActionCreators(ProjectActions, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectList);
-
-
-// First page is ready to be loaded to we add the loaded class to the app
-{
-	let element = document.getElementById('app-container');
-	element.className = 'app-loaded';
-}
