@@ -1,7 +1,7 @@
 // @flow
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Home from '../components/Home';
+import ProjectList from '../components/ProjectList/ProjectList';
 import * as ServeActions from '../actions/server';
 
 function mapStateToProps(state) {
@@ -15,7 +15,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(ServeActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectList);
 
 
 // First page is ready to be loaded to we add the loaded class to the app
