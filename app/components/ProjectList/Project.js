@@ -9,6 +9,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
+import { Link } from 'react-router';
 
 const iconButtonElement = (
   <IconButton touch={true}>
@@ -16,10 +17,15 @@ const iconButtonElement = (
   </IconButton>
 );
 
+const linkStyle = {
+	color: 'white',
+	textDecoration: 'none'
+}
+
 const rightIconMenu = (
   <IconMenu iconButtonElement={iconButtonElement}>
     <MenuItem>Start</MenuItem>
-    <MenuItem>Options</MenuItem>
+    <MenuItem><Link to={'options'} style={linkStyle}>Options</Link></MenuItem>
     <Divider />
     <MenuItem>Delete</MenuItem>
   </IconMenu>

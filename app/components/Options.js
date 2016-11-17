@@ -1,22 +1,37 @@
 // @flow
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import styles from './Counter.css';
+import styles from './Options.css';
 
-class Counter extends Component {
+const linkStyle = {
+	color: 'white',
+	textDecoration: 'none'
+}
+
+class Options extends Component {
   static propTypes = {
     increment: PropTypes.func.isRequired,
     incrementIfOdd: PropTypes.func.isRequired,
     incrementAsync: PropTypes.func.isRequired,
-    decrement: PropTypes.func.isRequired,
-    counter: PropTypes.number.isRequired
+    decrement: PropTypes.func.isRequired
   };
 
   render() {
-    const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props;
+    // const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props;
     return (
       <div>
-        <div className={styles.backButton}>
+        hello
+        <Link to={'/'} style={linkStyle}>Project List</Link>
+      </div>
+    );
+  }
+}
+
+export default Options;
+
+
+/*
+<div className={styles.backButton}>
           <Link to="/">
             <i className="fa fa-arrow-left fa-3x" />
           </Link>
@@ -34,9 +49,4 @@ class Counter extends Component {
           <button className={styles.btn} onClick={incrementIfOdd}>odd</button>
           <button className={styles.btn} onClick={() => incrementAsync()}>async</button>
         </div>
-      </div>
-    );
-  }
-}
-
-export default Counter;
+*/

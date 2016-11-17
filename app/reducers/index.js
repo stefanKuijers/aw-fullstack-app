@@ -1,12 +1,12 @@
 // @flow
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
-import counter from './counter';
+import options from './options';
 import server from './server';
 import projects from './projects';
 
 const rootReducer = combineReducers({
-  counter: counter,
+  options: options,
   server: server,
   projects: projects,
   routing: routing
