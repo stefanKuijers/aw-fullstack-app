@@ -54,3 +54,9 @@ export function setProjectName(name) {
 	};
 }
 
+// export function navigateToConfig() {
+// 	return {
+// 		type: GO_TO_CONFIG
+// 	};
+// }
+

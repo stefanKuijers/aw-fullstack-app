@@ -19,8 +19,14 @@ const iconButtonElement = (
 
 const linkStyle = {
 	color: 'white',
-	textDecoration: 'none'
-}
+    textDecoration: 'none',
+    position: 'absolute',
+    display: 'block',
+    width: '100%',
+    height: '48px',
+    left: '0',
+    padding: '0 15px'
+};
 
 export default class Project extends Component {
 	render() {

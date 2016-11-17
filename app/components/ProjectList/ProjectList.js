@@ -7,6 +7,11 @@ import Project from './Project.js';
 import Avatar from 'material-ui/Avatar';
 import AddIcon from 'material-ui/svg-icons/content/add';
 
+const removeLoader = function () {
+	const element = document.getElementById('app-container');
+	element.className = 'app-loaded';
+}
+
 
 export default class ProjectList extends Component {
 	componentDidMount() {
@@ -20,7 +25,7 @@ export default class ProjectList extends Component {
 	}
 
 	render() {
-		const {toggleServer, serving, projects} = this.props;
+		removeLoader();
 		return (
 		    <article className="page">
 	        	<List>

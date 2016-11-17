@@ -5,11 +5,6 @@ import ProjectList from '../components/ProjectList/ProjectList';
 import * as ProjectActions from '../actions/projects';
 import * as ConfigActions from '../actions/config';
 
-(function ProjectListInit() {
-	let element = document.getElementById('app-container');
-	element.className = 'app-loaded';
-})();
-
 
 function mapStateToProps(state) {
   return {
