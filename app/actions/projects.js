@@ -2,7 +2,6 @@
 import storage from 'electron-json-storage';
 
 export const RECIEVED_PROJECTS = 'RECIEVED_PROJECTS';
-
 export const DEMO_POPULATE_PROJECTS = 'DEMO_POPULATE_PROJECTS';
 
 export function fetchProjects() {
@@ -12,7 +11,7 @@ export function fetchProjects() {
 
 			if (data.length) {
 				dispatch(recievedProjects(data));
-			}  else {
+			} else {
 				dispatch(demoPopulateProjects());
 			}
 		});
