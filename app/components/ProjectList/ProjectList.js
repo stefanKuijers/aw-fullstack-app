@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-// import { Link } from 'react-router';
 import styles from './ProjectList.css';
 import Subheader from 'material-ui/Subheader';
 import {List, ListItem} from 'material-ui/List';
@@ -10,6 +9,9 @@ import AddIcon from 'material-ui/svg-icons/content/add';
 
 
 export default class ProjectList extends Component {
+	componentDidMount() {
+  		this.props.fetchProjects();
+	};
 
 	createListItems() {
 		return this.props.projects.map((project) => {
@@ -35,13 +37,3 @@ export default class ProjectList extends Component {
 		);
 	}
 }
-
-/*
-<footer>
-  <RaisedButton 
-  	onClick={toggleServer} 
-  	primary={true}
-  	label={serving ? 'stop server' : 'start server'}
-  />
-</footer>
-*/

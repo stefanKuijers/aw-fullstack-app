@@ -22,21 +22,19 @@ const linkStyle = {
 	textDecoration: 'none'
 }
 
-const rightIconMenu = (
-  <IconMenu iconButtonElement={iconButtonElement}>
-    <MenuItem>Start</MenuItem>
-    <MenuItem><Link to={'options'} style={linkStyle}>Options</Link></MenuItem>
-    <Divider />
-    <MenuItem>Delete</MenuItem>
-  </IconMenu>
-);
-
 export default class Project extends Component {
 	render() {
 		return (
 			<ListItem
 				leftAvatar={<Avatar icon={<FileFolder />} />}
-				rightIconButton={rightIconMenu}
+				rightIconButton={
+					<IconMenu iconButtonElement={iconButtonElement}>
+					    <MenuItem>Start</MenuItem>
+					    <MenuItem><Link to={`/config/${this.props.data.configId}`} style={linkStyle}>Options</Link></MenuItem>
+					    <Divider />
+					    <MenuItem>Delete</MenuItem>
+					</IconMenu>
+				}
 				primaryText={this.props.data.name}
 				secondaryText={this.props.data.state}
 			/>

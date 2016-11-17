@@ -1,20 +1,6 @@
 
-import { RECIEVED_PROJECTS, DEMO_POPULATE_PROJECTS } from '../actions/projects';
-
-const initialState = [
-	{
-		id: 100,
-		name: 'Example Project',
-		state: 'stopped',
-		configId: 100
-	},
-	{
-		id: 101,
-		name: 'Another Project',
-		state: 'running',
-		configId: 101
-	}
-];
+import { RECIEVED_PROJECTS, SET_PROJECT_NAME } from '../actions/projects';
+import { RECIEVED_CONFIG } from '../actions/config';
 
 export default function projects(
 	state: Object = [], 
@@ -22,12 +8,18 @@ export default function projects(
 ) {
 	switch (action.type) {
 		case RECIEVED_PROJECTS:
-			console.log(action.payload, state);
-			return [...state, ...action.payload];
+			return [...action.payload];
 			break;
 
-		case DEMO_POPULATE_PROJECTS:
-			return initialState;
+		case RECIEVED_CONFIG:
+			const project = state.filter(project => project.id === action.payload.projectId)[0];
+			const index = state.indexOf(project);
+			const updatedProject = Object.assign({}, project, {name: action.payload.name});
+
+			return state
+				.slice(0, index)
+				.concat(updatedProject)
+				.concat(state.slice(index + 1));
 			break;
 	}
 

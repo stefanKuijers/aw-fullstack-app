@@ -1,33 +1,31 @@
 // @flow
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import styles from './Options.css';
+import styles from './Config.css';
 
 const linkStyle = {
 	color: 'white',
 	textDecoration: 'none'
 }
 
-class Options extends Component {
-  static propTypes = {
-    increment: PropTypes.func.isRequired,
-    incrementIfOdd: PropTypes.func.isRequired,
-    incrementAsync: PropTypes.func.isRequired,
-    decrement: PropTypes.func.isRequired
-  };
+class Config extends Component {
+  	componentDidMount() {
+  		console.log(this.props.projects);
+  		this.props.fetchConfig(this.props.params.configId);
+	};
 
-  render() {
-    // const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props;
-    return (
-      <div>
-        hello
-        <Link to={'/'} style={linkStyle}>Project List</Link>
-      </div>
-    );
-  }
+	render() {
+		// const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props;
+		return (
+		  <div>
+		    <pre>{this.props.params.configId}</pre>
+		    <Link to={'/'} style={linkStyle}>Project List</Link>
+		  </div>
+		);
+	}
 }
 
-export default Options;
+export default Config;
 
 
 /*

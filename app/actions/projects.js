@@ -1,18 +1,38 @@
 // @flow
 import storage from 'electron-json-storage';
+import { fetchConfig } from './config.js';
 
 export const RECIEVED_PROJECTS = 'RECIEVED_PROJECTS';
-export const DEMO_POPULATE_PROJECTS = 'DEMO_POPULATE_PROJECTS';
+export const SET_PROJECT_NAME = 'SET_PROJECT_NAME';
+
+const demoData = [
+	{
+		id: 100,
+		state: 'stopped',
+		configId: 100
+	},
+	{
+		id: 101,
+		state: 'running',
+		configId: 101
+	}
+];
 
 export function fetchProjects() {
 	return (dispatch: Function) => {
 		storage.get('projects',  function(error, data) {
 			if (error) throw error;
 
+			data = demoData;
+
+			for (var i = data.length - 1; i >= 0; i--) {
+				fetchConfig(data[i].configId)(dispatch);
+			}
+
 			if (data.length) {
 				dispatch(recievedProjects(data));
 			} else {
-				dispatch(demoPopulateProjects());
+				dispatch(recievedProjects(demoData));
 			}
 		});
 	};
@@ -25,9 +45,10 @@ export function recievedProjects(projects) {
 	};
 }
 
-export function demoPopulateProjects() {
+export function setProjectName(name) {
 	return {
-		type: DEMO_POPULATE_PROJECTS
+		type: SET_PROJECT_NAME,
+		payload: name
 	};
 }
 
