@@ -8,11 +8,13 @@ export const SET_PROJECT_NAME = 'SET_PROJECT_NAME';
 const demoData = [
 	{
 		id: 100,
+		name: '...',
 		state: 'stopped',
 		configId: 100
 	},
 	{
 		id: 101,
+		name: '...',
 		state: 'running',
 		configId: 101
 	}

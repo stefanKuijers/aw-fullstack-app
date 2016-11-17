@@ -6,7 +6,6 @@ import * as ConfigActions from '../actions/config';
 
 function mapStateToProps(state) {
   return {
-  	projects: state.projects,
     config: state.config
   };
 }

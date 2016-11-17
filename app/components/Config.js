@@ -2,6 +2,14 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import styles from './Config.css';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
+import Toggle from 'material-ui/Toggle';
+import Avatar from 'material-ui/Avatar';
+import FileFolder from 'material-ui/svg-icons/file/folder';
+import Paper from 'material-ui/Paper';
+
+
 
 const linkStyle = {
 	color: 'white',
@@ -10,17 +18,45 @@ const linkStyle = {
 
 class Config extends Component {
   	componentDidMount() {
-  		console.log(this.props.projects);
   		this.props.fetchConfig(this.props.params.configId);
 	};
 
 	render() {
-		// const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props;
 		return (
-		  <div>
-		    <pre>{this.props.params.configId}</pre>
-		    <Link to={'/'} style={linkStyle}>Project List</Link>
-		  </div>
+			<section>
+				<header>
+					
+				</header>
+				<article>
+					<Paper>
+						<h1>{this.props.config.name}</h1>
+						<div>server: {this.props.config.server}</div>
+					</Paper>
+					<Card expanded={false}>
+						<CardHeader
+							title="Sass"
+							avatar="sass Icon"
+							actAsExpander={true}
+							showExpandableButton={true}
+						>
+							<Toggle toggled={false} />
+						</CardHeader>
+
+						<CardTitle title="Card title" subtitle="Card subtitle" expandable={true} />
+						<CardText expandable={true}>
+							The dir
+						</CardText>
+						<CardText expandable={true}>
+							The globs
+						</CardText>
+					</Card>
+				</article>
+				<footer>
+					<Link to={'/'} style={linkStyle}>
+						<FlatButton label="Back" />
+					</Link>
+				</footer>
+			</section>
 		);
 	}
 }
