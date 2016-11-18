@@ -14,7 +14,7 @@ const removeLoader = function () {
 
 
 export default class ProjectList extends Component {
-	componentDidMount() {
+	componentWillMount() {
   		this.props.fetchProjects();
 	};
 

@@ -7,43 +7,141 @@ import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
 import Avatar from 'material-ui/Avatar';
 import FileFolder from 'material-ui/svg-icons/file/folder';
-import Paper from 'material-ui/Paper';
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import TextField from 'material-ui/TextField';
 
+// only in debug
+const removeLoader = function () {
+	const element = document.getElementById('app-container');
+	element.className = 'app-loaded';
+}
 
 
 const linkStyle = {
 	color: 'white',
 	textDecoration: 'none'
-}
+};
+
+const togglePositioning = {
+	position: 'absolute',
+	right: '15px',
+	width: 'auto',
+	top: '1.7rem'
+};
+
+const radioButton = {
+    margin: '20px 0'
+};
+
+
+
+
 
 class Config extends Component {
-  	componentDidMount() {
+  	componentWillMount() {
   		this.props.fetchConfig(this.props.params.configId);
 	};
 
+	printState(flag) {
+		return flag ? "enabled":"disabled";
+	};
+
 	render() {
+		removeLoader(); // just in debug
+		const {sass, javascript, dependencyManagement} = this.props.config;
+		const config = this.props.config;
+		console.log(config.server);
 		return (
-			<section>
-				<header>
-					
-				</header>
+			<section className="page">
 				<article>
-					<Paper>
-						<h1>{this.props.config.name}</h1>
-						<div>server: {this.props.config.server}</div>
-					</Paper>
-					<Card expanded={false}>
+					<Card className="section">
+						<CardTitle 
+							title={config.name} 
+							subtitle={config.server.type}
+						/>
+						<CardText>
+							<RadioButtonGroup 
+								style={{width: '50%', float: 'left'}}
+								name="serverType" 
+								valueSelected={config.server.type}
+								onChange={this.props.setServerType}
+							>
+						      <RadioButton
+						        value="express"
+						        label="Express"
+						        style={radioButton}
+						      />
+						      <RadioButton
+						        value="proxy"
+						        label="Proxy existing"
+						        style={radioButton}
+						      />
+						    </RadioButtonGroup>
+
+							<TextField 
+								defaultValue={config.server.target}
+								hintText="server target" 
+								hintStyle={{color: 'rgba(180,180,180,0.5)'}}
+							/>
+						</CardText>
+					</Card>
+
+					<Card className="section" expanded={sass.enabled}>
 						<CardHeader
-							title="Sass"
-							avatar="sass Icon"
-							actAsExpander={true}
-							showExpandableButton={true}
+							title="Sass Preprocessor"
+							subtitle={this.printState(sass.enabled)}
+							avatar={<Avatar style={{backgroundColor: '#fac415'}} src="./assets/images/sass_logo.png" />}
 						>
-							<Toggle toggled={false} />
+							<Toggle 
+								style={togglePositioning} 
+								toggled={sass.enabled}
+								onTouchTap={() => {this.props.toggleFeature('sass')}}
+							/>
 						</CardHeader>
 
-						<CardTitle title="Card title" subtitle="Card subtitle" expandable={true} />
 						<CardText expandable={true}>
+							The dir
+						</CardText>
+						<CardText expandable={true}>
+							The globs
+						</CardText>
+					</Card>
+
+					<Card className="section" expanded={javascript.enabled}>
+						<CardHeader
+							title="Javascript ES6+"
+							subtitle={this.printState(javascript.enabled)}
+							avatar={<Avatar src="./assets/images/js_logo.jpg" />}
+						>
+							<Toggle 
+								style={togglePositioning} 
+								toggled={javascript.enabled} 
+								onTouchTap={() => {this.props.toggleFeature('javascript')}}
+							/>
+						</CardHeader>
+
+						<CardText expandable={true}>
+							The dir
+						</CardText>
+						<CardText expandable={true}>
+							The globs
+						</CardText>
+					</Card>
+
+					<Card className="section" expanded={dependencyManagement.enabled}>
+						<CardHeader
+							title="Dependency Management"
+							subtitle={this.printState(dependencyManagement.enabled)}
+							avatar={<Avatar style={{backgroundColor: '#fac415'}} src="./assets/images/bower_logo.png" />}
+						>
+							<Toggle 
+								style={togglePositioning} 
+								toggled={dependencyManagement.enabled}
+								onTouchTap={() => {this.props.toggleFeature('dependencyManagement')}}
+							/>
+						</CardHeader>
+
+						<CardText expandable={!this.props.config.dependencyManagement.enabled}>
 							The dir
 						</CardText>
 						<CardText expandable={true}>

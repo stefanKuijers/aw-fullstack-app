@@ -23,7 +23,7 @@ function close() {
 export default class NavBar extends Component {
   render() {
     return (
-      <AppBar title={<div className={styles.titleBar}>Workflow Fullstack</div>}>
+      <AppBar showMenuIconButton={false} title={<div className={styles.titleBar}>Workflow Fullstack</div>}>
 	  	<section className={styles.btnGroup}>
 		  	<IconButton onTouchTap={minimize}><MinimizeIcon /></IconButton>
 		  	<IconButton onTouchTap={close}><CloseIcon /></IconButton>
