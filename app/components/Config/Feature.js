@@ -25,6 +25,7 @@ class Feature extends Component {
 						className={styles.listItem}
 					>
 						<TextField 
+							onChange={(e, val) => {console.log('glob changed', val);}}
 							defaultValue={glob}
 							style={{width: '100%'}}
 							hintText="./path/to/files/**/*"
@@ -36,7 +37,7 @@ class Feature extends Component {
 		}
 	}
 
-	renderContent(data, options) {
+	renderContent(data, options, actions) {
 		if (data.key !== 'dependencyManagement') {
 			return(
 					<CardText 
@@ -46,6 +47,7 @@ class Feature extends Component {
 						<List>
 							<ListItem key="outputDir" className={styles.listItem}>
 								<TextField 
+									onChange={(e, val) => { actions.updateProperty(data.key, 'outputDir', val)}}
 									defaultValue={options.outputDir}
 									style={{width: '100%'}}
 									hintText="Output Folder"
@@ -73,6 +75,7 @@ class Feature extends Component {
 	render() {
 		const options = this.props.data.options;
 		const data = this.props.data;
+		const actions = this.props.actions;
 		return (
 			<Card className="section" expanded={options.enabled}>
 				<CardHeader
@@ -83,11 +86,11 @@ class Feature extends Component {
 					<Toggle 
 						className={styles.toggle} 
 						toggled={options.enabled}
-						onTouchTap={() => {data.toggleFeature(data.key)}}
+						onTouchTap={() => {actions.toggleFeature(data.key)}}
 					/>
 				</CardHeader>
 
-				{this.renderContent(data, options)}
+				{this.renderContent(data, options, actions)}
 
 			</Card>
 		);

@@ -5,6 +5,7 @@ export const NAME_CONFIG = 'NAME_CONFIG';
 export const RECIEVED_CONFIG = 'RECIEVED_CONFIG';
 export const TOGGLE_FEATURE = 'TOGGLE_FEATURE';
 export const SET_SERVER_TYPE = 'SET_SERVER_TYPE';
+export const SET_PROPERTY = 'SET_PROPERTY';
 
 const demoData = {
 	'100': {
@@ -89,5 +90,30 @@ export function setServerType(event, serverType) {
 	return {
 		type: SET_SERVER_TYPE,
 		payload: serverType
+	};
+}
+
+export function updateProperty(key, property, newValue) {
+	return (dispatch: Function, getState: Function) => {
+	    dispatch(setProperty(key, property, newValue));
+	    
+		// save it 
+		// might need to get state to know where to save it to
+	 //    storage.set('config'+id,  function(error, data) {
+		// 	if (error) throw error;
+
+		// 	if (data.id) {
+		// 		dispatch(recievedConfig(data));
+		// 	} else {
+		// 		dispatch(recievedConfig(demoData[id]));
+		// 	}
+		// });
+	}
+}
+
+export function setProperty(key, property, newValue) {
+	return {
+		type: SET_PROPERTY,
+		payload: { key, property, newValue}
 	};
 }

@@ -24,7 +24,10 @@ class Config extends Component {
 		removeLoader(); // just in debug
 		const {sass, javascript, dependencyManagement} = this.props.config;
 		const config = this.props.config;
-
+		const actions = { 
+			toggleFeature: this.props.toggleFeature,
+			updateProperty: this.props.updateProperty 
+		};
 		return (
 			<section className="page">
 				<article>
@@ -55,6 +58,7 @@ class Config extends Component {
 						    <List >
 							    <ListItem key="serverTarget" className={styles.listItem}>
 									<TextField 
+										onChange={(e, val) => {actions.updateProperty('server', 'target',  val)}}
 										defaultValue={config.server.target}
 										style={{width: '100%'}}
 										hintText={config.server.type === "express" ? "Root folder to start server in" : "URL of server"}
@@ -67,25 +71,28 @@ class Config extends Component {
 					</Card>
 
 					<Feature data={{
-						options: sass,
-						key: 'sass',
-						title: 'CSS Preprocessor',
-						toggleFeature: this.props.toggleFeature
-					}}/>
+							options: sass,
+							key: 'sass',
+							title: 'CSS Preprocessor',
+						}}
+						actions={actions}
+					/>
 
 					<Feature data={{
-						options: javascript,
-						key: 'javascript',
-						title: 'JS Processing and ES6+',
-						toggleFeature: this.props.toggleFeature
-					}}/>
+							options: javascript,
+							key: 'javascript',
+							title: 'JS Processing and ES6+',
+						}}
+						actions={actions}
+					/>
 
 					<Feature data={{
-						options: dependencyManagement,
-						key: 'dependencyManagement',
-						title: 'Dependency Management',
-						toggleFeature: this.props.toggleFeature
-					}}/>
+							options: dependencyManagement,
+							key: 'dependencyManagement',
+							title: 'Dependency Management',
+						}}
+						actions={actions}
+					/>
 
 				</article>
 				<footer>

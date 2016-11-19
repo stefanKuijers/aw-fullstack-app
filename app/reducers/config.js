@@ -1,5 +1,10 @@
 
-import { RECIEVED_CONFIG, TOGGLE_FEATURE, SET_SERVER_TYPE } from '../actions/config';
+import { 
+	RECIEVED_CONFIG, 
+	TOGGLE_FEATURE, 
+	SET_SERVER_TYPE,
+	SET_PROPERTY
+} from '../actions/config';
 
 const initialState = {
 	name: '...',
@@ -37,6 +42,12 @@ export default function config(
 		case SET_SERVER_TYPE:
 			newState = state;
 			newState.server.type = action.payload;
+			return Object.assign({}, state, newState);
+			break;
+
+		case SET_PROPERTY:
+			newState = state;
+			newState[action.payload.key][action.payload.property] = action.payload.newValue;
 			return Object.assign({}, state, newState);
 			break;
 	}
