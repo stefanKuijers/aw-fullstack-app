@@ -16,7 +16,7 @@ const demoData = {
 		},
 		sass: {
 			enabled: true,
-			dir: '',
+			outputDir: './public_html/style/dist',
 			globs: [
 				'foo/**/*', 
 				'bar/foo/*.scss'
@@ -24,7 +24,7 @@ const demoData = {
 		},
 		javascript: {
 			enabled: false,
-			dir: '',
+			outputDir: './public_html/js/dist',
 			globs: []
 		},
 		dependencyManagement: {

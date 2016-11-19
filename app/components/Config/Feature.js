@@ -28,9 +28,9 @@ class Feature extends Component {
 			return(
 					<CardText expandable={true}>
 						<TextField 
-							defaultValue={options.dir}
+							defaultValue={options.outputDir}
 							style={{width: '100%'}}
-							hintText="Folder"
+							hintText="Output Folder"
 							hintStyle={{color: 'rgba(180,180,180,0.5)'}}
 						/>
 
