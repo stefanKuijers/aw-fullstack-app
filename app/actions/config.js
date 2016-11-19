@@ -6,6 +6,7 @@ export const RECIEVED_CONFIG = 'RECIEVED_CONFIG';
 export const TOGGLE_FEATURE = 'TOGGLE_FEATURE';
 export const SET_SERVER_TYPE = 'SET_SERVER_TYPE';
 export const SET_PROPERTY = 'SET_PROPERTY';
+export const SET_GLOB = 'SET_GLOB';
 
 const demoData = {
 	'100': {
@@ -40,10 +41,14 @@ const demoData = {
 			target: 'project.dev'
 		},
 		sass: {
-			enabled: false
+			enabled: false,
+			outputDir: '',
+			globs: []
 		},
 		javascript: {
-			enabled: false
+			enabled: false,
+			outputDir: '',
+			globs: []
 		},
 		dependencyManagement: {
 			enabled: false
@@ -93,9 +98,13 @@ export function setServerType(event, serverType) {
 	};
 }
 
-export function updateProperty(key, property, newValue) {
+export function updateProperty(key, property, newValue, globIndex = false) {
 	return (dispatch: Function, getState: Function) => {
-	    dispatch(setProperty(key, property, newValue));
+		if (globIndex !== false) {
+			dispatch(setGlob(key, property, newValue, globIndex));
+		} else {
+		    dispatch(setProperty(key, property, newValue));
+		}
 	    
 		// save it 
 		// might need to get state to know where to save it to
@@ -109,6 +118,13 @@ export function updateProperty(key, property, newValue) {
 		// 	}
 		// });
 	}
+}
+
+export function setGlob(key, property, newValue, globIndex) {
+	return {
+		type: SET_GLOB,
+		payload: { key, property, newValue, globIndex }
+	};
 }
 
 export function setProperty(key, property, newValue) {

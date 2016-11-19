@@ -9,14 +9,12 @@ import Avatar from 'material-ui/Avatar';
 import TextField from 'material-ui/TextField';
 import AddIcon from 'material-ui/svg-icons/content/add';
 
-
-
 class Feature extends Component {
 	printState(flag) {
 		return flag ? "enabled":"disabled";
 	};
 
-	createListItems(globs) {
+	createListItems(globs, key, actions) {
 		if (globs) {
 			return globs.map((glob, index) => {
 				return (
@@ -25,7 +23,7 @@ class Feature extends Component {
 						className={styles.listItem}
 					>
 						<TextField 
-							onChange={(e, val) => {console.log('glob changed', val);}}
+							onChange={(e, val) => { actions.updateProperty(key, 'globs', val, index) }}
 							defaultValue={glob}
 							style={{width: '100%'}}
 							hintText="./path/to/files/**/*"
@@ -37,8 +35,8 @@ class Feature extends Component {
 		}
 	}
 
-	renderContent(data, options, actions) {
-		if (data.key !== 'dependencyManagement') {
+	renderContent(key, options, actions) {
+		if (key !== 'dependencyManagement') {
 			return(
 					<CardText 
 						expandable={true}
@@ -47,7 +45,7 @@ class Feature extends Component {
 						<List>
 							<ListItem key="outputDir" className={styles.listItem}>
 								<TextField 
-									onChange={(e, val) => { actions.updateProperty(data.key, 'outputDir', val)}}
+									onChange={(e, val) => { actions.updateProperty(key, 'outputDir', val) }}
 									defaultValue={options.outputDir}
 									style={{width: '100%'}}
 									hintText="Output Folder"
@@ -59,7 +57,7 @@ class Feature extends Component {
 						<List>
 					        <Subheader className={styles.subHeader}>Globs</Subheader>
 
-					        {this.createListItems(options.globs)}
+					        {this.createListItems(options.globs, key, actions)}
 
 					        <ListItem
 					        	key="addNew"
@@ -90,7 +88,7 @@ class Feature extends Component {
 					/>
 				</CardHeader>
 
-				{this.renderContent(data, options, actions)}
+				{this.renderContent(data.key, options, actions)}
 
 			</Card>
 		);

@@ -3,7 +3,8 @@ import {
 	RECIEVED_CONFIG, 
 	TOGGLE_FEATURE, 
 	SET_SERVER_TYPE,
-	SET_PROPERTY
+	SET_PROPERTY,
+	SET_GLOB
 } from '../actions/config';
 
 const initialState = {
@@ -13,10 +14,14 @@ const initialState = {
 		target: ''
 	},
 	sass: {
-		enabled: false
+		enabled: false,
+		outputDir: '',
+		globs: []
 	},
 	javascript: {
-		enabled: false
+		enabled: false,
+		outputDir: '',
+		globs: []
 	},
 	dependencyManagement: {
 		enabled: false
@@ -28,6 +33,7 @@ export default function config(
 	action: Object
 ) {
 	let newState; 
+	let payload;
 	switch (action.type) {
 		case RECIEVED_CONFIG:
 			return Object.assign({}, action.payload);;
@@ -46,8 +52,16 @@ export default function config(
 			break;
 
 		case SET_PROPERTY:
+			payload = action.payload;
 			newState = state;
-			newState[action.payload.key][action.payload.property] = action.payload.newValue;
+			newState[payload.key][payload.property] = payload.newValue;
+			return Object.assign({}, state, newState);
+			break;
+
+		case SET_GLOB:
+			payload = action.payload;
+			newState = state;
+			newState[payload.key][payload.property][payload.globIndex] = payload.newValue;
 			return Object.assign({}, state, newState);
 			break;
 	}

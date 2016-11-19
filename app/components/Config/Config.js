@@ -54,12 +54,12 @@ class Config extends Component {
 						        className={styles.radioButton}
 						      />
 						    </RadioButtonGroup>
-
+						    {config.server.type} - {config.server.target}
 						    <List >
 							    <ListItem key="serverTarget" className={styles.listItem}>
 									<TextField 
 										onChange={(e, val) => {actions.updateProperty('server', 'target',  val)}}
-										defaultValue={config.server.target}
+										value={config.server.target}
 										style={{width: '100%'}}
 										hintText={config.server.type === "express" ? "Root folder to start server in" : "URL of server"}
 										hintStyle={{color: 'rgba(180,180,180,0.5)'}}
