@@ -1,3 +1,15 @@
 .radioButton {
-  margin: 18px 0;
+  margin: 0;
+  width: 50% !important;
+  float: left;
+}
+
+.radioGroup::after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.listItem > div > div {
+	padding: 0 !important;
 }

@@ -20,8 +20,8 @@ export default class ProjectList extends Component {
 
 	createListItems() {
 		if (this.props.projects) {
-			return this.props.projects.map((project) => {
-				return (<Project key={project.id} data={project}/>);
+			return this.props.projects.map((project, index) => {
+				return (<Project key={index} data={project}/>);
 			});
 		}
 	}
@@ -36,6 +36,7 @@ export default class ProjectList extends Component {
 			        {this.createListItems()}
 
 			        <ListItem
+			        	key="addNew"
 						leftAvatar={<Avatar icon={<AddIcon/>} />}
 						primaryText="Add new project"
 					/>

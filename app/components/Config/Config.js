@@ -4,9 +4,7 @@ import { Link } from 'react-router';
 import styles from './Config.css';
 import {Card, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-// import Toggle from 'material-ui/Toggle';
-// import Avatar from 'material-ui/Avatar';
-// import FileFolder from 'material-ui/svg-icons/file/folder';
+import { List, ListItem } from 'material-ui/List';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
 import Feature from './Feature';
@@ -17,29 +15,6 @@ const removeLoader = function () {
 	element.className = 'app-loaded';
 }
 
-
-const linkStyle = {
-	color: 'white',
-	textDecoration: 'none'
-};
-
-const togglePositioning = {
-	position: 'absolute',
-	right: '15px',
-	width: 'auto',
-	top: '1.7rem'
-};
-
-const radioButton = {
-    margin: '20px 0',
-    width: '50%', 
-    float: 'left'
-};
-
-
-
-
-
 class Config extends Component {
   	componentWillMount() {
   		this.props.fetchConfig(this.props.params.configId);
@@ -49,7 +24,7 @@ class Config extends Component {
 		removeLoader(); // just in debug
 		const {sass, javascript, dependencyManagement} = this.props.config;
 		const config = this.props.config;
-		
+
 		return (
 			<section className="page">
 				<article>
@@ -60,6 +35,7 @@ class Config extends Component {
 						/>
 						<CardText>
 							<RadioButtonGroup
+								className={styles.radioGroup}
 								name="serverType" 
 								valueSelected={config.server.type}
 								onChange={this.props.setServerType}
@@ -67,21 +43,26 @@ class Config extends Component {
 						      <RadioButton
 						        value="express"
 						        label="Express"
-						        style={radioButton}
+						        className={styles.radioButton}
 						      />
 						      <RadioButton
 						        value="proxy"
 						        label="Proxy existing server"
-						        style={radioButton}
+						        className={styles.radioButton}
 						      />
 						    </RadioButtonGroup>
 
-							<TextField 
-								defaultValue={config.server.target}
-								style={{width: '100%'}}
-								hintText={config.server.type === "express" ? "Root folder to start server in" : "URL of server"}
-								hintStyle={{color: 'rgba(180,180,180,0.5)'}}
-							/>
+						    <List >
+							    <ListItem key="serverTarget" className={styles.listItem}>
+									<TextField 
+										defaultValue={config.server.target}
+										style={{width: '100%'}}
+										hintText={config.server.type === "express" ? "Root folder to start server in" : "URL of server"}
+										hintStyle={{color: 'rgba(180,180,180,0.5)'}}
+									/>
+							    </ListItem>
+							</List>
+						    
 						</CardText>
 					</Card>
 
@@ -108,7 +89,7 @@ class Config extends Component {
 
 				</article>
 				<footer>
-					<Link to={'/'} style={linkStyle}>
+					<Link to={'/'} className={styles.link}>
 						<FlatButton label="Back" />
 					</Link>
 				</footer>

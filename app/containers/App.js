@@ -42,11 +42,11 @@ export default class App extends Component {
     return (
       <MuiThemeProvider muiTheme={appTheme}>
       	<section>
-      		<header>
+      		<header className="app-navbar">
 	      		<NavBar></NavBar>
       		</header>
 
-	        <section>{this.props.children}</section>
+	        <section className="app-content">{this.props.children}</section>
       	</section>
       </MuiThemeProvider>
     );

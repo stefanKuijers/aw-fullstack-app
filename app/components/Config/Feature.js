@@ -10,59 +10,63 @@ import TextField from 'material-ui/TextField';
 import AddIcon from 'material-ui/svg-icons/content/add';
 
 
-const togglePositioning = {
-	position: 'absolute',
-	right: '15px',
-	width: 'auto',
-	top: '1.7rem'
-};
-
 
 class Feature extends Component {
 	printState(flag) {
 		return flag ? "enabled":"disabled";
 	};
 
+	createListItems(globs) {
+		if (globs) {
+			return globs.map((glob, index) => {
+				return (
+					<ListItem 
+						key={index}
+						className={styles.listItem}
+					>
+						<TextField 
+							defaultValue={glob}
+							style={{width: '100%'}}
+							hintText="./path/to/files/**/*"
+							hintStyle={{color: 'rgba(180,180,180,0.5)'}}
+						/>
+					</ListItem>
+				);
+			});
+		}
+	}
+
 	renderContent(data, options) {
 		if (data.key !== 'dependencyManagement') {
 			return(
-					<CardText expandable={true}>
-						<TextField 
-							defaultValue={options.outputDir}
-							style={{width: '100%'}}
-							hintText="Output Folder"
-							hintStyle={{color: 'rgba(180,180,180,0.5)'}}
-						/>
+					<CardText 
+						expandable={true}
+						className={styles.cardText}
+					>
+						<List>
+							<ListItem key="outputDir" className={styles.listItem}>
+								<TextField 
+									defaultValue={options.outputDir}
+									style={{width: '100%'}}
+									hintText="Output Folder"
+									hintStyle={{color: 'rgba(180,180,180,0.5)'}}
+								/>
+							</ListItem>
+						</List>
 
 						<List>
-					        <Subheader>Globs</Subheader>
+					        <Subheader className={styles.subHeader}>Globs</Subheader>
 
 					        {this.createListItems(options.globs)}
 
 					        <ListItem
+					        	key="addNew"
 								leftAvatar={<Avatar icon={<AddIcon/>} />}
 								primaryText="Add new glob"
 							/>
 					    </List>
 					</CardText>
 			);
-		}
-	}
-
-	createListItems(globs) {
-		if (globs) {
-			return globs.map((glob, index) => {
-				return (
-					<ListItem key={index}>
-						<TextField 
-							defaultValue={glob}
-							style={{width: '100%'}}
-							hintText="glob"
-							hintStyle={{color: 'rgba(180,180,180,0.5)'}}
-						/>
-					</ListItem>
-				);
-			});
 		}
 	}
 
@@ -77,7 +81,7 @@ class Feature extends Component {
 					avatar={<Avatar style={{backgroundColor: '#fac415'}} src={`./assets/images/${data.key}_logo.png`} />}
 				>
 					<Toggle 
-						style={togglePositioning} 
+						className={styles.toggle} 
 						toggled={options.enabled}
 						onTouchTap={() => {data.toggleFeature(data.key)}}
 					/>

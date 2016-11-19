@@ -1,0 +1,19 @@
+.listItem > div > div {
+	padding: 0 16px !important;
+}
+
+.subHeader {
+	margin-top: 15px;
+	line-height: 30px !important;
+}
+
+.cardText {
+	padding: 0 16px !important;
+}
+
+.toggle {
+	position: absolute !important;
+	width: auto !important;
+	right: 15px;
+	top: 1.7rem;
+}
