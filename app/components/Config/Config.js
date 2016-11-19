@@ -65,6 +65,16 @@ class Config extends Component {
 										hintStyle={{color: 'rgba(180,180,180,0.5)'}}
 									/>
 							    </ListItem>
+
+							    <ListItem key="projectFolder" className={styles.listItem}>
+									<TextField 
+										onChange={(e, val) => {console.log('update root folder')}}
+										value={config.projectFolder}
+										style={{width: '100%'}}
+										hintText="Project Folder"
+										hintStyle={{color: 'rgba(180,180,180,0.5)'}}
+									/>
+							    </ListItem>
 							</List>
 						    
 						</CardText>
