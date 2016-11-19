@@ -19,9 +19,11 @@ export default class ProjectList extends Component {
 	};
 
 	createListItems() {
-		return this.props.projects.map((project) => {
-			return (<Project key={project.id} data={project}/>);
-		});
+		if (this.props.projects) {
+			return this.props.projects.map((project) => {
+				return (<Project key={project.id} data={project}/>);
+			});
+		}
 	}
 
 	render() {

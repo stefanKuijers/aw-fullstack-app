@@ -49,6 +49,7 @@ class Config extends Component {
 		removeLoader(); // just in debug
 		const {sass, javascript, dependencyManagement} = this.props.config;
 		const config = this.props.config;
+		
 		return (
 			<section className="page">
 				<article>
@@ -117,71 +118,6 @@ class Config extends Component {
 }
 
 export default Config;
-
-/*
-<Card className="section" expanded={sass.enabled}>
-	<CardHeader
-		title="Sass Preprocessor"
-		subtitle={this.printState(sass.enabled)}
-		avatar={<Avatar style={{backgroundColor: '#fac415'}} src="./assets/images/sass_logo.png" />}
-	>
-		<Toggle 
-			style={togglePositioning} 
-			toggled={sass.enabled}
-			onTouchTap={() => {this.props.toggleFeature('sass')}}
-		/>
-	</CardHeader>
-
-	<CardText expandable={true}>
-		The dir
-	</CardText>
-	<CardText expandable={true}>
-		The globs
-	</CardText>
-</Card>
-
-<Card className="section" expanded={javascript.enabled}>
-	<CardHeader
-		title="Javascript ES6+"
-		subtitle={this.printState(javascript.enabled)}
-		avatar={<Avatar src="./assets/images/js_logo.jpg" />}
-	>
-		<Toggle 
-			style={togglePositioning} 
-			toggled={javascript.enabled} 
-			onTouchTap={() => {this.props.toggleFeature('javascript')}}
-		/>
-	</CardHeader>
-
-	<CardText expandable={true}>
-		The dir
-	</CardText>
-	<CardText expandable={true}>
-		The globs
-	</CardText>
-</Card>
-
-<Card className="section" expanded={dependencyManagement.enabled}>
-	<CardHeader
-		title="Dependency Management"
-		subtitle={this.printState(dependencyManagement.enabled)}
-		avatar={<Avatar style={{backgroundColor: '#fac415'}} src="./assets/images/bower_logo.png" />}
-	>
-		<Toggle 
-			style={togglePositioning} 
-			toggled={dependencyManagement.enabled}
-			onTouchTap={() => {this.props.toggleFeature('dependencyManagement')}}
-		/>
-	</CardHeader>
-
-	<CardText expandable={!this.props.config.dependencyManagement.enabled}>
-		The dir
-	</CardText>
-	<CardText expandable={true}>
-		The globs
-	</CardText>
-</Card>
-*/
 
 
 /*

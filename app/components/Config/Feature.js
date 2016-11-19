@@ -2,9 +2,13 @@
 import React, { Component } from 'react';
 import styles from './Feature.css';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
+import {List, ListItem} from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
 import Toggle from 'material-ui/Toggle';
 import Avatar from 'material-ui/Avatar';
 import TextField from 'material-ui/TextField';
+import AddIcon from 'material-ui/svg-icons/content/add';
+
 
 const togglePositioning = {
 	position: 'absolute',
@@ -14,18 +18,57 @@ const togglePositioning = {
 };
 
 
-
 class Feature extends Component {
 	printState(flag) {
 		return flag ? "enabled":"disabled";
 	};
 
+	renderContent(data, options) {
+		if (data.key !== 'dependencyManagement') {
+			return(
+					<CardText expandable={true}>
+						<TextField 
+							defaultValue={options.dir}
+							style={{width: '100%'}}
+							hintText="Folder"
+							hintStyle={{color: 'rgba(180,180,180,0.5)'}}
+						/>
+
+						<List>
+					        <Subheader>Globs</Subheader>
+
+					        {this.createListItems(options.globs)}
+
+					        <ListItem
+								leftAvatar={<Avatar icon={<AddIcon/>} />}
+								primaryText="Add new glob"
+							/>
+					    </List>
+					</CardText>
+			);
+		}
+	}
+
+	createListItems(globs) {
+		if (globs) {
+			return globs.map((glob, index) => {
+				return (
+					<ListItem key={index}>
+						<TextField 
+							defaultValue={glob}
+							style={{width: '100%'}}
+							hintText="glob"
+							hintStyle={{color: 'rgba(180,180,180,0.5)'}}
+						/>
+					</ListItem>
+				);
+			});
+		}
+	}
+
 	render() {
-		console.log(this.props.options, this.props.title, this.props.name);
-		// removeLoader(); // just in debug
 		const options = this.props.data.options;
 		const data = this.props.data;
-		// const config = this.props.config;
 		return (
 			<Card className="section" expanded={options.enabled}>
 				<CardHeader
@@ -40,12 +83,8 @@ class Feature extends Component {
 					/>
 				</CardHeader>
 
-				<CardText expandable={true}>
-					The dir
-				</CardText>
-				<CardText expandable={true}>
-					The globs
-				</CardText>
+				{this.renderContent(data, options)}
+
 			</Card>
 		);
 	}
