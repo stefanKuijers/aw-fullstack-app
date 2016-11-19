@@ -3,7 +3,10 @@ import { RECIEVED_CONFIG, TOGGLE_FEATURE, SET_SERVER_TYPE } from '../actions/con
 
 const initialState = {
 	name: '...',
-	server: {},
+	server: {
+		type: '',
+		target: ''
+	},
 	sass: {
 		enabled: false
 	},
