@@ -15,7 +15,9 @@ const store = configureStore();
 const history = syncHistoryWithStore(hashHistory, store);
 
 // pretty sure this is not the right place for this
-// fetchProjects()(store.dispatch);
+// leaving it here for now as both views depend on 
+// this data being present
+fetchProjects()(store.dispatch);
 
 render(
   <Provider store={store}>
