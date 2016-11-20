@@ -23,7 +23,7 @@ const demoData = [
 export function fetchProjects() {
 	return (dispatch: Function, getState: Function) => {
 		// console.log('fetchProjects', getState().projects.length);
-		if (getState().projects.length === 0) {
+		if (!getState || getState().projects.length === 0) {
 			storage.get('projects',  function(error, data) {
 				if (error) throw error;
 
@@ -56,10 +56,3 @@ export function setProjectName(name) {
 		payload: name
 	};
 }
-
-// export function navigateToConfig() {
-// 	return {
-// 		type: GO_TO_CONFIG
-// 	};
-// }
-

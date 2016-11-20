@@ -65,7 +65,6 @@ export function fetchConfig(id) {
 			if (error) throw error;
 
 			if (data.id) {
-				console.log('retrieved data from disk', data);
 				dispatch(recievedConfig(data));
 			} else {
 				dispatch(recievedConfig(demoData[id]));
