@@ -1,6 +1,6 @@
 // @flow
 import storage from 'electron-json-storage';
-import { fetchConfig } from './config.js';
+import { fetchConfig } from './configs.js';
 
 export const RECIEVED_PROJECTS = 'RECIEVED_PROJECTS';
 export const SET_PROJECT_NAME = 'SET_PROJECT_NAME';

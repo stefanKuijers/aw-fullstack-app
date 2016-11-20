@@ -22,8 +22,8 @@ class Config extends Component {
 
 	render() {
 		removeLoader(); // just in debug
-		const {sass, javascript, dependencyManagement} = this.props.config;
-		const config = this.props.config;
+		const {sass, javascript, dependencyManagement} = this.props.configs[this.props.params.configId];
+		const config = this.props.configs[this.props.params.configId];
 		const actions = { 
 			toggleFeature: this.props.toggleFeature,
 			updateProperty: this.props.updateProperty 

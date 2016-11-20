@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ProjectList from '../components/ProjectList/ProjectList';
 import * as ProjectActions from '../actions/projects';
-import * as ConfigActions from '../actions/config';
+import * as ConfigActions from '../actions/configs';
 
 
 function mapStateToProps(state) {

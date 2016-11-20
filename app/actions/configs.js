@@ -99,9 +99,9 @@ export function updateProperty(key, property, newValue, globIndex = false) {
 		    dispatch(setProperty(key, property, newValue));
 		}
 
-		setTimeout(() => {
-			saveConfig(state.config);
-		}, 300);
+		// setTimeout(() => {
+		// 	saveConfig(state.config);
+		// }, 300);
 	}
 }
 

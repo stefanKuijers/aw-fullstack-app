@@ -1,6 +1,6 @@
 
 import { RECIEVED_PROJECTS, SET_PROJECT_NAME } from '../actions/projects';
-import { RECIEVED_CONFIG, SET_ROOT_PROPERTY } from '../actions/config';
+import { RECIEVED_CONFIG, SET_ROOT_PROPERTY } from '../actions/configs';
 
 export default function projects(
 	state: Object = [], 

@@ -2,7 +2,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Config from '../components/Config/Config';
-import * as ConfigActions from '../actions/config';
+import * as ConfigActions from '../actions/configs';
 
 function mapStateToProps(state) {
   return {

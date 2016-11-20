@@ -4,7 +4,7 @@ import {
 	SET_PROPERTY,
 	SET_ROOT_PROPERTY,
 	SET_GLOB
-} from '../actions/config';
+} from '../actions/configs';
 
 const initialState = {
 	name: '...',
@@ -27,15 +27,17 @@ const initialState = {
 	}
 };
 
-export default function config(
-	state: Object = initialState, 
+export default function configs(
+	state: Object = {}, 
 	action: Object
 ) {
 	let newState; 
 	let payload;
 	switch (action.type) {
 		case RECIEVED_CONFIG:
-			return Object.assign({}, action.payload);;
+			newState = {};
+			newState[action.payload.id] = action.payload;
+			return Object.assign({}, newState);
 			break;
 
 		case SET_PROPERTY:
