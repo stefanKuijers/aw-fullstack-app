@@ -6,12 +6,14 @@ export const RECIEVED_CONFIG = 'RECIEVED_CONFIG';
 export const TOGGLE_FEATURE = 'TOGGLE_FEATURE';
 export const SET_SERVER_TYPE = 'SET_SERVER_TYPE';
 export const SET_PROPERTY = 'SET_PROPERTY';
+export const SET_ROOT_PROPERTY = 'SET_ROOT_PROPERTY';
 export const SET_GLOB = 'SET_GLOB';
 
 const demoData = {
 	'100': {
 		projectId: 100,
 		name: 'Example Project',
+		path: 'C:/arteries/webroot/projectName',
 		server:  {
 			type: 'express',
 			target: './public_html'
@@ -36,6 +38,7 @@ const demoData = {
 	'101': {
 		projectId: 101,
 		name: 'Another Project',
+		path: '',
 		server:  {
 			type: 'proxy',
 			target: 'project.dev'
@@ -100,8 +103,12 @@ export function setServerType(event, serverType) {
 
 export function updateProperty(key, property, newValue, globIndex = false) {
 	return (dispatch: Function, getState: Function) => {
+		const state = getState();
+
 		if (globIndex !== false) {
 			dispatch(setGlob(key, property, newValue, globIndex));
+		} else if (!property) {
+		    dispatch(setRootProperty(key, newValue, state.config.projectId));
 		} else {
 		    dispatch(setProperty(key, property, newValue));
 		}
@@ -131,5 +138,12 @@ export function setProperty(key, property, newValue) {
 	return {
 		type: SET_PROPERTY,
 		payload: { key, property, newValue}
+	};
+}
+
+export function setRootProperty(key, newValue, projectId) {
+	return {
+		type: SET_ROOT_PROPERTY,
+		payload: { key, newValue, projectId }
 	};
 }

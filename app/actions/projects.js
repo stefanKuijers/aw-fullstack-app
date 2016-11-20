@@ -21,22 +21,25 @@ const demoData = [
 ];
 
 export function fetchProjects() {
-	return (dispatch: Function) => {
-		storage.get('projects',  function(error, data) {
-			if (error) throw error;
+	return (dispatch: Function, getState: Function) => {
+		// console.log('fetchProjects', getState().projects.length);
+		if (getState().projects.length === 0) {
+			storage.get('projects',  function(error, data) {
+				if (error) throw error;
 
-			data = demoData;
+				data = demoData;
 
-			for (var i = data.length - 1; i >= 0; i--) {
-				fetchConfig(data[i].configId)(dispatch);
-			}
+				for (var i = data.length - 1; i >= 0; i--) {
+					fetchConfig(data[i].configId)(dispatch);
+				}
 
-			if (data.length) {
-				dispatch(recievedProjects(data));
-			} else {
-				dispatch(recievedProjects(demoData));
-			}
-		});
+				if (data.length) {
+					dispatch(recievedProjects(data));
+				} else {
+					dispatch(recievedProjects(demoData));
+				}
+			});
+		}
 	};
 }
 

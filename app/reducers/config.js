@@ -4,6 +4,7 @@ import {
 	TOGGLE_FEATURE, 
 	SET_SERVER_TYPE,
 	SET_PROPERTY,
+	SET_ROOT_PROPERTY,
 	SET_GLOB
 } from '../actions/config';
 
@@ -40,12 +41,14 @@ export default function config(
 			break;
 
 		case TOGGLE_FEATURE:
+			console.warn('deprecated action', action.type);
 			newState = state;
 			newState[action.payload].enabled = !newState[action.payload].enabled;
 			return Object.assign({}, state, newState);
 			break;
 
 		case SET_SERVER_TYPE:
+			console.warn('deprecated action', action.type);
 			newState = state;
 			newState.server.type = action.payload;
 			return Object.assign({}, state, newState);
@@ -55,6 +58,13 @@ export default function config(
 			payload = action.payload;
 			newState = state;
 			newState[payload.key][payload.property] = payload.newValue;
+			return Object.assign({}, state, newState);
+			break;
+
+		case SET_ROOT_PROPERTY:
+			payload = action.payload;
+			newState = state;
+			newState[payload.key] = payload.newValue;
 			return Object.assign({}, state, newState);
 			break;
 

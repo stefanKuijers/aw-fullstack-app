@@ -37,6 +37,30 @@ class Config extends Component {
 							subtitle={config.server.type}
 						/>
 						<CardText>
+							<List>
+							    <ListItem key="projectName" className={styles.listItem}>
+									<TextField 
+										onChange={(e, val) => {actions.updateProperty('name', undefined, val)}}
+										value={config.name}
+										style={{width: '100%'}}
+										hintText="Project Name"
+										hintStyle={{color: 'rgba(180,180,180,0.5)'}}
+									/>
+							    </ListItem>
+
+							    <ListItem key="path" className={styles.listItem}>
+									<TextField 
+										onChange={(e, val) => {actions.updateProperty('path', undefined,   val)}}
+										value={config.path}
+										style={{width: '100%'}}
+										hintText="Absolute Path to Project Folder"
+										hintStyle={{color: 'rgba(180,180,180,0.5)'}}
+									/>
+							    </ListItem>
+							</List>
+						</CardText>
+						<CardText>
+
 							<RadioButtonGroup
 								className={styles.radioGroup}
 								name="serverType" 
@@ -54,24 +78,14 @@ class Config extends Component {
 						        className={styles.radioButton}
 						      />
 						    </RadioButtonGroup>
-						    {config.server.type} - {config.server.target}
-						    <List >
+
+						    <List>
 							    <ListItem key="serverTarget" className={styles.listItem}>
 									<TextField 
 										onChange={(e, val) => {actions.updateProperty('server', 'target',  val)}}
 										value={config.server.target}
 										style={{width: '100%'}}
 										hintText={config.server.type === "express" ? "Root folder to start server in" : "URL of server"}
-										hintStyle={{color: 'rgba(180,180,180,0.5)'}}
-									/>
-							    </ListItem>
-
-							    <ListItem key="projectFolder" className={styles.listItem}>
-									<TextField 
-										onChange={(e, val) => {console.log('update root folder')}}
-										value={config.projectFolder}
-										style={{width: '100%'}}
-										hintText="Project Folder"
 										hintStyle={{color: 'rgba(180,180,180,0.5)'}}
 									/>
 							    </ListItem>
