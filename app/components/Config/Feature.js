@@ -84,7 +84,7 @@ class Feature extends Component {
 					<Toggle 
 						className={styles.toggle} 
 						toggled={options.enabled}
-						onTouchTap={() => {actions.toggleFeature(data.key)}}
+						onTouchTap={() => {actions.updateProperty(data.key, 'enabled', !options.enabled)}}
 					/>
 				</CardHeader>
 

@@ -65,7 +65,7 @@ class Config extends Component {
 								className={styles.radioGroup}
 								name="serverType" 
 								valueSelected={config.server.type}
-								onChange={this.props.setServerType}
+								onChange={(e, val) => {this.props.updateProperty('server', 'type', val)}}
 							>
 						      <RadioButton
 						        value="express"
