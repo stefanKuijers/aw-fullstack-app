@@ -4,18 +4,22 @@ import { fetchConfig } from './config.js';
 
 export const RECIEVED_PROJECTS = 'RECIEVED_PROJECTS';
 export const SET_PROJECT_NAME = 'SET_PROJECT_NAME';
+export const START_SERVER = 'START_SERVER';
+export const STOP_SERVER = 'STOP_SERVER';
 
 const demoData = [
 	{
 		id: 100,
 		name: '...',
-		state: 'stopped',
+		state: '',
+		running: true,
 		configId: 100
 	},
 	{
 		id: 101,
 		name: '...',
-		state: 'running',
+		state: '',
+		running: false,
 		configId: 101
 	}
 ];
@@ -56,3 +60,33 @@ export function setProjectName(name) {
 		payload: name
 	};
 }
+
+export function toggleServer(project) {
+	return (dispatch: Function, getState: Function) => {
+		const state = getState();
+		console.log(state);
+		console.warn('How should I get hold of the config?', fetchConfig);
+		
+		if (project.running) {
+			dispatch(stopServer(project, config))
+		} else {
+			dispatch(startServer(project, config))
+		}
+	};
+}
+
+export function startServer(project, config) {
+	return {
+		type: START_SERVER,
+		payload: name
+	};
+}
+
+export function stopServer(project, config) {
+	return {
+		type: STOP_SERVER,
+		payload: name
+	};
+}
+
+

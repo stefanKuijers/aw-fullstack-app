@@ -18,22 +18,25 @@ export default class ProjectList extends Component {
   		this.props.fetchProjects();
 	};
 
-	createListItems() {
+	createListItems(actions) {
 		if (this.props.projects) {
 			return this.props.projects.map((project, index) => {
-				return (<Project key={index} data={project}/>);
+				return (<Project key={index} data={project} actions={actions}/>);
 			});
 		}
 	}
 
 	render() {
 		removeLoader();
+		const actions = { 
+			toggleServer: this.props.toggleServer
+		};
 		return (
 		    <article className="page">
 	        	<List>
 			        <Subheader>Projects</Subheader>
 
-			        {this.createListItems()}
+			        {this.createListItems(actions)}
 
 			        <ListItem
 			        	key="addNew"

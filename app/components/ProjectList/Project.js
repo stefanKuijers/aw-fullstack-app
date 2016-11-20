@@ -29,20 +29,26 @@ const linkStyle = {
 };
 
 export default class Project extends Component {
+	stateToggleLabel() {
+		return this.props.data.running ? "Stop" : "Start"
+	}
+
 	render() {
+		const projectData = this.props.data;
 		return (
 			<ListItem
 				leftAvatar={<Avatar icon={<FileFolder />} />}
 				rightIconButton={
 					<IconMenu iconButtonElement={iconButtonElement}>
-					    <MenuItem>Start</MenuItem>
-					    <MenuItem><Link to={`/config/${this.props.data.configId}`} style={linkStyle}>Options</Link></MenuItem>
+					    <MenuItem onTouchTap={() => {this.props.actions.toggleServer(this.props.data)}}>{this.stateToggleLabel()}</MenuItem>
+					    <MenuItem><Link to={`/config/${projectData.configId}`} style={linkStyle}>Options</Link></MenuItem>
 					    <Divider />
 					    <MenuItem>Delete</MenuItem>
 					</IconMenu>
 				}
 				primaryText={this.props.data.name}
-				secondaryText={this.props.data.state}
+				secondaryText={this.props.data.running ? "running" : "stopped"}
+				className={styles.listItem}
 			/>
 		);
 	}

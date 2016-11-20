@@ -2,3 +2,7 @@
 	color: white !important;
 	text-decoration: none;
 }
+
+.listItem > div > div > div:last-child {
+	color: rgba(255, 255, 255, 0.5) !important;
+}
