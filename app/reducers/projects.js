@@ -25,6 +25,7 @@ export default function projects(
 			break;
 
 		case SET_ROOT_PROPERTY:
+			console.log('SET_ROOT', state, action.payload);
 			if (action.payload.key === 'name') {
 				const project = state.filter(project => project.id === action.payload.projectId)[0];
 				const index = state.indexOf(project);

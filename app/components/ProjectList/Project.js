@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import styles from './Project.css';
 import {ListItem} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import FileFolder from 'material-ui/svg-icons/file/folder';
@@ -10,6 +9,8 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 import { Link } from 'react-router';
+
+import styles from './Project.css';
 
 const iconButtonElement = (
   <IconButton touch={true}>
@@ -36,7 +37,9 @@ export default class Project extends Component {
 				rightIconButton={
 					<IconMenu iconButtonElement={iconButtonElement}>
 					    <MenuItem>Start</MenuItem>
-					    <MenuItem><Link to={`/config/${this.props.data.configId}`} style={linkStyle}>Options</Link></MenuItem>
+					    <MenuItem>
+					    	<Link to={`/config/${this.props.data.configId}`} style={linkStyle}>Options</Link>
+					    </MenuItem>
 					    <Divider />
 					    <MenuItem>Delete</MenuItem>
 					</IconMenu>

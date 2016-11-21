@@ -1,7 +1,6 @@
 // @flow
 import storage from 'electron-json-storage';
 
-export const NAME_CONFIG = 'NAME_CONFIG';
 export const RECIEVED_CONFIG = 'RECIEVED_CONFIG';
 export const SET_PROPERTY = 'SET_PROPERTY';
 export const SET_ROOT_PROPERTY = 'SET_ROOT_PROPERTY';
@@ -60,6 +59,7 @@ const demoData = {
 };
 
 export function fetchConfig(id) {
+	console.warn('Should only get config if it does not exist yet. FETCH ONCE');
 	return (dispatch: Function, getState: Function) => {
 	    storage.get(getConfigKey(id),  function(error, data) {
 			if (error) throw error;
@@ -71,13 +71,6 @@ export function fetchConfig(id) {
 			}
 		});
 	}
-}
-
-export function setName(name) {
-	return {
-		type: NAME_CONFIG,
-		payload: name
-	};
 }
 
 export function recievedConfig(config) {
@@ -94,7 +87,7 @@ export function updateProperty(key, property, newValue, globIndex = false) {
 		if (globIndex !== false) {
 			dispatch(setGlob(key, property, newValue, globIndex));
 		} else if (!property) {
-		    dispatch(setRootProperty(key, newValue, state.config.projectId));
+		    dispatch(setRootProperty(key, newValue, state.configs.currentConfigId));
 		} else {
 		    dispatch(setProperty(key, property, newValue));
 		}
@@ -127,6 +120,7 @@ export function setRootProperty(key, newValue, projectId) {
 }
 
 function saveConfig(config) {
+	console.warn('saveConfig chould save the whole configs object');
 	storage.set(getConfigKey(config.id), config, function(error) {
 		if (error) throw error;
 	});

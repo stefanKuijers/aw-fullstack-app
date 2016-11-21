@@ -1,11 +1,12 @@
 // @flow
 import React, { Component } from 'react';
-import styles from './ProjectList.css';
 import Subheader from 'material-ui/Subheader';
 import {List, ListItem} from 'material-ui/List';
-import Project from './Project.js';
 import Avatar from 'material-ui/Avatar';
 import AddIcon from 'material-ui/svg-icons/content/add';
+
+import styles from './ProjectList.css';
+import Project from './Project.js';
 
 const removeLoader = function () {
 	const element = document.getElementById('app-container');
