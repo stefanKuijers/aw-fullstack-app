@@ -10,8 +10,8 @@
 // all the node modules which we depend on
 const gulp = require('gulp');
 
-const plugin = require('./gulpfile.js/plugin.js')();
-const config = require('./gulpfile.js/config.js')(gulp, plugin);
+const plugin = require('./plugin.js')();
+const config = require('./config.js')(gulp, plugin);
 
 
 /* 

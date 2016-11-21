@@ -10,7 +10,7 @@ module.exports = function( gulp, plugin, config ) {
         }
         
         return plugin.watch( 
-            config.watch.path, 
+            config.watch.globs, 
             function(vinyl) {
             	console.log(vinyl.extname);
                 switch(vinyl.extname) {
@@ -32,17 +32,17 @@ module.exports = function( gulp, plugin, config ) {
                     break;
 
                     case '.css':
-                        if (!config.sass.enabled) {
+                        // if (!config.sass.enabled) {
                             plugin.vinylFile.readSync(vinyl.path)
                                 .pipe(plugin.vinylSourceStream(vinyl.path))
                                 .pipe(plugin.vinylBuffer())
                                 .pipe(plugin.browserSync.stream());
-                        }
+                        // }
                     break;
 
                     case '.js':
                         if (config.javascript.enabled) {
-                            config.javascript.task(config.javascript.path);
+                            config.javascript.task(config.javascript.globs);
                         }
 
                         reload(100); // little delay so JS files can be created

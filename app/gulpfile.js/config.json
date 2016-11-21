@@ -1,37 +1,45 @@
 {
-    "production": false,
+    "name": "aw-fullstack",
+    "path": "C:/Users/Felhasznalo/dev/aw-fullstack/",
 
-    "watch": [
-        "c:/Users/S/dev/aw-fullstack/public_html/**/*",
-        "c:/Users/S/dev/aw-fullstack/bower.json"
-    ],
+    "server": {
+        "type": "express",
+        "target": "public_html/"        
+    },
+
+    "watch": {
+        "enabled": true, 
+        "globs": [
+            "public_html/**/*",
+            "!public_html/**/dist/**/*",
+            "bower.json"
+        ]
+    },
 
     "sass": {
-        "dir": "c:/Users/S/dev/aw-fullstack/public_html/style/",
-        "path": [
-            "c:/Users/S/dev/aw-fullstack/public_html/style/src/var.scss",
-            "c:/Users/S/dev/aw-fullstack/public_html/style/src/base.scss",
-            "c:/Users/S/dev/aw-fullstack/public_html/style/src/**/*.scss"
+        "enabled": true,
+        "outputDir": "public_html/style/dist",
+        "fontsDir": "public_html/style",
+        "globs": [
+            "public_html/style/src/var.scss",
+            "public_html/style/src/base.scss",
+            "public_html/style/src/**/*.scss"
         ]
     },
     
     "javascript":  {
-        "dir": "c:/Users/S/dev/aw-fullstack/public_html/js/",
-        "path": [
-            "c:/Users/S/dev/aw-fullstack/public_html/js/src/**/app.js",
-            "c:/Users/S/dev/aw-fullstack/public_html/js/src/**/index.js",
-            "c:/Users/S/dev/aw-fullstack/public_html/js/src/**/*.module.js",
-            "c:/Users/S/dev/aw-fullstack/public_html/js/src/**/*.js"
+        "enabled": true,
+        "outputDir": "public_html/js/dist",
+        "globs": [
+            "public_html/js/src/**/app.js",
+            "public_html/js/src/**/index.js",
+            "public_html/js/src/**/*.module.js",
+            "public_html/js/src/**/*.js"
         ]
     },
 
     "bower": {
+        "enabled": true,
         "overrides": {}
-    },
-
-    "dir": {
-        "root": "c:/Users/S/dev/aw-fullstack/public_html",
-        "source": "src",
-        "distribution": "dist"
     }
 }

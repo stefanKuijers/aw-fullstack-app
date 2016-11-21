@@ -13,13 +13,32 @@ module.exports = function(gulp, plugin) {
         return require('./task/' + name + '.js')( gulp, plugin, config );
     }
 
-    function hasProperties(obj) {
-        for(var prop in obj) {
-            if (Object.prototype.hasOwnProperty.call(obj, prop)) {
-                return true;
+    function normalizeGlobs(path, globs) {
+        const normalGlobs = globs.map(function(glob) {
+            let normalGlob = '';
+
+            if (glob.indexOf('!') === -1) {
+                normalGlob += path + glob;
+            } else {
+                normalGlob += '!' + path + glob.substring(1);
             }
-        }
-        return false;
+
+            return normalGlob;
+        });
+
+        return normalGlobs;
+    }
+
+    function normalizePaths(params) {
+        params.server.target = params.path + params.server.target;
+        params.watch.globs = normalizeGlobs(params.path, params.watch.globs);
+        params.sass.outputDir = params.path + params.sass.outputDir;
+        params.sass.globs = normalizeGlobs(params.path, params.sass.globs);
+        params.javascript.globs = normalizeGlobs(params.path, params.javascript.globs);
+        params.javascript.outputDir = params.path + params.javascript.outputDir;
+        params.bower.path = params.path + 'bower.json';
+
+        return params;
     }
 
     /*
@@ -27,7 +46,7 @@ module.exports = function(gulp, plugin) {
     */
     var config = {
         load: function (params) {
-            Object.assign(this, params);
+            Object.assign(this, normalizePaths(params));
 
             // hooking tasks after config is setup cause config is needed
             config.browserSync.task = getTask('browser-sync');
@@ -53,33 +72,7 @@ module.exports = function(gulp, plugin) {
             }
         }
     };
-    config.load({
-        // loading settings from config.json
-        production: gulpConfig.production,
-        host: gulpConfig.host,
-        bower: {
-            enabled: hasProperties(gulpConfig.bower),
-            overrides: gulpConfig.bower.overrides
-        },
-        javascript: {
-            enabled: hasProperties(gulpConfig.javascript),
-            dir: gulpConfig.javascript.dir,
-            path: gulpConfig.javascript.path
-        },
-        sass: {
-            enabled: hasProperties(gulpConfig.sass),
-            dir: gulpConfig.sass.dir,
-            path: gulpConfig.sass.path
-        },
-        watch: {
-            path: gulpConfig.watch
-        },
-        dir: {
-            root: gulpConfig.dir.root || "./",
-            source: gulpConfig.dir.source,
-            distribution: gulpConfig.dir.distribution
-        }
-    });
+    config.load(gulpConfig);
 
     return config;
 };
