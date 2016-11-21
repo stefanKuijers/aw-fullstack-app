@@ -1,10 +1,10 @@
 
 import { 
-	RECIEVED_CONFIG, 
+	RECIEVED_CONFIGS, 
 	SET_PROPERTY,
 	SET_ROOT_PROPERTY,
 	SET_GLOB
-} from '../actions/config';
+} from '../actions/configs';
 
 const initialState = {
 	name: '...',
@@ -27,36 +27,36 @@ const initialState = {
 	}
 };
 
-export default function config(
-	state: Object = initialState, 
+export default function configs(
+	state: Object = {}, 
 	action: Object
 ) {
 	let newState; 
 	let payload;
 	switch (action.type) {
-		case RECIEVED_CONFIG:
-			return Object.assign({}, action.payload);;
+		case RECIEVED_CONFIGS:
+			return Object.assign({}, action.payload.configs);
 			break;
 
 		case SET_PROPERTY:
 			payload = action.payload;
 			newState = state;
-			newState[payload.key][payload.property] = payload.newValue;
-			return Object.assign({}, state, newState);
+			newState[newState.currentConfigId][payload.key][payload.property] = payload.newValue;
+			return Object.assign({}, newState);
 			break;
 
 		case SET_ROOT_PROPERTY:
 			payload = action.payload;
 			newState = state;
-			newState[payload.key] = payload.newValue;
-			return Object.assign({}, state, newState);
+			newState[newState.currentConfigId][payload.key] = payload.newValue;
+			return Object.assign({}, newState);
 			break;
 
 		case SET_GLOB:
 			payload = action.payload;
 			newState = state;
-			newState[payload.key][payload.property][payload.globIndex] = payload.newValue;
-			return Object.assign({}, state, newState);
+			newState[newState.currentConfigId][payload.key][payload.property][payload.globIndex] = payload.newValue;
+			return Object.assign({}, newState);
 			break;
 	}
 

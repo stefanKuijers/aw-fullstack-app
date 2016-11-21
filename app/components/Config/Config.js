@@ -17,13 +17,14 @@ const removeLoader = function () {
 
 class Config extends Component {
   	componentWillMount() {
+  		console.log('component will mount');
   		this.props.fetchConfig(this.props.params.configId);
 	};
 
 	render() {
 		removeLoader(); // just in debug
-		const {sass, javascript, dependencyManagement} = this.props.config;
-		const config = this.props.config;
+		const {sass, javascript, dependencyManagement} = this.props.configs[this.props.configs.currentConfigId];
+		const config = this.props.configs[this.props.configs.currentConfigId];
 		const actions = { 
 			toggleFeature: this.props.toggleFeature,
 			updateProperty: this.props.updateProperty 

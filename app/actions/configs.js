@@ -1,13 +1,13 @@
 // @flow
 import storage from 'electron-json-storage';
 
-export const NAME_CONFIG = 'NAME_CONFIG';
-export const RECIEVED_CONFIG = 'RECIEVED_CONFIG';
+export const RECIEVED_CONFIGS = 'RECIEVED_CONFIGS';
 export const SET_PROPERTY = 'SET_PROPERTY';
 export const SET_ROOT_PROPERTY = 'SET_ROOT_PROPERTY';
 export const SET_GLOB = 'SET_GLOB';
 
 const demoData = {
+	currentConfigId: 100,
 	'100': {
 		id: 100,
 		projectId: 100,
@@ -61,29 +61,23 @@ const demoData = {
 
 export function fetchConfig(id) {
 	return (dispatch: Function, getState: Function) => {
-	    storage.get(getConfigKey(id),  function(error, data) {
-			if (error) throw error;
+		if (getState && getState().configs[id]) {
+			dispatch(recievedConfigs(getState().configs, id));
+		} else {
+		    storage.get('configs', function(error, data) {
+				if (error) throw error;
 
-			if (data.id) {
-				dispatch(recievedConfig(data));
-			} else {
-				dispatch(recievedConfig(demoData[id]));
-			}
-		});
+				console.warn('RECIEVED_CONFIGS providing demoData in case user has no data', data);
+				dispatch(recievedConfigs(data.currentConfigId ? data : demoData, id));
+			});
+		}
 	}
 }
 
-export function setName(name) {
+export function recievedConfigs(configs, currentConfigId) {
 	return {
-		type: NAME_CONFIG,
-		payload: name
-	};
-}
-
-export function recievedConfig(config) {
-	return {
-		type: RECIEVED_CONFIG,
-		payload: config
+		type: RECIEVED_CONFIGS,
+		payload: { configs, currentConfigId }
 	};
 }
 
@@ -94,13 +88,13 @@ export function updateProperty(key, property, newValue, globIndex = false) {
 		if (globIndex !== false) {
 			dispatch(setGlob(key, property, newValue, globIndex));
 		} else if (!property) {
-		    dispatch(setRootProperty(key, newValue, state.config.projectId));
+		    dispatch(setRootProperty(key, newValue, state.configs.currentConfigId));
 		} else {
 		    dispatch(setProperty(key, property, newValue));
 		}
 
 		setTimeout(() => {
-			saveConfig(state.config);
+			saveState(state.configs);
 		}, 300);
 	}
 }
@@ -126,12 +120,8 @@ export function setRootProperty(key, newValue, projectId) {
 	};
 }
 
-function saveConfig(config) {
-	storage.set(getConfigKey(config.id), config, function(error) {
+function saveState(configs) {
+	storage.set('configs', configs, function(error) {
 		if (error) throw error;
 	});
-}
-
-function getConfigKey(id) {
-	return 'config'+id;
 }
