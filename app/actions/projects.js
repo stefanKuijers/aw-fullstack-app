@@ -12,7 +12,7 @@ const demoData = [
 		id: 100,
 		name: '...',
 		state: '',
-		running: true,
+		running: false,
 		configId: 100
 	},
 	{
@@ -25,25 +25,17 @@ const demoData = [
 ];
 
 export function fetchProjects() {
-	console.log('call fetchProjects');
 	return (dispatch: Function, getState: Function) => {
-		// console.log('fetchProjects', getState().projects.length);
 		if (!getState || getState().projects.length === 0) {
 			storage.get('projects',  function(error, data) {
 				if (error) throw error;
 
 				data = demoData;
-
-				// console.warn('should FETCH ONCE');
-				// for (var i = data.length - 1; i >= 0; i--) {
-					fetchConfig()(dispatch);
-				// }
-
 				if (data.length) {
 					dispatch(recievedProjects(data));
-				} else {
-					dispatch(recievedProjects(demoData));
 				}
+
+				fetchConfig()(dispatch);
 			});
 		}
 	};
@@ -66,9 +58,8 @@ export function setProjectName(name) {
 export function toggleServer(project) {
 	return (dispatch: Function, getState: Function) => {
 		const state = getState();
-		console.log(state);
-		console.warn('How should I get hold of the config?', fetchConfig);
-		
+		const config = state.configs[state.configs.currentConfigId];
+
 		if (project.running) {
 			dispatch(stopServer(project, config))
 		} else {
@@ -80,14 +71,14 @@ export function toggleServer(project) {
 export function startServer(project, config) {
 	return {
 		type: START_SERVER,
-		payload: name
+		payload: { project, config }
 	};
 }
 
 export function stopServer(project, config) {
 	return {
 		type: STOP_SERVER,
-		payload: name
+		payload: { project, config }
 	};
 }
 

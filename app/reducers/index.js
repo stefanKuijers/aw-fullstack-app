@@ -2,12 +2,12 @@
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
 import configs from './configs';
-import server from './server';
+import workflows from './workflows';
 import projects from './projects';
 
 const rootReducer = combineReducers({
   configs: configs,
-  server: server,
+  workflows: workflows,
   projects: projects,
   routing: routing
 });

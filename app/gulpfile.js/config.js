@@ -26,11 +26,37 @@ module.exports = function(gulp, plugin) {
         config object
     */
     var config = {
+        load: function (params) {
+            Object.assign(this, params);
 
+            // hooking tasks after config is setup cause config is needed
+            config.browserSync.task = getTask('browser-sync');
+            config.bower.task = getTask('vendor');
+            config.javascript.task = getTask('javascript');
+            config.sass.task = getTask('sass');
+            config.watch.task = getTask('watch');
+        },
+
+        browserSync: {},
+
+        // If Gulp encounters an error it will launch a system notification
+        error: {
+            params: {
+                title:    'Gulp',
+                message:  '<%= error.message %>',
+                sound: false
+            },
+            handler: function(err) {
+                plugin.notify.onError(config.error.params)(err);
+
+                if ( this.emit !== undefined ) this.emit('end');
+            }
+        }
+    };
+    config.load({
         // loading settings from config.json
         production: gulpConfig.production,
         host: gulpConfig.host,
-        browserSync: {},
         bower: {
             enabled: hasProperties(gulpConfig.bower),
             overrides: gulpConfig.bower.overrides
@@ -52,29 +78,8 @@ module.exports = function(gulp, plugin) {
             root: gulpConfig.dir.root || "./",
             source: gulpConfig.dir.source,
             distribution: gulpConfig.dir.distribution
-        },
-
-        // If Gulp encounters an error it will launch a system notification
-        error: {
-            params: {
-                title:    'Gulp',
-                message:  '<%= error.message %>',
-                sound: false
-            },
-            handler: function(err) {
-                plugin.notify.onError(config.error.params)(err);
-
-                if ( this.emit !== undefined ) this.emit('end');
-            }
         }
-    };
-
-    // hooking tasks after config is setup cause config is needed
-    config.browserSync.task = getTask('browser-sync');
-    config.bower.task = getTask('vendor');
-    config.javascript.task = getTask('javascript');
-    config.sass.task = getTask('sass');
-    config.watch.task = getTask('watch');
+    });
 
     return config;
 };

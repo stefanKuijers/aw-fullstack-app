@@ -3,7 +3,7 @@
 module.exports = function (gulp, plugin, config) {
     return function (source) {
 
-        return gulp.src(typeof(source) === 'string' ? source : config.javascript.path)
+        return gulp.src(typeof(source) === 'string' ? source : config.javascript.globs)
             .pipe( plugin.sourcemaps.init() )
             .pipe(plugin.plumber( {errorHandler: config.error.handler}) )
             .pipe(plugin.babel({
@@ -14,10 +14,7 @@ module.exports = function (gulp, plugin, config) {
             // do not write source maps if production is set to true
             .pipe( plugin.sourcemaps.write(config.production ? '.' : null) )
             .pipe( 
-                gulp.dest(
-                    config.javascript.dir + 
-                    config.dir.distribution
-                ) 
+                gulp.dest(config.javascript.outputDir) 
             )
         ;
     };

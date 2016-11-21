@@ -13,10 +13,10 @@ module.exports = function( gulp, plugin, config ) {
             }
         };
 
-        if (config.host) {
-            options.proxy = config.host;
+        if (config.server.type === 'express') {
+            options.server = config.server.target;
         } else {
-            options.server = config.dir.root;
+            options.proxy = config.server.target;
         }
 
         plugin.browserSync.init( options );

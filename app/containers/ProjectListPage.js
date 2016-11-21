@@ -8,7 +8,6 @@ import * as ConfigActions from '../actions/configs';
 
 function mapStateToProps(state) {
   return {
-  	serving: state.server.running,
   	projects: state.projects,
   	config: state.config
   };
@@ -16,7 +15,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(
-		{ ...ProjectActions, ...ConfigActions}, 
+		{ 
+			...ProjectActions, 
+			...ConfigActions
+		}, 
 		dispatch
     );
 }

@@ -11,24 +11,27 @@ const demoData = {
 	'100': {
 		id: 100,
 		projectId: 100,
-		name: 'Example Project',
-		path: 'C:/arteries/webroot/projectName',
+		name: 'AW Fullstack',
+		path: 'C:/Users/Felhasznalo/dev/aw-fullstack/',
 		server:  {
 			type: 'express',
-			target: './public_html'
+			target: 'C:/Users/Felhasznalo/dev/aw-fullstack/public_html'
 		},
 		sass: {
 			enabled: true,
-			outputDir: './public_html/style/dist',
+			outputDir: 'C:/Users/Felhasznalo/dev/aw-fullstack/public_html/style/dist',
 			globs: [
-				'foo/**/*', 
-				'bar/foo/*.scss'
+				'C:/Users/Felhasznalo/dev/aw-fullstack/public_html/style/src/var.scss', 
+				'C:/Users/Felhasznalo/dev/aw-fullstack/public_html/style/src/**/*.scss'
 			]
 		},
 		javascript: {
 			enabled: false,
-			outputDir: './public_html/js/dist',
-			globs: []
+			outputDir: 'C:/Users/Felhasznalo/dev/aw-fullstack/public_html/js/dist',
+			globs: [
+				'C:/Users/Felhasznalo/dev/aw-fullstack/public_html/js/src/index.js',
+				'C:/Users/Felhasznalo/dev/aw-fullstack/public_html/js/src/**/*.js',
+			]
 		},
 		dependencyManagement: {
 			enabled: false
@@ -66,8 +69,8 @@ export function fetchConfig(id) {
 		} else {
 		    storage.get('configs', function(error, data) {
 				if (error) throw error;
-
 				console.warn('RECIEVED_CONFIGS providing demoData in case user has no data', data);
+				// data.currentConfigId = false; // to force reload from demoData
 				dispatch(recievedConfigs(data.currentConfigId ? data : demoData, id));
 			});
 		}
