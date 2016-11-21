@@ -37,7 +37,7 @@ module.exports = function(gulp, plugin) {
         params.sass.globs = normalizeGlobs(params.path, params.sass.globs);
         params.javascript.globs = normalizeGlobs(params.path, params.javascript.globs);
         params.javascript.outputDir = params.path + params.javascript.outputDir;
-        params.bower.path = params.path + 'bower.json';
+        params.dependencyManagement.path = params.path + 'bower.json';
 
         return params;
     }

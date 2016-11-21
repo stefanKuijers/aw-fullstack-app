@@ -38,7 +38,7 @@
         ]
     },
 
-    "bower": {
+    "dependencyManagement": {
         "enabled": true,
         "overrides": {}
     }

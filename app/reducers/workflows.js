@@ -9,7 +9,7 @@ export default function projects(
 
 	switch (action.type) {
 		case START_SERVER:
-
+			console.log(action.payload.config);
 			config.load(action.payload.config);
 			console.log(config);
 			return [
