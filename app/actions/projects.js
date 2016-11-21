@@ -21,6 +21,7 @@ const demoData = [
 ];
 
 export function fetchProjects() {
+	console.log('call fetchProjects');
 	return (dispatch: Function, getState: Function) => {
 		// console.log('fetchProjects', getState().projects.length);
 		if (!getState || getState().projects.length === 0) {
@@ -29,9 +30,10 @@ export function fetchProjects() {
 
 				data = demoData;
 
-				for (var i = data.length - 1; i >= 0; i--) {
-					fetchConfig(data[i].configId)(dispatch);
-				}
+				// console.warn('should FETCH ONCE');
+				// for (var i = data.length - 1; i >= 0; i--) {
+					fetchConfig()(dispatch);
+				// }
 
 				if (data.length) {
 					dispatch(recievedProjects(data));

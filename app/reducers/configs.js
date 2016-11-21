@@ -1,6 +1,6 @@
 
 import { 
-	RECIEVED_CONFIG, 
+	RECIEVED_CONFIGS, 
 	SET_PROPERTY,
 	SET_ROOT_PROPERTY,
 	SET_GLOB
@@ -34,13 +34,8 @@ export default function configs(
 	let newState; 
 	let payload;
 	switch (action.type) {
-		case RECIEVED_CONFIG:
-			newState = {
-				currentConfigId: action.payload.id
-			};
-
-			newState[action.payload.id] = action.payload;
-			return Object.assign({}, newState);
+		case RECIEVED_CONFIGS:
+			return Object.assign({}, action.payload.configs);
 			break;
 
 		case SET_PROPERTY:
@@ -53,7 +48,6 @@ export default function configs(
 		case SET_ROOT_PROPERTY:
 			payload = action.payload;
 			newState = state;
-			console.log(action.payload, newState[newState.currentConfigId]);
 			newState[newState.currentConfigId][payload.key] = payload.newValue;
 			return Object.assign({}, newState);
 			break;
