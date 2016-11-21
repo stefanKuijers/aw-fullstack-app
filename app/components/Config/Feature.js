@@ -14,23 +14,26 @@ class Feature extends Component {
 		return flag ? "enabled":"disabled";
 	};
 
-	createListItems(globs, key, actions) {
+	createInputListItem(
+		index, actions, key, property, value, hintText = './path/to/files/**/*'
+	) {
+		return (
+			<ListItem key={index} className={styles.listItem}>
+				<TextField 
+					onChange={(e, val) => { actions.updateProperty(key, property, val, index) }}
+					defaultValue={value}
+					style={{width: '100%'}}
+					hintText={hintText}
+					hintStyle={{color: 'rgba(180,180,180,0.5)'}}
+				/>
+			</ListItem>
+		);
+	}
+
+	createInputListItems(globs, key, property, actions) {
 		if (globs) {
 			return globs.map((glob, index) => {
-				return (
-					<ListItem 
-						key={index}
-						className={styles.listItem}
-					>
-						<TextField 
-							onChange={(e, val) => { actions.updateProperty(key, 'globs', val, index) }}
-							defaultValue={glob}
-							style={{width: '100%'}}
-							hintText="./path/to/files/**/*"
-							hintStyle={{color: 'rgba(180,180,180,0.5)'}}
-						/>
-					</ListItem>
-				);
+				return (this.createInputListItem(index, actions, key, property, glob));
 			});
 		}
 	}
@@ -43,21 +46,18 @@ class Feature extends Component {
 						className={styles.cardText}
 					>
 						<List>
-							<ListItem key="outputDir" className={styles.listItem}>
-								<TextField 
-									onChange={(e, val) => { actions.updateProperty(key, 'outputDir', val) }}
-									defaultValue={options.outputDir}
-									style={{width: '100%'}}
-									hintText="Output Folder"
-									hintStyle={{color: 'rgba(180,180,180,0.5)'}}
-								/>
-							</ListItem>
+							{((key !== 'watch') ? this.createInputListItem(
+								'outputDir', actions, key, 'outputDir', options.outputDir, 'Output Folder'
+							) : null)}
+							{((key === 'sass') ? this.createInputListItem(
+								'fontsDir', actions, key, 'fontsDir', options.fontsDir, 'Path to Font Folder'
+							) : null)}
 						</List>
 
 						<List>
 					        <Subheader className={styles.subHeader}>Globs</Subheader>
 
-					        {this.createListItems(options.globs, key, actions)}
+					        {this.createInputListItems(options.globs, key, 'globs', actions)}
 
 					        <ListItem
 					        	key="addNew"

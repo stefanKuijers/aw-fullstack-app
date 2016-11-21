@@ -23,7 +23,7 @@ class Config extends Component {
 
 	render() {
 		removeLoader(); // just in debug
-		const {sass, javascript, dependencyManagement} = this.props.configs[this.props.configs.currentConfigId];
+		const {watch, sass, javascript, dependencyManagement} = this.props.configs[this.props.configs.currentConfigId];
 		const config = this.props.configs[this.props.configs.currentConfigId];
 		const actions = { 
 			toggleFeature: this.props.toggleFeature,
@@ -94,6 +94,14 @@ class Config extends Component {
 						    
 						</CardText>
 					</Card>
+
+					<Feature data={{
+							options: watch,
+							key: 'watch',
+							title: 'File Watcher',
+						}}
+						actions={actions}
+					/>
 
 					<Feature data={{
 							options: sass,

@@ -13,24 +13,32 @@ const demoData = {
 		projectId: 100,
 		name: 'AW Fullstack',
 		path: 'C:/Users/Felhasznalo/dev/aw-fullstack/',
+		watch:  {
+			enabled: true,
+			globs: [
+				'public_html/**/*', 
+				'!public_html/**/dist/',
+				'bower.json',
+			]
+		},
 		server:  {
 			type: 'express',
-			target: 'C:/Users/Felhasznalo/dev/aw-fullstack/public_html'
+			target: 'public_html/'
 		},
 		sass: {
 			enabled: true,
-			outputDir: 'C:/Users/Felhasznalo/dev/aw-fullstack/public_html/style/dist',
+			outputDir: 'public_html/style/dist',
 			globs: [
-				'C:/Users/Felhasznalo/dev/aw-fullstack/public_html/style/src/var.scss', 
-				'C:/Users/Felhasznalo/dev/aw-fullstack/public_html/style/src/**/*.scss'
+				'public_html/style/src/var.scss', 
+				'public_html/style/src/**/*.scss'
 			]
 		},
 		javascript: {
 			enabled: false,
-			outputDir: 'C:/Users/Felhasznalo/dev/aw-fullstack/public_html/js/dist',
+			outputDir: 'public_html/js/dist',
 			globs: [
-				'C:/Users/Felhasznalo/dev/aw-fullstack/public_html/js/src/index.js',
-				'C:/Users/Felhasznalo/dev/aw-fullstack/public_html/js/src/**/*.js',
+				'public_html/js/src/index.js',
+				'public_html/js/src/**/*.js',
 			]
 		},
 		dependencyManagement: {
@@ -42,6 +50,10 @@ const demoData = {
 		projectId: 101,
 		name: 'Another Project',
 		path: '',
+		watch:  {
+			enabled: true,
+			globs: []
+		},
 		server:  {
 			type: 'proxy',
 			target: 'project.dev'
@@ -49,6 +61,7 @@ const demoData = {
 		sass: {
 			enabled: false,
 			outputDir: '',
+			fontsDir: '',
 			globs: []
 		},
 		javascript: {
@@ -88,7 +101,7 @@ export function updateProperty(key, property, newValue, globIndex = false) {
 	return (dispatch: Function, getState: Function) => {
 		const state = getState();
 
-		if (globIndex !== false) {
+		if (property === 'globs') {
 			dispatch(setGlob(key, property, newValue, globIndex));
 		} else if (!property) {
 		    dispatch(setRootProperty(key, newValue, state.configs.currentConfigId));

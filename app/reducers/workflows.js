@@ -9,16 +9,8 @@ export default function projects(
 
 	switch (action.type) {
 		case START_SERVER:
-			const projectConfig = Object.assign({
-				watch: {
-					path: [
-						'C:/Users/Felhasznalo/dev/aw-fullstack/public_html/**/*',
-						'!C:/Users/Felhasznalo/dev/aw-fullstack/public_html/**/dist/**/*'
-					]
-				}
-			}, action.payload.config);
 
-			config.load(projectConfig);
+			config.load(action.payload.config);
 			console.log(config);
 			return [
 				...state, 
