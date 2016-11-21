@@ -33,6 +33,7 @@ module.exports = function(gulp, plugin) {
         params.server.target = params.path + params.server.target;
         params.watch.globs = normalizeGlobs(params.path, params.watch.globs);
         params.sass.outputDir = params.path + params.sass.outputDir;
+        params.sass.fontsDir = params.path + params.sass.fontsDir;
         params.sass.globs = normalizeGlobs(params.path, params.sass.globs);
         params.javascript.globs = normalizeGlobs(params.path, params.javascript.globs);
         params.javascript.outputDir = params.path + params.javascript.outputDir;

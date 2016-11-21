@@ -5,7 +5,7 @@ module.exports = function (gulp, plugin, config) {
         const filterJS = plugin.filter('**/*.js', { restore: true, dot: true });
         const filterCss = plugin.filter('**/*.css', { restore: true, dot: true });
         const filterFonts = plugin.filter('**/fonts/*.*', { restore: true, dot: true });
-        console.log('PATH', config.bower.path);
+
         return gulp.src(config.bower.path)
             .pipe(plugin.mainBowerFiles({
                 // setup overides to fix broken dependencies in bower
