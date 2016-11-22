@@ -47,7 +47,12 @@ module.exports = function(gulp, plugin) {
     */
     var config = {
         load: function (params) {
-            Object.assign(this, normalizePaths(params));
+            Object.assign(
+                this, 
+                normalizePaths(
+                    (typeof params === 'string') ? JSON.parse(params) : params
+                )
+            );
 
             // hooking tasks after config is setup cause config is needed
             config.browserSync.task = getTask('browser-sync');

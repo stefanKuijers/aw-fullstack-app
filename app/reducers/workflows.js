@@ -9,11 +9,11 @@ export default function projects(
 
 	switch (action.type) {
 		case START_SERVER:
-			console.log(action.payload.config);
-			config.load(action.payload.config);
-			console.log(config);
+			// console.log(action.payload.config);
+			config.load(JSON.stringify(action.payload.config));
+
 			return [
-				...state, 
+				...state,
 				{
 					id: state.length,
 					browserSync: config.browserSync.task(),
