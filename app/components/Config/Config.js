@@ -27,6 +27,8 @@ class Config extends Component {
 			let config = this.props.configs[this.props.configs.currentConfigId];
 			let actions = { updateProperty: this.props.updateProperty };
 
+			console.log(config.server);
+
 			return (
 				<section className="page">
 					<article>

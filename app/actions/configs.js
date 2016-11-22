@@ -85,7 +85,7 @@ export function fetchConfig(id) {
 		} else {
 		    storage.get('configs', function(error, data) {
 				if (error) throw error;
-				console.warn('RECIEVED_CONFIGS providing demoData in case user has no data', data);
+				console.warn('RECIEVED_CONFIGS providing demoData in case user has no data', data['100']);
 				// data.currentConfigId = false; // to force reload from demoData
 				dispatch(recievedConfigs(data.currentConfigId ? data : demoData, id));
 			});
@@ -109,7 +109,7 @@ export function recievedConfigs(configs, currentConfigId) {
 
 export function updateProperty(key, property, newValue, globIndex = false) {
 	return (dispatch: Function, getState: Function) => {
-		const state = getState();
+		let state = getState();
 
 		if (property === 'globs') {
 			dispatch(setGlob(key, property, newValue, globIndex));
@@ -120,8 +120,8 @@ export function updateProperty(key, property, newValue, globIndex = false) {
 		}
 
 		setTimeout(() => {
-			saveState(state.configs);
-		}, 300);
+			saveState(getState().configs);
+		}, 500);
 	}
 }
 

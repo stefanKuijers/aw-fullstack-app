@@ -50,6 +50,7 @@ export default function configs(
 		case SET_PROPERTY:
 			payload = action.payload;
 			newState = JSON.parse(JSON.stringify(state));
+			console.log('SET_PROPERTY', newState, payload);
 			newState[newState.currentConfigId][payload.key][payload.property] = payload.newValue;
 			return Object.assign({}, newState);
 
