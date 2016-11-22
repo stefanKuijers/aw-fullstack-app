@@ -10,7 +10,6 @@ export default function projects(
 
 	switch (action.type) {
 		case START_SERVER:
-			console.log(action.payload.config);
 			config.load(JSON.stringify(action.payload.config));
 
 			newWorkflow = {
@@ -18,9 +17,12 @@ export default function projects(
 					browserSync: config.browserSync.task()
 			};
 
-			if (config.watch.enabled) {
-				newWorkflow.watch = config.watch.task();
-			}
+			console.log(config);
+
+			if (config.dependencyManagement.enabled) {config.dependencyManagement.task()}
+			if (config.sass.enabled) {config.sass.task()}
+			if (config.javascript.enabled) {config.javascript.task()}
+			if (config.watch.enabled) {newWorkflow.watch = config.watch.task();}
 
 			return [ ...state, newWorkflow ];
 			break;

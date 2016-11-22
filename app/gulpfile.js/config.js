@@ -59,7 +59,7 @@ module.exports = function(gulp, plugin) {
 
             // hooking tasks after config is setup cause config is needed
             config.browserSync.task = getTask('browser-sync');
-            config.bower.task = getTask('vendor');
+            config.dependencyManagement.task = getTask('vendor');
             config.javascript.task = getTask('javascript');
             config.sass.task = getTask('sass');
             config.watch.task = getTask('watch');

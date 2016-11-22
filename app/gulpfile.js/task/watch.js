@@ -17,8 +17,8 @@ module.exports = function( gulp, plugin, config ) {
                 switch(vinyl.extname) {
                     case '.json':
                         // bower.json change means we did a bower install
-                        if (vinyl.basename === "bower.json" && config.bower.enabled) {
-                            config.bower.task();
+                        if (vinyl.basename === "bower.json" && config.dependencyManagement.enabled) {
+                            config.dependencyManagement.task();
                             // we need a delay in reloading the browser cause 
                             // the vendor files need to be created before we reload
                             reload(200);

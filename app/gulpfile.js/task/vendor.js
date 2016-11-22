@@ -6,10 +6,10 @@ module.exports = function (gulp, plugin, config) {
         const filterCss = plugin.filter('**/*.css', { restore: true, dot: true });
         const filterFonts = plugin.filter('**/fonts/*.*', { restore: true, dot: true });
 
-        return gulp.src(config.bower.path)
+        return gulp.src(config.dependencyManagement.path)
             .pipe(plugin.mainBowerFiles({
                 // setup overides to fix broken dependencies in bower
-                overrides: config.bower.overrides
+                overrides: config.dependencyManagement.overrides
             }))
 
             // creating vendor.min.js from all js
