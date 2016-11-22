@@ -2,6 +2,7 @@
 import storage from 'electron-json-storage';
 
 export const RECIEVED_CONFIGS = 'RECIEVED_CONFIGS';
+export const SET_CURRENT_CONFIG_ID = 'SET_CURRENT_CONFIG_ID';
 export const SET_PROPERTY = 'SET_PROPERTY';
 export const SET_ROOT_PROPERTY = 'SET_ROOT_PROPERTY';
 export const SET_GLOB = 'SET_GLOB';
@@ -77,6 +78,8 @@ const demoData = {
 
 export function fetchConfig(id) {
 	return (dispatch: Function, getState: Function) => {
+		dispatch(setCurrentConfigId(id));
+
 		if (getState && getState().configs[id]) {
 			dispatch(recievedConfigs(getState().configs, id));
 		} else {
@@ -90,8 +93,14 @@ export function fetchConfig(id) {
 	}
 }
 
+export function setCurrentConfigId(currentConfigId) {
+	return {
+		type: SET_CURRENT_CONFIG_ID,
+		payload: currentConfigId
+	};
+}
+
 export function recievedConfigs(configs, currentConfigId) {
-	console.log('recievedConfigs', currentConfigId);
 	return {
 		type: RECIEVED_CONFIGS,
 		payload: { configs, currentConfigId }

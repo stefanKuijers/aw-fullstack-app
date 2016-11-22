@@ -7,6 +7,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import routes from './routes';
 import configureStore from './store/configureStore';
 import {fetchProjects} from './actions/projects';
+import {fetchConfig} from './actions/configs';
 
 import './app.global.css';
 
@@ -17,7 +18,8 @@ const history = syncHistoryWithStore(hashHistory, store);
 // pretty sure this is not the right place for this
 // leaving it here for now as both views depend on 
 // this data being present
-fetchProjects()(store.dispatch);
+fetchProjects(true)(store.dispatch, store.getState);
+fetchConfig(null)(store.dispatch, store.getState);
 
 render(
   <Provider store={store}>

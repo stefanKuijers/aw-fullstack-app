@@ -24,9 +24,11 @@ const demoData = [
 	}
 ];
 
-export function fetchProjects() {
+export function fetchProjects(root) {
 	return (dispatch: Function, getState: Function) => {
-		if (!getState || getState().projects.length === 0) {
+		let state = getState();
+
+		if (!getState || state.projects.length === 0) {
 			storage.get('projects',  function(error, data) {
 				if (error) throw error;
 
@@ -34,8 +36,6 @@ export function fetchProjects() {
 				if (data.length) {
 					dispatch(recievedProjects(data));
 				}
-
-				fetchConfig()(dispatch);
 			});
 		}
 	};

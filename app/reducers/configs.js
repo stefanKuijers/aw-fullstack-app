@@ -1,6 +1,7 @@
 
 import { 
 	RECIEVED_CONFIGS, 
+	SET_CURRENT_CONFIG_ID,
 	SET_PROPERTY,
 	SET_ROOT_PROPERTY,
 	SET_GLOB
@@ -35,10 +36,15 @@ export default function configs(
 	let payload;
 	switch (action.type) {
 		case RECIEVED_CONFIGS:
-			console.log('RECIEVED_CONFIGS', action.payload);
 			return { 
 				...action.payload.configs,
 				currentConfigId: action.payload.currentConfigId
+			};
+
+		case SET_CURRENT_CONFIG_ID:
+			return { 
+				...state,
+				currentConfigId: action.payload
 			};
 
 		case SET_PROPERTY:
