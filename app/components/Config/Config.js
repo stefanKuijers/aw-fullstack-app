@@ -17,15 +17,15 @@ const removeLoader = function () {
 
 class Config extends Component {
   	componentWillMount() {
-  		console.log('component will mount');
+  		console.log('Config fetch', this.props.params.configId);
   		this.props.fetchConfig(this.props.params.configId);
 	};
 
 	render() {
 		removeLoader(); // just in debug
-		const {watch, sass, javascript, dependencyManagement} = this.props.configs[this.props.configs.currentConfigId];
-		const config = this.props.configs[this.props.configs.currentConfigId];
-		const actions = { 
+		let {watch, sass, javascript, dependencyManagement} = this.props.configs[this.props.configs.currentConfigId];
+		let config = this.props.configs[this.props.configs.currentConfigId];
+		let actions = { 
 			toggleFeature: this.props.toggleFeature,
 			updateProperty: this.props.updateProperty 
 		};
@@ -34,7 +34,7 @@ class Config extends Component {
 				<article>
 					<Card className="section">
 						<CardTitle 
-							title={config.name} 
+							title={config.name + this.props.configs.currentConfigId + ' - ' + this.props.params.configId} 
 							subtitle={config.server.type}
 						/>
 						<CardText>

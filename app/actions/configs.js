@@ -91,6 +91,7 @@ export function fetchConfig(id) {
 }
 
 export function recievedConfigs(configs, currentConfigId) {
+	console.log('recievedConfigs', currentConfigId);
 	return {
 		type: RECIEVED_CONFIGS,
 		payload: { configs, currentConfigId }

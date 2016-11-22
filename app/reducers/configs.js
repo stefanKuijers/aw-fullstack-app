@@ -35,30 +35,30 @@ export default function configs(
 	let payload;
 	switch (action.type) {
 		case RECIEVED_CONFIGS:
-			return Object.assign({}, action.payload.configs);
-			break;
+			console.log('RECIEVED_CONFIGS', action.payload);
+			return { 
+				...action.payload.configs,
+				currentConfigId: action.payload.currentConfigId
+			};
 
 		case SET_PROPERTY:
 			payload = action.payload;
-			newState = state;
+			newState = JSON.parse(JSON.stringify(state));
 			newState[newState.currentConfigId][payload.key][payload.property] = payload.newValue;
 			return Object.assign({}, newState);
-			break;
 
 		case SET_ROOT_PROPERTY:
 			payload = action.payload;
-			newState = state;
+			newState = JSON.parse(JSON.stringify(state));
 			newState[newState.currentConfigId][payload.key] = payload.newValue;
 			return Object.assign({}, newState);
-			break;
 
 		case SET_GLOB:
 			payload = action.payload;
-			newState = state;
+			newState = JSON.parse(JSON.stringify(state));
 			newState[newState.currentConfigId][payload.key][payload.property][payload.globIndex] = payload.newValue;
 			return Object.assign({}, newState);
-			break;
-	}
 
-	return state;
+		default: return state;
+	}
 }
