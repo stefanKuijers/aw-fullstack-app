@@ -22,17 +22,21 @@ export default function projects(
 			return newState;
 			break;
 
-		case SET_ROOT_PROPERTY:
+		case SET_ROOT_PROPERTY:			
+			newState = [...state];
+
 			if (action.payload.key === 'name') {
-				const project = state.filter(project => project.id === action.payload.projectId)[0];
+				const project = state.filter(project => project.id == action.payload.projectId)[0];
 				const index = state.indexOf(project);
 				const updatedProject = Object.assign({}, project, {name: action.payload.newValue});
 
-				return state
+				return newState
 					.slice(0, index)
 					.concat(updatedProject)
 					.concat(state.slice(index + 1));
 			}
+
+			return newState;
 			break;
 	}
 

@@ -12,6 +12,7 @@ module.exports = function( gulp, plugin, config ) {
         return plugin.watch( 
             config.watch.globs, 
             function(vinyl) {
+
             	console.log(vinyl.extname);
                 switch(vinyl.extname) {
                     case '.json':

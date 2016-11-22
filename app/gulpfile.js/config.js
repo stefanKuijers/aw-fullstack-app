@@ -30,7 +30,10 @@ module.exports = function(gulp, plugin) {
     }
 
     function normalizePaths(params) {
-        params.server.target = params.path + params.server.target;
+        if (params.server.type === 'express') {
+            params.server.target = params.path + params.server.target;
+        }
+        
         params.watch.globs = normalizeGlobs(params.path, params.watch.globs);
         params.sass.outputDir = params.path + params.sass.outputDir;
         params.sass.fontsDir = params.path + params.sass.fontsDir;

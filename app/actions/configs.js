@@ -1,5 +1,6 @@
 // @flow
 import storage from 'electron-json-storage';
+import { setProjectName } from './projects.js';
 
 export const RECIEVED_CONFIGS = 'RECIEVED_CONFIGS';
 export const SET_CURRENT_CONFIG_ID = 'SET_CURRENT_CONFIG_ID';
@@ -85,7 +86,8 @@ export function fetchConfig(id) {
 		} else {
 		    storage.get('configs', function(error, data) {
 				if (error) throw error;
-				console.warn('RECIEVED_CONFIGS providing demoData in case user has no data', data['100']);
+				// const data = {};
+				console.warn('RECIEVED_CONFIGS providing demoData in case user has no data');
 				// data.currentConfigId = false; // to force reload from demoData
 				dispatch(recievedConfigs(data.currentConfigId ? data : demoData, id));
 			});
@@ -115,6 +117,9 @@ export function updateProperty(key, property, newValue, globIndex = false) {
 			dispatch(setGlob(key, property, newValue, globIndex));
 		} else if (!property) {
 		    dispatch(setRootProperty(key, newValue, state.configs.currentConfigId));
+		    if (key === 'name') {
+		    	dispatch(setProjectName(state.configs.currentConfigId, newValue));
+		    }
 		} else {
 		    dispatch(setProperty(key, property, newValue));
 		}

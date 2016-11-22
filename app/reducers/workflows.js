@@ -6,25 +6,31 @@ export default function projects(
 	action: Object
 ) {
 	let newState;
+	let newWorkflow;
 
 	switch (action.type) {
 		case START_SERVER:
-			// console.log(action.payload.config);
+			console.log(action.payload.config);
 			config.load(JSON.stringify(action.payload.config));
 
-			return [
-				...state,
-				{
+			newWorkflow = {
 					id: state.length,
-					browserSync: config.browserSync.task(),
-					watch: config.watch.task()
-				}
-			];
+					browserSync: config.browserSync.task()
+			};
+
+			if (config.watch.enabled) {
+				newWorkflow.watch = config.watch.task();
+			}
+
+			return [ ...state, newWorkflow ];
 			break;
 
 	    case STOP_SERVER:
 		    plugin.browserSync.exit();
-	    	state[0].watch.close();
+
+		    if (config.watch.enabled) {
+		    	state[0].watch.close();
+		    }
 	    	return [];
 	}
 

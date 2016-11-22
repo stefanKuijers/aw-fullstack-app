@@ -11,7 +11,7 @@
 const gulp = require('gulp');
 
 const plugin = require('./gulpfile.js/plugin.js')();
-const config = require('./gulpfile.js/config.js')(gulp, plugin);
+let config = require('./gulpfile.js/config.js')(gulp, plugin);
 
 
 /* 
@@ -23,10 +23,10 @@ gulp.task('browserSync', config.browserSync.task);
 gulp.task('watch', config.watch.task);
 gulp.task('javascript', config.javascript.task);
 gulp.task('sass', config.sass.task);
-gulp.task('vendor', config.bower.task);
+gulp.task('vendor', config.dependencyManagement.task);
 
 var defaultTasks = ['browserSync'];
-if (config.bower.enabled) {defaultTasks.unshift('vendor');}
+if (config.dependencyManagement.enabled) {defaultTasks.unshift('vendor');}
 if (config.sass.enabled) {defaultTasks.unshift('sass');}
 if (config.javascript.enabled) {defaultTasks.unshift('javascript');}
 
@@ -36,7 +36,9 @@ if (config.javascript.enabled) {defaultTasks.unshift('javascript');}
 gulp.task(
     'default', 
     defaultTasks, 
-    config.watch.task
+    function () {
+    	if (config.watch.enabled) config.watch.task();
+    }
 );
 
 
@@ -45,7 +47,7 @@ gulp.task(
 var buildTasks = [];
 if (config.javascript.enabled) {buildTasks.push('javascript');}
 if (config.sass.enabled) {buildTasks.push('sass');}
-if (config.bower.enabled) {buildTasks.push('vendor');}
+if (config.dependencyManagement.enabled) {buildTasks.push('vendor');}
 
 gulp.task(
     'build', 

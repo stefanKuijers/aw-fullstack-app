@@ -48,17 +48,17 @@ export function recievedProjects(projects) {
 	};
 }
 
-export function setProjectName(name) {
+export function setProjectName(id, name) {
 	return {
 		type: SET_PROJECT_NAME,
-		payload: name
+		payload: { id, name }
 	};
 }
 
 export function toggleServer(project) {
 	return (dispatch: Function, getState: Function) => {
 		const state = getState();
-		const config = state.configs[state.configs.currentConfigId];
+		const config = state.configs[project.configId];
 
 		if (project.running) {
 			dispatch(stopServer(project, config))
