@@ -30,7 +30,7 @@ export default class ProjectList extends Component {
 	render() {
 		removeLoader();
 		const actions = { 
-			toggleServer: this.props.toggleServer
+			toggleProject: this.props.toggleProject
 		};
 		return (
 		    <article className="page">

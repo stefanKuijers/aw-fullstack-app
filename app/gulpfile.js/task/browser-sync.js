@@ -2,7 +2,7 @@
 
 module.exports = function( gulp, plugin, config ) {
 
-    return function() {
+    return function(callback = Function) {
         var options = {
             open: 'external',
             ghostMode: {
@@ -19,6 +19,6 @@ module.exports = function( gulp, plugin, config ) {
             options.proxy = config.server.target;
         }
 
-        plugin.browserSync.init( options );
+        plugin.browserSync.init( options, callback );
     };
 };

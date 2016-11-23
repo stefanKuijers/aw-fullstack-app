@@ -1,11 +1,10 @@
 // @flow
 import storage from 'electron-json-storage';
 import { fetchConfig } from './configs.js';
+import { startWorkflow, stopWorkflow } from './workflows.js';
 
 export const RECIEVED_PROJECTS = 'RECIEVED_PROJECTS';
 export const SET_PROJECT_NAME = 'SET_PROJECT_NAME';
-export const START_SERVER = 'START_SERVER';
-export const STOP_SERVER = 'STOP_SERVER';
 
 const demoData = [
 	{
@@ -55,31 +54,35 @@ export function setProjectName(id, name) {
 	};
 }
 
-export function toggleServer(project) {
+export function toggleProject(project) {
 	return (dispatch: Function, getState: Function) => {
 		const state = getState();
 		const config = state.configs[project.configId];
 
 		if (project.running) {
-			dispatch(stopServer(project, config))
+			dispatch(stopWorkflow(project, config))
 		} else {
-			dispatch(startServer(project, config))
+			dispatch(startWorkflow(project, config))
 		}
 	};
 }
 
-export function startServer(project, config) {
-	return {
-		type: START_SERVER,
-		payload: { project, config }
-	};
-}
+// export function startProjet(project, config) {
+// 	return (dispatch: Function, getState: Function) => {
+// 		startWorkflow(project, config);
 
-export function stopServer(project, config) {
-	return {
-		type: STOP_SERVER,
-		payload: { project, config }
-	};
-}
+// 		return {
+// 			type: START_PROJECT,
+// 			payload: { project, config }
+// 		};
+// 	};
+// }
+
+// export function stopProject(project, config) {
+// 	return {
+// 		type: STOP_SERVER,
+// 		payload: { project, config }
+// 	};
+// }
 
 

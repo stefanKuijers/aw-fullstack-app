@@ -41,7 +41,7 @@ export default class Project extends Component {
 				leftAvatar={<Avatar icon={<FileFolder />} />}
 				rightIconButton={
 					<IconMenu iconButtonElement={iconButtonElement}>
-					    <MenuItem onTouchTap={() => {this.props.actions.toggleServer(this.props.data)}}>{this.stateToggleLabel()}</MenuItem>
+					    <MenuItem onTouchTap={() => {this.props.actions.toggleProject(this.props.data)}}>{this.stateToggleLabel()}</MenuItem>
 					    <MenuItem>
 					    	<Link to={`/config/${this.props.data.configId}`} style={linkStyle}>Options</Link>
 					    </MenuItem>
