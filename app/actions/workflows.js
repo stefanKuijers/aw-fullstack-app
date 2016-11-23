@@ -24,14 +24,14 @@ export function initiateWorkflow(project, projectConfig) {
 		};
 		if (config.watch.enabled) {newWorkflow.watch = config.watch.task();}
 
-		dispatch(startWorkflow(newWorkflow));
+		dispatch(startWorkflow(project, newWorkflow));
 	};
 }
 
-export function startWorkflow(newWorkflow) {
+export function startWorkflow(project, newWorkflow) {
 	return {
 		type: START_WORKFLOW,
-		payload: newWorkflow
+		payload: { project, newWorkflow }
 	};
 }
 

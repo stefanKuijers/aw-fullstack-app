@@ -10,14 +10,16 @@ const demoData = [
 	{
 		id: 100,
 		name: '...',
-		state: '',
+		url: null,
+		state: null,
 		running: false,
 		configId: 100
 	},
 	{
 		id: 101,
 		name: '...',
-		state: '',
+		url: null,
+		state: null,
 		running: false,
 		configId: 101
 	}
