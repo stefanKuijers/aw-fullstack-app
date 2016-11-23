@@ -1,7 +1,7 @@
 // @flow
 import storage from 'electron-json-storage';
 import { fetchConfig } from './configs.js';
-import { startWorkflow, stopWorkflow } from './workflows.js';
+import { initiateWorkflow, stopWorkflow } from './workflows.js';
 
 export const RECIEVED_PROJECTS = 'RECIEVED_PROJECTS';
 export const SET_PROJECT_NAME = 'SET_PROJECT_NAME';
@@ -62,7 +62,7 @@ export function toggleProject(project) {
 		if (project.running) {
 			dispatch(stopWorkflow(project, config))
 		} else {
-			dispatch(startWorkflow(project, config))
+			dispatch(initiateWorkflow(project, config))
 		}
 	};
 }
