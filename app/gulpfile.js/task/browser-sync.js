@@ -19,6 +19,6 @@ module.exports = function( gulp, plugin, config ) {
             options.proxy = config.server.target;
         }
 
-        plugin.browserSync.init( options, callback );
+        return plugin.browserSync.init( options, callback );
     };
 };

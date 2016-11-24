@@ -58,6 +58,7 @@ export default function projects(
 			index = state.indexOf(project);
 			updatedProject = Object.assign({}, project, {
 				state: 'running',
+				workflowId: action.payload.workflowId,
 				url: action.payload.ip + ':' + action.payload.port
 			});
 
@@ -71,6 +72,7 @@ export default function projects(
 			index = state.indexOf(project);
 			updatedProject = Object.assign({}, project, {
 				state: 'stopped',
+				workflowId: null,
 				running: false
 			});
 

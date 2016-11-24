@@ -19,7 +19,7 @@ const demoData = {
 			enabled: true,
 			globs: [
 				'public_html/**/*', 
-				'!public_html/**/dist/',
+				'!public_html/**/dist/**/*',
 				'bower.json',
 			]
 		},

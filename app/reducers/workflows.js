@@ -10,7 +10,7 @@ export default function projects(
 
 	switch (action.type) {
 		case START_WORKFLOW:
-			return [ ...state, newWorkflow ];
+			return [ ...state, action.payload.newWorkflow ];
 			break;
 
 	    case STOP_WORKFLOW:

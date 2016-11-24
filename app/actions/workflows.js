@@ -8,17 +8,19 @@ export const WORKFLOW_STOPPED = 'WORKFLOW_STOPPED';
 export function initiateWorkflow(project, projectConfig) {
 	return (dispatch: Function, getState: Function) => {
 		const state = getState();
-		config.load(JSON.stringify(projectConfig));
 
+		config.load(JSON.stringify(projectConfig));
 		if (config.dependencyManagement.enabled) {config.dependencyManagement.task()}
 		if (config.sass.enabled) {config.sass.task()}
 		if (config.javascript.enabled) {config.javascript.task()}
 
 		let newWorkflow = {
-			id: state.length,
+			id: state.projects.length,
+			projectId: project.id,
+			configId: projectConfig.id,
 			browserSync: config.browserSync.task(
 				(data, browserSyncInstance) => {
-					dispatch(workflowStarted(project, browserSyncInstance))
+					dispatch(workflowStarted(project, browserSyncInstance, newWorkflow.id))
 				}
 			)
 		};
@@ -35,21 +37,25 @@ export function startWorkflow(project, newWorkflow) {
 	};
 }
 
-export function stopWorkflow() {
+export function stopWorkflow(project) {
 	plugin.browserSync.exit();
 
     return {
-		type: STOP_WORKFLOW
+		type: STOP_WORKFLOW,
+		payload: { project }
 	};
 }
 
-export function workflowStarted(project, browserSyncInstance) {
+export function workflowStarted(project, browserSyncInstance, workflowId) {
+	const portKey = browserSyncInstance.server._connectionKey;
+
 	return {
 		type: WORKFLOW_STARTED,
 		payload: {
-			project: project,
+			workflowId,
+			project,
 			ip: browserSyncInstance.utils.devIp[0],
-			port: browserSyncInstance.server._connectionKey
+			port: portKey.slice(portKey.length-4)
 		}
 	};
 }

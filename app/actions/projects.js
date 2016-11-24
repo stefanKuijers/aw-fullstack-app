@@ -11,7 +11,7 @@ const demoData = [
 		id: 100,
 		name: '...',
 		url: null,
-		state: null,
+		state: 'ready to be started',
 		running: false,
 		configId: 100
 	},
@@ -19,7 +19,7 @@ const demoData = [
 		id: 101,
 		name: '...',
 		url: null,
-		state: null,
+		state: 'ready to be started',
 		running: false,
 		configId: 101
 	}
