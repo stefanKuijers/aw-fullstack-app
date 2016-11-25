@@ -7,6 +7,9 @@ export const SET_CURRENT_CONFIG_ID = 'SET_CURRENT_CONFIG_ID';
 export const SET_PROPERTY = 'SET_PROPERTY';
 export const SET_ROOT_PROPERTY = 'SET_ROOT_PROPERTY';
 export const SET_GLOB = 'SET_GLOB';
+export const ADD_GLOB = 'ADD_GLOB';
+export const REMOVE_GLOB = 'REMOVE_GLOB';
+export const MOVE_GLOB = 'MOVE_GLOB';
 
 const demoData = {
 	currentConfigId: 100,
@@ -134,6 +137,27 @@ export function setGlob(key, property, newValue, globIndex) {
 	return {
 		type: SET_GLOB,
 		payload: { key, property, newValue, globIndex }
+	};
+}
+
+export function addGlob(configId, key) {
+	return {
+		type: ADD_GLOB,
+		payload: { configId, key }
+	};
+}
+
+export function removeGlob(configId, key, index) {
+	return {
+		type: REMOVE_GLOB,
+		payload: { configId, key, index }
+	};
+}
+
+export function moveGlob(configId, key, index, newIndex) {
+	return {
+		type: MOVE_GLOB,
+		payload: { configId, key, index, newIndex }
 	};
 }
 

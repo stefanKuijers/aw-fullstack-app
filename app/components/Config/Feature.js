@@ -8,20 +8,49 @@ import Toggle from 'material-ui/Toggle';
 import Avatar from 'material-ui/Avatar';
 import TextField from 'material-ui/TextField';
 import AddIcon from 'material-ui/svg-icons/content/add';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import Divider from 'material-ui/Divider';
+import IconButton from 'material-ui/IconButton';
+
+
+const iconButtonElement = (
+  <IconButton touch={true}>
+    <MoreVertIcon/>
+  </IconButton>
+);
 
 class Feature extends Component {
 	printState(flag) {
 		return flag ? "enabled":"disabled";
 	};
 
+	moveGlob(configId, key, index, newIndex) {
+		if (newIndex >= 0 && newIndex < this.props.data.options.globs.length) {
+			this.props.actions.moveGlob(configId, key, index, newIndex);
+		}
+	}
+
 	createInputListItem(
-		index, actions, key, property, value, hintText = './path/to/files/**/*'
+		configId, index, actions, key, property, value, hintText = './path/to/files/**/*'
 	) {
 		return (
-			<ListItem key={index} className={styles.listItem}>
+			<ListItem 
+				key={index} 
+				className={styles.listItem}
+				rightIconButton={
+					<IconMenu iconButtonElement={iconButtonElement}>
+					    <MenuItem onTouchTap={() => {this.moveGlob(configId, key, index, index-1)}}>Move Up</MenuItem>
+					    <MenuItem onTouchTap={() => {this.moveGlob(configId, key, index, index+1)}}>Move Down</MenuItem>
+					    <Divider />
+					    <MenuItem onTouchTap={() => {actions.removeGlob(configId, key, index)}}>Delete</MenuItem>
+					</IconMenu>
+				}
+			>
 				<TextField 
 					onChange={(e, val) => { actions.updateProperty(key, property, val, index) }}
-					defaultValue={value}
+					value={value}
 					style={{width: '100%'}}
 					hintText={hintText}
 					hintStyle={{color: 'rgba(180,180,180,0.5)'}}
@@ -30,15 +59,15 @@ class Feature extends Component {
 		);
 	}
 
-	createInputListItems(globs, key, property, actions) {
+	createInputListItems(configId, globs, key, property, actions) {
 		if (globs) {
 			return globs.map((glob, index) => {
-				return (this.createInputListItem(index, actions, key, property, glob));
+				return (this.createInputListItem(configId, index, actions, key, property, glob));
 			});
 		}
 	}
 
-	renderContent(key, options, actions) {
+	renderContent(configId, key, options, actions) {
 		if (key !== 'dependencyManagement') {
 			return(
 					<CardText 
@@ -57,10 +86,11 @@ class Feature extends Component {
 						<List>
 					        <Subheader className={styles.subHeader}>Globs</Subheader>
 
-					        {this.createInputListItems(options.globs, key, 'globs', actions)}
+					        {this.createInputListItems(configId, options.globs, key, 'globs', actions)}
 
 					        <ListItem
 					        	key="addNew"
+					        	onTouchTap={() => {actions.addGlob(configId, key)}}
 								leftAvatar={<Avatar icon={<AddIcon/>} />}
 								primaryText="Add new glob"
 							/>
@@ -74,6 +104,7 @@ class Feature extends Component {
 		const options = this.props.data.options;
 		const data = this.props.data;
 		const actions = this.props.actions;
+
 		return (
 			<Card className="section" expanded={options.enabled}>
 				<CardHeader
@@ -88,7 +119,7 @@ class Feature extends Component {
 					/>
 				</CardHeader>
 
-				{this.renderContent(data.key, options, actions)}
+				{this.renderContent(data.configId, data.key, options, actions)}
 
 			</Card>
 		);

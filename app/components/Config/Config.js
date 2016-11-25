@@ -23,9 +23,15 @@ class Config extends Component {
 	render() {
 		if (this.props.configs[this.props.configs.currentConfigId]) {
 			removeLoader(); // just in debug
-			let {watch, sass, javascript, dependencyManagement} = this.props.configs[this.props.configs.currentConfigId];
-			let config = this.props.configs[this.props.configs.currentConfigId];
-			let actions = { updateProperty: this.props.updateProperty };
+			const actions = { 
+				updateProperty: this.props.updateProperty, 
+				addGlob: this.props.addGlob,
+				removeGlob: this.props.removeGlob,
+				moveGlob: this.props.moveGlob 
+			};
+			let configId = this.props.configs.currentConfigId;
+			let {watch, sass, javascript, dependencyManagement} = this.props.configs[configId];
+			let config = this.props.configs[configId];
 
 			return (
 				<section className="page">
@@ -95,6 +101,7 @@ class Config extends Component {
 						</Card>
 
 						<Feature data={{
+								configId,
 								options: watch,
 								key: 'watch',
 								title: 'File Watcher',
@@ -103,6 +110,7 @@ class Config extends Component {
 						/>
 
 						<Feature data={{
+								configId,
 								options: sass,
 								key: 'sass',
 								title: 'CSS Preprocessor',
@@ -111,6 +119,7 @@ class Config extends Component {
 						/>
 
 						<Feature data={{
+								configId,
 								options: javascript,
 								key: 'javascript',
 								title: 'JS Processing and ES6+',
@@ -119,6 +128,7 @@ class Config extends Component {
 						/>
 
 						<Feature data={{
+								configId,
 								options: dependencyManagement,
 								key: 'dependencyManagement',
 								title: 'Dependency Management',
