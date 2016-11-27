@@ -10,8 +10,8 @@
 // all the node modules which we depend on
 const gulp = require('gulp');
 
-const plugin = require('./gulpfile.js/plugin.js')();
-let config = require('./gulpfile.js/config.js')(gulp, plugin);
+const plugin = require('./workflow/gulpfile.js/plugin.js')();
+let config = require('./workflow/gulpfile.js/config.js')(gulp, plugin);
 
 
 /* 

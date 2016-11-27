@@ -1,9 +1,9 @@
 // @flow
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
-import configs from './configs';
-import workflows from './workflows';
-import projects from './projects';
+import configs from '../config/config.reducer';
+import workflows from '../workflow/workflow.reducer';
+import projects from '../projectList/project.reducer';
 
 const rootReducer = combineReducers({
   configs: configs,

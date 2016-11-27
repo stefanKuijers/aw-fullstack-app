@@ -1,7 +1,7 @@
 
-import { RECIEVED_PROJECTS, SET_PROJECT_NAME } from '../actions/projects';
-import { START_WORKFLOW, WORKFLOW_STARTED, STOP_WORKFLOW } from '../actions/workflows';
-import { RECIEVED_CONFIGS, SET_ROOT_PROPERTY } from '../actions/configs';
+import { RECIEVED_PROJECTS, SET_PROJECT_NAME } from './project.actions';
+import { START_WORKFLOW, WORKFLOW_STARTED, STOP_WORKFLOW } from '../workflow/workflow.actions';
+import { RECIEVED_CONFIGS, SET_ROOT_PROPERTY } from '../config/config.actions';
 
 export default function projects(
 	state: Object = [], 

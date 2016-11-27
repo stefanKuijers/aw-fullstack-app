@@ -1,6 +1,6 @@
 // @flow
 import storage from 'electron-json-storage';
-import { setProjectName } from './projects.js';
+import { setProjectName } from '../projectList/project.actions';
 
 export const RECIEVED_CONFIGS = 'RECIEVED_CONFIGS';
 export const SET_CURRENT_CONFIG_ID = 'SET_CURRENT_CONFIG_ID';

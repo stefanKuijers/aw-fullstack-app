@@ -1,5 +1,5 @@
 
-import { START_WORKFLOW, STOP_WORKFLOW } from '../actions/workflows';
+import { START_WORKFLOW, STOP_WORKFLOW } from './workflow.actions';
 
 export default function projects(
 	state: Object = [], 

@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { List, ListItem } from 'material-ui/List';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
-import Feature from './Feature';
+import Feature from './feature/Feature';
 
 // only in debug
 const removeLoader = function () {

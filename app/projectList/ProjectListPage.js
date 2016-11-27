@@ -1,9 +1,9 @@
 // @flow
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import ProjectList from '../components/ProjectList/ProjectList';
-import * as ProjectActions from '../actions/projects';
-import * as ConfigActions from '../actions/configs';
+import ProjectList from './ProjectList';
+import * as ProjectActions from './project.actions';
+import * as ConfigActions from '../config/config.actions';
 
 
 function mapStateToProps(state) {

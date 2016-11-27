@@ -8,7 +8,7 @@ import {
 	ADD_GLOB,
 	REMOVE_GLOB,
 	MOVE_GLOB
-} from '../actions/configs';
+} from './config.actions';
 
 const initialState = {
 	name: '...',

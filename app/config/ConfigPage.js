@@ -1,8 +1,8 @@
 // @flow
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Config from '../components/Config/Config';
-import * as ConfigActions from '../actions/configs';
+import Config from './Config';
+import * as ConfigActions from './config.actions';
 
 function mapStateToProps(state) {
   return {

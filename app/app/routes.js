@@ -1,9 +1,9 @@
 // @flow
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import App from './containers/App';
-import ProjectListPage from './containers/ProjectListPage';
-import ConfigPage from './containers/ConfigPage';
+import App from './App';
+import ProjectListPage from '../projectList/ProjectListPage';
+import ConfigPage from '../config/ConfigPage';
 
 
 export default (

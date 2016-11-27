@@ -76,10 +76,10 @@ class Feature extends Component {
 					>
 						<List>
 							{((key !== 'watch') ? this.createInputListItem(
-								'outputDir', actions, key, 'outputDir', options.outputDir, 'Output Folder'
+								configId, 'outputDir', actions, key, 'outputDir', options.outputDir, 'Output Folder'
 							) : null)}
 							{((key === 'sass') ? this.createInputListItem(
-								'fontsDir', actions, key, 'fontsDir', options.fontsDir, 'Path to Font Folder'
+								configId, 'fontsDir', actions, key, 'fontsDir', options.fontsDir, 'Path to Font Folder'
 							) : null)}
 						</List>
 
@@ -104,13 +104,14 @@ class Feature extends Component {
 		const options = this.props.data.options;
 		const data = this.props.data;
 		const actions = this.props.actions;
+		const imgUrl = `./config/feature/${data.key}_logo.png`;
 
 		return (
 			<Card className="section" expanded={options.enabled}>
 				<CardHeader
 					title={data.title}
 					subtitle={this.printState(options.enabled)}
-					avatar={<Avatar style={{backgroundColor: '#fac415'}} src={`./assets/images/${data.key}_logo.png`} />}
+					avatar={<Avatar style={{backgroundColor: '#fac415'}} src={imgUrl} />}
 				>
 					<Toggle 
 						className={styles.toggle} 

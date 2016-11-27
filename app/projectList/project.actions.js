@@ -1,7 +1,7 @@
 // @flow
 import storage from 'electron-json-storage';
-import { fetchConfig } from './configs.js';
-import { initiateWorkflow, stopWorkflow } from './workflows.js';
+import { fetchConfig } from '../config/config.actions';
+import { initiateWorkflow, stopWorkflow } from '../workflow/workflow.actions';
 
 export const RECIEVED_PROJECTS = 'RECIEVED_PROJECTS';
 export const SET_PROJECT_NAME = 'SET_PROJECT_NAME';

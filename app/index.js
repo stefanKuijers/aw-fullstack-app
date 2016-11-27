@@ -4,12 +4,11 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import routes from './routes';
-import configureStore from './store/configureStore';
-import {fetchProjects} from './actions/projects';
-import {fetchConfig} from './actions/configs';
 
-import './app.global.css';
+import routes from './app/routes';
+import configureStore from './app/store/configureStore';
+import {fetchProjects} from './projectList/project.actions';
+import {fetchConfig} from './config/config.actions';
 
 
 const store = configureStore();
