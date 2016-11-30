@@ -33,14 +33,18 @@ class Feature extends Component {
 	}
 
 	createInputListItem(
-		configId, index, actions, key, property, value, hintText = './path/to/files/**/*'
+		configId, index, actions, key, property, value, hintText = 'path/to/files/**/*'
 	) {
 		return (
 			<ListItem 
 				key={index} 
 				className={styles.listItem}
 				rightIconButton={
-					<IconMenu iconButtonElement={iconButtonElement}>
+					<IconMenu 
+						iconButtonElement={iconButtonElement}
+						anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+						targetOrigin={{horizontal: 'right', vertical: 'top'}}
+					>
 					    <MenuItem onTouchTap={() => {this.moveGlob(configId, key, index, index-1)}}>Move Up</MenuItem>
 					    <MenuItem onTouchTap={() => {this.moveGlob(configId, key, index, index+1)}}>Move Down</MenuItem>
 					    <Divider />

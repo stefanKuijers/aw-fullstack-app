@@ -22,7 +22,7 @@ export function fetchConfig(id) {
 			dispatch(recievedConfigs(getState().configs, id));
 		} else {
 			getStoredState('configs', function(configs) {
-				console.warn('RECIEVED_CONFIGS providing demoData in case user has no data');
+				console.warn('RECIEVED_CONFIGS providing demoData in case user has no data', configs);
 				dispatch(recievedConfigs(configs, id));
 			});
 		}

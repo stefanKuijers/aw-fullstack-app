@@ -1,5 +1,5 @@
 
-import { RECIEVED_PROJECTS, SET_PROJECT_NAME } from './project.actions';
+import { RECIEVED_PROJECTS, SET_PROJECT_NAME, ADD_PROJECT, DELETE_PROJECT } from './project.actions';
 import { START_WORKFLOW, WORKFLOW_STARTED, STOP_WORKFLOW } from '../workflow/workflow.actions';
 import { RECIEVED_CONFIGS, SET_ROOT_PROPERTY } from '../config/config.actions';
 
@@ -79,6 +79,17 @@ export default function projects(
 			return state
 				.slice(0, index)
 				.concat(updatedProject)
+				.concat(state.slice(index + 1));
+
+		case ADD_PROJECT:
+			return [...state, action.payload];
+
+		case DELETE_PROJECT:
+			project = state.filter(project => project.id == action.payload.id)[0];
+			index = state.indexOf(project);
+
+			return state
+				.slice(0, index)
 				.concat(state.slice(index + 1));
 	}
 

@@ -1,4 +1,5 @@
 
+import { ADD_PROJECT, DELETE_PROJECT} from '../projectList/project.actions';
 import { 
 	RECIEVED_CONFIGS, 
 	SET_CURRENT_CONFIG_ID,
@@ -10,11 +11,15 @@ import {
 	MOVE_GLOB
 } from './config.actions';
 
-const initialState = {
+const newConfig = {
 	name: '...',
 	server: {
 		type: '',
 		target: ''
+	},
+	watch: {
+		enabled: false,
+		globs: []
 	},
 	sass: {
 		enabled: false,
@@ -88,6 +93,16 @@ export default function configs(
 			var tmpGlob = globs[payload.index];
 			globs[payload.index] = globs[payload.newIndex];
 			globs[payload.newIndex] = tmpGlob;
+			return Object.assign({}, newState);
+
+		case ADD_PROJECT:
+			newState = JSON.parse(JSON.stringify(state));
+			newState[action.payload.configId] = Object.assign({}, JSON.parse(JSON.stringify(newConfig)));
+			return Object.assign({}, newState);
+
+		case DELETE_PROJECT:
+			newState = JSON.parse(JSON.stringify(state));
+			delete newState[action.payload.configId];
 			return Object.assign({}, newState);
 
 		default: return state;
