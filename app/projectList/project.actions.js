@@ -1,42 +1,18 @@
 // @flow
-import storage from 'electron-json-storage';
+import { getStoredState } from '../app/stateStorage';
 import { fetchConfig } from '../config/config.actions';
 import { initiateWorkflow, stopWorkflow } from '../workflow/workflow.actions';
 
 export const RECIEVED_PROJECTS = 'RECIEVED_PROJECTS';
 export const SET_PROJECT_NAME = 'SET_PROJECT_NAME';
 
-const demoData = [
-	{
-		id: 100,
-		name: '...',
-		url: null,
-		state: 'ready to be started',
-		running: false,
-		configId: 100
-	},
-	{
-		id: 101,
-		name: '...',
-		url: null,
-		state: 'ready to be started',
-		running: false,
-		configId: 101
-	}
-];
-
 export function fetchProjects(root) {
 	return (dispatch: Function, getState: Function) => {
 		let state = getState();
 
 		if (!getState || state.projects.length === 0) {
-			storage.get('projects',  function(error, data) {
-				if (error) throw error;
-
-				data = demoData;
-				if (data.length) {
-					dispatch(recievedProjects(data));
-				}
+			getStoredState('projects',  function(projects) {
+				dispatch(recievedProjects(projects));
 			});
 		}
 	};
