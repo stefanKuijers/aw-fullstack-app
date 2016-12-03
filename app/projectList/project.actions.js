@@ -66,8 +66,7 @@ export function setProjectName(id, name) {
 
 export function toggleProject(project) {
 	return (dispatch: Function, getState: Function) => {
-		const state = getState();
-		const config = state.configs[project.configId];
+		const config = getState().configs[project.configId];
 
 		if (project.running) {
 			dispatch(stopWorkflow(project, config))
@@ -76,23 +75,3 @@ export function toggleProject(project) {
 		}
 	};
 }
-
-// export function startProjet(project, config) {
-// 	return (dispatch: Function, getState: Function) => {
-// 		startWorkflow(project, config);
-
-// 		return {
-// 			type: START_PROJECT,
-// 			payload: { project, config }
-// 		};
-// 	};
-// }
-
-// export function stopProject(project, config) {
-// 	return {
-// 		type: STOP_SERVER,
-// 		payload: { project, config }
-// 	};
-// }
-
-

@@ -1,3 +1,6 @@
+
+import Workflow from './Workflow';
+
 // @flow
 
 export const START_WORKFLOW = 'START_WORKFLOW';
@@ -5,61 +8,83 @@ export const STOP_WORKFLOW = 'STOP_WORKFLOW';
 export const WORKFLOW_STARTED = 'WORKFLOW_STARTED';
 export const WORKFLOW_STOPPED = 'WORKFLOW_STOPPED';
 
+export const START_BUILD = 'START_BUILD';
+export const BUILD_COMPLETE = 'BUILD_COMPLETE';
+export const BUILD_ERROR = 'BUILD_ERROR';
+
+
 export function initiateWorkflow(project, projectConfig) {
 	return (dispatch: Function, getState: Function) => {
 		const state = getState();
+		const workflow = new Workflow(
+			project,
+			projectConfig,
+			(workflow) => {
+				dispatch(workflowStarted(project, workflow))
+			}
+		);
 
-		config.load(JSON.stringify(projectConfig));
-		if (config.dependencyManagement.enabled) {config.dependencyManagement.task()}
-		if (config.sass.enabled) {config.sass.task()}
-		if (config.javascript.enabled) {config.javascript.task()}
-
-		let newWorkflow = {
-			id: state.projects.length,
-			projectId: project.id,
-			configId: projectConfig.id,
-			browserSync: config.browserSync.task(
-				(data, browserSyncInstance) => {
-					dispatch(workflowStarted(project, browserSyncInstance, newWorkflow.id))
-				}
-			)
-		};
-		if (config.watch.enabled) {newWorkflow.watch = config.watch.task();}
-
-		dispatch(startWorkflow(project, newWorkflow));
+		dispatch(startWorkflow(project, workflow));
 	};
 }
 
-export function startWorkflow(project, newWorkflow) {
+export function startWorkflow(project, workflow) {
 	return {
 		type: START_WORKFLOW,
-		payload: { project, newWorkflow }
+		payload: { project, workflow }
 	};
 }
 
 export function stopWorkflow(project) {
-	plugin.browserSync.exit();
+	return (dispatch: Function, getState: Function) => {
+		const workflow = getWorkflow(getState(), project.id);
+		workflow.stop();
 
-    return {
-		type: STOP_WORKFLOW,
-		payload: { project }
+	    dispatch({
+			type: STOP_WORKFLOW,
+			payload: { project }
+		});
 	};
 }
 
-export function workflowStarted(project, browserSyncInstance, workflowId) {
-	const portKey = browserSyncInstance.server._connectionKey;
-
+export function workflowStarted(project, workflow) {
 	return {
 		type: WORKFLOW_STARTED,
 		payload: {
-			workflowId,
 			project,
-			ip: browserSyncInstance.utils.devIp[0],
-			port: portKey.slice(portKey.length-4)
+			workflow
 		}
 	};
 }
 
 export function workflowStopped() {
 	
+}
+
+export function startBuild(project) {
+	return (dispatch: Function, getState: Function) => {
+		const workflow = getWorkflow(getState(), project.id);
+		workflow.build(() => {
+			dispatch(buildComplete(project))
+		});
+
+		dispatch({
+			type: START_BUILD,
+			payload: project
+		});
+	}
+}
+
+export function buildComplete(project) {
+	return {
+		type: BUILD_COMPLETE,
+		payload: project
+	}
+}
+
+
+function getWorkflow(state, id) {
+	return state.workflows.filter(
+		workflow => workflow.projectId == id
+	)[0];
 }
