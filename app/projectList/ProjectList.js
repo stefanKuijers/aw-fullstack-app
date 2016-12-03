@@ -30,7 +30,7 @@ export default class ProjectList extends Component {
 		removeLoader();
 		const actions = { 
 			toggleProject: this.props.toggleProject,
-			buildProject: this.props.buildProject,
+			startBuild: this.props.startBuild,
 			deleteProject: this.props.deleteProject
 		};
 		return (
