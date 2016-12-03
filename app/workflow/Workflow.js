@@ -2,42 +2,44 @@
 export default class Workflow {
 
 	constructor(project, projectConfig, callback) {
-		console.warn(
-			'USING GLOBAL CONFIG.',
-			'This needs to be refactored to make multiple workflows run next to eachother'
-		);
-
-		config.load(JSON.stringify(projectConfig));
+		this.config = require('./gulpfile.js/config.js')(gulp, WORKFLOW_PLUGINS);
+		this.config.load(JSON.stringify(projectConfig));
 
 		this.id = Date.now();
 		this.projectId = project.id;
 		this.configId = projectConfig.id;
 
-		this.start(callback);
+		this.start(project.name, callback);
 
 		return this;
 	}
 
-	start(callback) {
-		this.browserSync = config.browserSync.task((e, browserSyncInstance) => {
-			const portKey = browserSyncInstance.server._connectionKey;
-			this.server = {
-				ip: browserSyncInstance.utils.devIp[0],
-				port: portKey.slice(portKey.length-4)
-			};
+	start(serverName, callback) {
+		console.log(serverName, typeof callback);
+		this.browserSync = this.config.browserSync.task(
+			serverName, 
+			(e, browserSyncInstance) => {
+				const portKey = browserSyncInstance.server._connectionKey;
+				
+				this.server = {
+					ip: browserSyncInstance.utils.devIp[0],
+					port: portKey.slice(portKey.length-4)
+				};
 
-			callback(this);
-		});
+				console.log('start cb', typeof callback);
+				callback(this);
+			}
+		);
 
-		if (config.watch.enabled) {this.watch = config.watch.task();}
+		if (this.config.watch.enabled) {this.watch = this.config.watch.task();}
 
 		this.build();
 	}
 
-	build(callback) {
-		if (config.dependencyManagement.enabled) {config.dependencyManagement.task()}
-		if (config.sass.enabled) {config.sass.task()}
-		if (config.javascript.enabled) {config.javascript.task()}
+	build(callback = Function) {
+		if (this.config.dependencyManagement.enabled) {this.config.dependencyManagement.task()}
+		if (this.config.sass.enabled) {this.config.sass.task()}
+		if (this.config.javascript.enabled) {this.config.javascript.task()}
 
 		setTimeout(() => {
 			callback();
@@ -45,14 +47,9 @@ export default class Workflow {
 	}
 
 	stop() {
-		console.warn(
-			'STOPPING GLOBAL BS',
-			'Has workflow needs refactor to be able to run multiple instances'
-		);
-		plugin.browserSync.exit();
-		// this.browserSync.exit();
+		this.browserSync.exit();
 
-		if (config.watch.enabled) {
+		if (this.config.watch.enabled) {
 	    	this.watch.close();
 	    }
 	}

@@ -1,10 +1,5 @@
 
 module.exports = function(gulp, plugin) {
-    // require the config file
-    var gulpConfig = require('./config.json');
-    gulpConfig.javascript = gulpConfig.javascript || {};
-    gulpConfig.sass = gulpConfig.sass || {};
-    gulpConfig.bower = gulpConfig.bower || {};
 
     /*
         helper functions
@@ -81,7 +76,6 @@ module.exports = function(gulp, plugin) {
             }
         }
     };
-    config.load(gulpConfig);
 
     return config;
 };
