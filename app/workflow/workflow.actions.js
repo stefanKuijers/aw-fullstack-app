@@ -42,7 +42,10 @@ export function stopWorkflow(project) {
 
 	    dispatch({
 			type: STOP_WORKFLOW,
-			payload: { project }
+			payload: {
+				project, 
+				workflow
+			}
 		});
 	};
 }
