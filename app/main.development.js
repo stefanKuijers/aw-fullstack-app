@@ -46,7 +46,10 @@ app.on('ready', async () => {
     backgroundColor: '#fac415',
     width: 700,
     height: 1024,
-    frame: false
+    frame: false, 
+    webPreferences: {
+      devTools: true
+    }
   });
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);
@@ -54,6 +57,7 @@ app.on('ready', async () => {
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
     mainWindow.focus();
+    mainWindow.webContents.openDevTools();
   });
 
   mainWindow.on('closed', () => {

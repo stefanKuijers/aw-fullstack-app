@@ -105,8 +105,17 @@ export function stateStorageMiddleware({getState}) {
   return (next) => (action) => {
     const result = next(action);
 
-    if (action.type === SAVE_STATE) {
-    	saveState(action.payload, getState);
+    switch(action.type) {
+	    case SAVE_STATE:
+	    	saveState(action.payload, getState);
+	    	break;
+
+	    default:
+	    	if (process.env.NODE_ENV != 'development') {
+	    		console.log(action.type, getState());
+	    	}
+	    	break;
+    	
     }
 
     return result;
