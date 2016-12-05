@@ -6,3 +6,21 @@
   font-size: 4rem;
 }
 
+.buttonListItem {
+	width: 100% !important;
+	height: auto !important;
+	padding: 0 !important;
+	text-align: left;
+}
+
+.buttonListItem > div > span {
+	display: none !important;
+}
+
+.listItem {
+	width: 100% !important;
+}
+
+.iconMenu {
+	width: 100%;
+}

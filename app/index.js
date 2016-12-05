@@ -10,7 +10,6 @@ import configureStore from './app/store/configureStore';
 import {fetchProjects} from './projectList/project.actions';
 import {fetchConfig} from './config/config.actions';
 
-
 const store = configureStore();
 const history = syncHistoryWithStore(hashHistory, store);
 

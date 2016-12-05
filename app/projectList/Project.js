@@ -41,13 +41,18 @@ export default class Project extends Component {
 			<ListItem
 				leftAvatar={<Avatar icon={<FileFolder />} />}
 				rightIconButton={
-					<IconMenu iconButtonElement={iconButtonElement}>
+					<IconMenu 
+						iconButtonElement={iconButtonElement}
+						anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+						targetOrigin={{horizontal: 'right', vertical: 'top'}}
+					>
 					    <MenuItem onTouchTap={() => {this.props.actions.toggleProject(project)}}>{this.stateToggleLabel(project)}</MenuItem>
+					    <MenuItem onTouchTap={() => {this.props.actions.startBuild(project)}}>Build</MenuItem>
 					    <MenuItem disabled={project.running}>
 					    	<Link to={`/config/${project.configId}`} style={linkStyle}>Options</Link>
 					    </MenuItem>
 					    <Divider />
-					    <MenuItem>Delete</MenuItem>
+					    <MenuItem onTouchTap={() => {this.props.actions.deleteProject(project)}}>Delete</MenuItem>
 					</IconMenu>
 				}
 				primaryText={project.name}

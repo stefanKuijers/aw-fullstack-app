@@ -2,6 +2,7 @@
 import storage from 'electron-json-storage';
 
 export const SAVE_STATE = 'SAVE_STATE';
+export const STATE_SAVED = 'STATE_SAVED';
 
 const defaultData = {
 	projects: [
@@ -101,22 +102,20 @@ export function getStoredState(key, callback) {
 	});
 }
 
-export function stateStorageMiddleware({getState}) {
+export function stateStorageMiddleware(store) {
   return (next) => (action) => {
     const result = next(action);
 
     switch(action.type) {
 	    case SAVE_STATE:
-	    	saveState(action.payload, getState);
+	    	saveState(action.payload, store);
 	    	break;
 
 	    default:
 	    	if (process.env.NODE_ENV != 'development') {
-	    		console.log(action.type, getState());
+	    		console.log(action.type, store);
 	    	}
 	    	break;
-    	
-    }
 
     return result;
   };
@@ -136,17 +135,22 @@ function verifyData(key, data) {
 
 
 
-function saveState(key, getState) {
+function saveState(key, store) {
 	if (saveStateDebounce) clearTimeout(saveStateDebounce);
 
 	saveStateDebounce = setTimeout(() => {
-		const state = getState();
+		const state = store.getState();
 
-		storage.set(key, state[key], function(error) {
-			if (error) throw error;
-			
-			saveStateDebounce = 0;
+		storage.set('projects', state['projects'], function(error) { if (error) throw error; });
+		storage.set('configs', state['configs'], function(error) { 
+			if (error) throw error; 
+
+			store.dispatch({
+				type: STATE_SAVED
+			});
 		});
+
+		saveStateDebounce = 0;
 	}, 1500);
 }
 

@@ -7,11 +7,20 @@
 /*
     Requires
 */
-// all the node modules which we depend on
 const gulp = require('gulp');
+const plugin = require('./plugin.js');
 
-const plugin = require('./workflow/gulpfile.js/plugin.js')();
-let config = require('./workflow/gulpfile.js/config.js')(gulp, plugin);
+/*
+	Config
+*/
+let config = require('./config.js')(gulp, plugin);
+let gulpConfig = require('./config.json');
+
+gulpConfig.javascript = gulpConfig.javascript || {};
+gulpConfig.sass = gulpConfig.sass || {};
+gulpConfig.bower = gulpConfig.bower || {};
+
+config.load(gulpConfig);
 
 
 /* 
@@ -53,4 +62,3 @@ gulp.task(
     'build', 
     buildTasks
 );
-
