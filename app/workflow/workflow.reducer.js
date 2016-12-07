@@ -1,5 +1,5 @@
 
-import { START_WORKFLOW, STOP_WORKFLOW } from './workflow.actions';
+import { WORKFLOW_CREATED, WORKFLOW_STARTED } from './workflow.actions';
 import { deleteArrayItem, getById } from '../utils/reducer.js';
 
 export default function projects(
@@ -7,16 +7,15 @@ export default function projects(
 	action: Object
 ) {
 	switch (action.type) {
-		case START_WORKFLOW:
+		case WORKFLOW_CREATED:
 			return [ ...state, action.payload.workflow];
 			break;
 
-	    case STOP_WORKFLOW:
-	    	return deleteArrayItem(
-	    		state, 
-	    		state.indexOf(action.payload.workflow)
-	    	);
-	}
+		case WORKFLOW_STARTED:
+			console.log('started', action.payload);
+			return state;
+			break;	
 
-	return state;
+		default: return state;
+	}
 }

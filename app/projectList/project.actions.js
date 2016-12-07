@@ -1,7 +1,7 @@
 // @flow
 import { getStoredState, SAVE_STATE } from '../app/stateStorage';
 import { fetchConfig } from '../config/config.actions';
-import { initiateWorkflow, stopWorkflow } from '../workflow/workflow.actions';
+import { startWorkflow, stopWorkflow } from '../workflow/workflow.actions';
 
 export const RECIEVED_PROJECTS = 'RECIEVED_PROJECTS';
 export const SET_PROJECT_NAME = 'SET_PROJECT_NAME';
@@ -66,12 +66,10 @@ export function setProjectName(id, name) {
 
 export function toggleProject(project) {
 	return (dispatch: Function, getState: Function) => {
-		const config = getState().configs[project.configId];
-
 		if (project.running) {
-			dispatch(stopWorkflow(project, config))
+			dispatch(stopWorkflow(project))
 		} else {
-			dispatch(initiateWorkflow(project, config))
+			dispatch(startWorkflow(project))
 		}
 	};
 }

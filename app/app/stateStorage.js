@@ -110,13 +110,8 @@ export function stateStorageMiddleware(store) {
 	    case SAVE_STATE:
 	    	saveState(action.payload, store);
 	    	break;
-
-	    default:
-	    	if (process.env.NODE_ENV != 'development') {
-	    		console.log(action.type, store);
-	    	}
-	    	break;
-
+	}
+	
     return result;
   };
 };

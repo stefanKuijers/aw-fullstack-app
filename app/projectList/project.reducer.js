@@ -1,6 +1,6 @@
 
 import { RECIEVED_PROJECTS, SET_PROJECT_NAME, ADD_PROJECT, DELETE_PROJECT } from './project.actions';
-import { START_WORKFLOW, WORKFLOW_STARTED, STOP_WORKFLOW } from '../workflow/workflow.actions';
+import { WORKFLOW_CREATED, START_WORKFLOW, WORKFLOW_STARTED, STOP_WORKFLOW } from '../workflow/workflow.actions';
 import { RECIEVED_CONFIGS, SET_ROOT_PROPERTY } from '../config/config.actions';
 import { deleteArrayItem, getById, updateArrayItem, deepCopy } from '../utils/reducer.js';
 
@@ -18,14 +18,19 @@ export default function projects(
 
 	switch (action.type) {
 		case RECIEVED_PROJECTS:
+			// resetting the workflowIds as workflows cannot be persisted to state and are discared at app shutdown
+			for (var i = payload.length - 1; i >= 0; i--) {
+				payload[i].workflowId = undefined;
+			}
 			return [...payload];
 
-		case RECIEVED_CONFIGS:
-			newState.map((project) => { 
-				return project.name = payload.configs[project.configId].name;
-			});
+		// probably not needed now the state persitence works
+		// case RECIEVED_CONFIGS:
+		// 	for (var i = newState.length - 1; i >= 0; i--) {
+		// 		newState[i].name = payload.configs[project.configId].name;
+		// 	}
 
-			return newState;
+		// 	return newState;
 
 		case SET_ROOT_PROPERTY:			
 			if (payload.key === 'name') {
@@ -48,12 +53,20 @@ export default function projects(
 
 			return updateArrayItem(newState, index, updatedProject);
 
+		case WORKFLOW_CREATED: 
+			project = getById(newState, payload.project.id);
+			index = newState.indexOf(project);
+			updatedProject = Object.assign({}, project, {
+				workflowId: payload.workflow.id
+			});
+
+			return updateArrayItem(newState, index, updatedProject);
+
 		case WORKFLOW_STARTED:
 			project = getById(newState, payload.project.id);
 			index = newState.indexOf(project);
 			updatedProject = Object.assign({}, project, {
-				state: 'running',
-				workflowId: payload.workflowId
+				state: 'running'
 			});
 
 			return updateArrayItem(newState, index, updatedProject);
@@ -63,7 +76,6 @@ export default function projects(
 			index = newState.indexOf(project);
 			updatedProject = Object.assign({}, project, {
 				state: 'stopped',
-				workflowId: null,
 				running: false
 			});
 

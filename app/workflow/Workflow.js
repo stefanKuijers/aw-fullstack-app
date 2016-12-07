@@ -6,19 +6,18 @@ export default class Workflow {
 		this.config.load(JSON.stringify(projectConfig));
 
 		this.id = Date.now();
+		this.name = project.name;
 		this.projectId = project.id;
 		this.configId = projectConfig.id;
-
-		this.start(project.name, callback);
 
 		return this;
 	}
 
-	start(serverName, callback) {
-		console.log(serverName, typeof callback);
+	start(callback) {
 		this.browserSync = this.config.browserSync.task(
-			serverName, 
+			this.name, 
 			(e, browserSyncInstance) => {
+
 				const portKey = browserSyncInstance.server._connectionKey;
 				
 				this.server = {
@@ -26,14 +25,11 @@ export default class Workflow {
 					port: portKey.slice(portKey.length-4)
 				};
 
-				console.log('start cb', typeof callback);
 				callback(this);
 			}
 		);
 
 		if (this.config.watch.enabled) {this.watch = this.config.watch.task();}
-
-		this.build();
 	}
 
 	build(callback = Function) {
@@ -47,6 +43,7 @@ export default class Workflow {
 	}
 
 	stop() {
+		console.log('Workflow@stop', this);
 		this.browserSync.exit();
 
 		if (this.config.watch.enabled) {

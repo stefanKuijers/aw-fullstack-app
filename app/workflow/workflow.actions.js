@@ -7,37 +7,31 @@ export const START_WORKFLOW = 'START_WORKFLOW';
 export const STOP_WORKFLOW = 'STOP_WORKFLOW';
 export const WORKFLOW_STARTED = 'WORKFLOW_STARTED';
 export const WORKFLOW_STOPPED = 'WORKFLOW_STOPPED';
+export const WORKFLOW_CREATED = 'WORKFLOW_CREATED';
 
 export const START_BUILD = 'START_BUILD';
 export const BUILD_COMPLETE = 'BUILD_COMPLETE';
 export const BUILD_ERROR = 'BUILD_ERROR';
 
 
-export function initiateWorkflow(project, projectConfig) {
+export function startWorkflow(project) {
 	return (dispatch: Function, getState: Function) => {
-		const state = getState();
-		const workflow = new Workflow(
-			project,
-			projectConfig,
-			(workflow) => {
-				dispatch(workflowStarted(project, workflow))
-			}
-		);
+		const workflow = getWorkflow(project, dispatch, getState);
+		workflow.start( (workflow) => {
+			dispatch(workflowStarted(project.id, workflow))
+		});
+		dispatch(startBuild(project.id, workflow));
 
-		dispatch(startWorkflow(project, workflow));
-	};
-}
-
-export function startWorkflow(project, workflow) {
-	return {
-		type: START_WORKFLOW,
-		payload: { project, workflow }
+		dispatch({
+			type: START_WORKFLOW,
+			payload: { project, workflow }
+		});
 	};
 }
 
 export function stopWorkflow(project) {
 	return (dispatch: Function, getState: Function) => {
-		const workflow = getWorkflow(getState(), project.id);
+		const workflow = getWorkflow(project, dispatch, getState);
 		workflow.stop();
 
 	    dispatch({
@@ -50,13 +44,19 @@ export function stopWorkflow(project) {
 	};
 }
 
-export function workflowStarted(project, workflow) {
-	return {
-		type: WORKFLOW_STARTED,
-		payload: {
-			project,
-			workflow
-		}
+export function workflowStarted(projectId, workflow) {
+	return (dispatch: Function, getState: Function) => {
+		const project = getState().projects.filter(
+			item => item.id == projectId
+		)[0];
+
+		dispatch({
+			type: WORKFLOW_STARTED,
+			payload: {
+				project,
+				workflow
+			}
+		});
 	};
 }
 
@@ -64,11 +64,16 @@ export function workflowStopped() {
 	
 }
 
-export function startBuild(project) {
+export function startBuild(projectId, workflow) {
+	console.log('startbuild', projectId);
 	return (dispatch: Function, getState: Function) => {
-		const workflow = getWorkflow(getState(), project.id);
+		const project = getState().projects.filter(
+			item => item.id == projectId
+		)[0];
+		const workflow = workflow || getWorkflow(project, dispatch, getState);
+		console.log('startBuild', workflow);
 		workflow.build(() => {
-			dispatch(buildComplete(project))
+			dispatch(buildComplete(project.id))
 		});
 
 		dispatch({
@@ -78,16 +83,44 @@ export function startBuild(project) {
 	}
 }
 
-export function buildComplete(project) {
-	return {
-		type: BUILD_COMPLETE,
-		payload: project
+export function buildComplete(projectId) {
+	return (dispatch: Function, getState: Function) => {
+		const project = getState().projects.filter(
+			item => item.id == projectId
+		)[0];
+
+		dispatch({
+			type: BUILD_COMPLETE,
+			payload: project
+		});
 	}
 }
 
 
-function getWorkflow(state, id) {
-	return state.workflows.filter(
-		workflow => workflow.projectId == id
-	)[0];
+export function workflowCreated(workflow, project) {
+	return {
+		type: WORKFLOW_CREATED,
+		payload: {
+			workflow,
+			project
+		}
+	};
+}
+
+function getWorkflow(project, dispatch, getState) {
+	let workflow;
+
+	if (project.workflowId) {
+		workflow = getState().workflows.filter(
+			item => item.id == project.workflowId
+		)[0];
+	} else {
+		workflow = new Workflow(
+			project, 
+			getState().configs[project.configId]
+		);
+		dispatch(workflowCreated(workflow, project));
+	}
+
+	return workflow;
 }
