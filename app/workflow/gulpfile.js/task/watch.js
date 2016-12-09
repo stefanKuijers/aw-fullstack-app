@@ -5,7 +5,7 @@ module.exports = function( gulp, plugin, config ) {
     return function() {
         function reload(delay) {
             setTimeout( function() {
-                plugin.browserSync.reload();
+                config.broswerSyncInstance.reload();
             }, delay);
         }
         
@@ -37,7 +37,7 @@ module.exports = function( gulp, plugin, config ) {
                             plugin.vinylFile.readSync(vinyl.path)
                                 .pipe(plugin.vinylSourceStream(vinyl.path))
                                 .pipe(plugin.vinylBuffer())
-                                .pipe(plugin.browserSync.stream());
+                                .pipe(config.broswerSyncInstance.stream());
                         // }
                     break;
 

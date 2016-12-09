@@ -19,9 +19,10 @@ module.exports = function( gulp, plugin, config ) {
             options.proxy = config.server.target;
         }
 
-        const broswerSyncInstance = plugin.browserSync.create(serverName);
-        broswerSyncInstance.init(options, callback);
+        config.broswerSyncInstance = plugin.browserSync.create(serverName);
+        config.broswerSyncInstance.init(options, callback);
+
         
-        return broswerSyncInstance;
+        return config.broswerSyncInstance;
     };
 };
