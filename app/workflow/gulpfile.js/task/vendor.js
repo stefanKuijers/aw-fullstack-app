@@ -11,6 +11,7 @@ module.exports = function (gulp, plugin, config) {
                 // setup overides to fix broken dependencies in bower
                 overrides: config.dependencyManagement.overrides
             }))
+            .pipe(plugin.debug())
 
             // creating vendor.min.js from all js
             .pipe(filterJS)

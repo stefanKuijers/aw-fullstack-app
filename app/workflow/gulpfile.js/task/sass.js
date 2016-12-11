@@ -21,6 +21,6 @@ module.exports = function (gulp, plugin, config) {
             // write what you have in the following directory
             .pipe( gulp.dest( config.sass.outputDir ) )
             // let browserSync stream this file content to all connected browsers
-            .pipe( plugin.browserSync.stream({match: '**/*.css'}));
+            .pipe( config.broswerSyncInstance.stream({match: '**/*.css'}));
     };
 };
