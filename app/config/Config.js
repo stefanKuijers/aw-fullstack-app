@@ -30,7 +30,7 @@ class Config extends Component {
 		    properties: ['openDirectory']
 		}, (paths) => {
 		  	if (paths.length) {
-			  	updateCallback('path', undefined, paths[0])
+			  	updateCallback('path', undefined, paths[0]+'\\')
 		  	}
 		});
 	}
