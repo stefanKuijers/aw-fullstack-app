@@ -1,12 +1,15 @@
 // @flow
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import styles from './Config.css';
+import { remote } from 'electron';
+
 import {Card, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { List, ListItem } from 'material-ui/List';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
+
+import styles from './Config.css';
 import Feature from './feature/Feature';
 
 // only in debug
@@ -15,10 +18,22 @@ const removeLoader = function () {
 	element.className = 'app-loaded';
 }
 
+const dialog = remote.dialog;
+
 class Config extends Component {
   	componentWillMount() {
   		this.props.fetchConfig(this.props.params.configId);
 	};
+
+	openDirectorySelect(updateCallback) {
+		dialog.showOpenDialog({
+		    properties: ['openDirectory']
+		}, (paths) => {
+		  	if (paths.length) {
+			  	updateCallback('path', undefined, paths[0])
+		  	}
+		});
+	}
 
 	render() {
 		if (this.props.configs[this.props.configs.currentConfigId]) {
@@ -56,7 +71,8 @@ class Config extends Component {
 
 								    <ListItem key="path" className={styles.listItem}>
 										<TextField 
-											onChange={(e, val) => {actions.updateProperty('path', undefined,   val)}}
+											onTouchTap={() => {this.openDirectorySelect(actions.updateProperty)}}
+											onChange={(e, val) => {actions.updateProperty('path', undefined, val)}}
 											value={config.path}
 											style={{width: '100%'}}
 											hintText="Absolute Path to Project Folder"

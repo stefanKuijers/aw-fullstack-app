@@ -55,9 +55,9 @@ export default class ProjectList extends Component {
 							</IconButton>
 						}
 					>
-						<MenuItem primaryText="New Configuration" onTouchTap={this.props.addProject} />
-						<MenuItem primaryText="Import From Server" />
-						<MenuItem primaryText="Import From File" />
+						<MenuItem primaryText="Create New" onTouchTap={this.props.addProject} />
+						<MenuItem primaryText="Add Existing Project" />
+						<MenuItem primaryText="Create From Template" />
 					</IconMenu>
 
 			    </List>

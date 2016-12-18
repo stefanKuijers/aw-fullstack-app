@@ -15,7 +15,7 @@ import { deepCopy } from '../utils/reducer.js';
 
 
 const newConfig = {
-	name: '...',
+	name: '',
 	server: {
 		type: '',
 		target: ''

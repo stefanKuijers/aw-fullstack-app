@@ -1,4 +1,6 @@
 // @flow
+import { push } from 'react-router-redux';
+
 import { getStoredState, SAVE_STATE } from '../app/stateStorage';
 import { fetchConfig, deleteConfig } from '../config/config.actions';
 import { startWorkflow, stopWorkflow } from '../workflow/workflow.actions';
@@ -41,13 +43,14 @@ export function addProject() {
 			type: ADD_PROJECT,
 			payload: {
 				id,
-				name: '...',
+				name: '',
 				url: null,
 				state: 'setting up',
 				running: false,
 				configId: id
 			}
 		});
+		dispatch(push(`/config/${id}`));
 		dispatch({type: SAVE_STATE});
 	}
 }
