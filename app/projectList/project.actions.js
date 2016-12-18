@@ -1,6 +1,6 @@
 // @flow
 import { getStoredState, SAVE_STATE } from '../app/stateStorage';
-import { fetchConfig } from '../config/config.actions';
+import { fetchConfig, deleteConfig } from '../config/config.actions';
 import { startWorkflow, stopWorkflow } from '../workflow/workflow.actions';
 
 export const RECIEVED_PROJECTS = 'RECIEVED_PROJECTS';
@@ -58,6 +58,7 @@ export function deleteProject(project) {
 			type: DELETE_PROJECT,
 			payload: project
 		});
+		dispatch(deleteConfig(project.configId));
 
 		dispatch({type: SAVE_STATE});
 	}

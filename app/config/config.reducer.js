@@ -1,5 +1,5 @@
 
-import { ADD_PROJECT, DELETE_PROJECT} from '../projectList/project.actions';
+import { ADD_PROJECT } from '../projectList/project.actions';
 import { 
 	RECIEVED_CONFIGS, 
 	SET_CURRENT_CONFIG_ID,
@@ -8,7 +8,8 @@ import {
 	SET_GLOB,
 	ADD_GLOB,
 	REMOVE_GLOB,
-	MOVE_GLOB
+	MOVE_GLOB,
+	DELETE_CONFIG
 } from './config.actions';
 import { deepCopy } from '../utils/reducer.js';
 
@@ -89,8 +90,8 @@ export default function configs(
 			newState[action.payload.configId] = Object.assign({}, deepCopy(newConfig));
 			return Object.assign({}, newState);
 
-		case DELETE_PROJECT:
-			delete newState[action.payload.configId];
+		case DELETE_CONFIG:
+			delete newState[action.payload];
 			return Object.assign({}, newState);
 
 		default: return state;

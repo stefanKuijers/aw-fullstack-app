@@ -12,6 +12,7 @@ export const SET_GLOB = 'SET_GLOB';
 export const ADD_GLOB = 'ADD_GLOB';
 export const REMOVE_GLOB = 'REMOVE_GLOB';
 export const MOVE_GLOB = 'MOVE_GLOB';
+export const DELETE_CONFIG = 'DELETE_CONFIG';
 
 
 export function fetchConfig(id) {
@@ -113,5 +114,12 @@ export function setRootProperty(key, newValue, projectId) {
 	return {
 		type: SET_ROOT_PROPERTY,
 		payload: { key, newValue, projectId }
+	};
+}
+
+export function deleteConfig(configId) {
+	return {
+		type: DELETE_CONFIG,
+		payload: configId
 	};
 }
