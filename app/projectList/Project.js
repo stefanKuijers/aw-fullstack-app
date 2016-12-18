@@ -49,7 +49,12 @@ export default class Project extends Component {
 					    <MenuItem onTouchTap={() => {this.props.actions.toggleProject(project)}}>{this.stateToggleLabel(project)}</MenuItem>
 					    <MenuItem onTouchTap={() => {this.props.actions.startBuild(project.id)}}>Build</MenuItem>
 					    <MenuItem disabled={project.running}>
-					    	<Link to={`/config/${project.configId}`} style={linkStyle}>Options</Link>
+					    	<Link 
+					    		to={`/config/${project.configId}`} 
+					    		style={linkStyle}
+					    		className={styles.link}
+					    		disabled={project.running}
+					    	>Options</Link>
 					    </MenuItem>
 					    <Divider />
 					    <MenuItem onTouchTap={() => {this.props.actions.deleteProject(project)}}>Delete</MenuItem>
