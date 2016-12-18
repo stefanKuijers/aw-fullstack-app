@@ -13,7 +13,7 @@ export function fetchProjects(root) {
 		let state = getState();
 
 		if (!getState || state.projects.length === 0) {
-			getStoredState('projects',  function(projects) {
+			getStoredState('projects', function (projects) {
 				dispatch(recievedProjects(projects));
 			});
 		}
@@ -21,6 +21,12 @@ export function fetchProjects(root) {
 }
 
 export function recievedProjects(projects) {
+	// resetting state in case the app was forced closed meanwhile running a workflow
+	for (var i = projects.length - 1; i >= 0; i--) {
+		projects[i].state = 'ready to be started';
+		projects[i].running = false;
+	}
+
 	return {
 		type: RECIEVED_PROJECTS,
 		payload: projects
