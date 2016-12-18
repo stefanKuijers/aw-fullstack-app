@@ -3,7 +3,7 @@ export default class Workflow {
 
 	constructor(project, projectConfig, callback) {
 		this.config = require('./gulpfile.js/config.js')(gulp, WORKFLOW_PLUGINS);
-		this.config.load(JSON.stringify(projectConfig));
+		this.loadConfig(projectConfig);
 
 		this.id = Date.now();
 		this.name = project.name;
@@ -43,11 +43,16 @@ export default class Workflow {
 	}
 
 	stop() {
-		console.log('Workflow@stop', this);
 		this.browserSync.exit();
 
 		if (this.config.watch.enabled) {
 	    	this.watch.close();
 	    }
+	}
+
+	loadConfig(projectConfig) {
+		this.config.load(
+			JSON.stringify(projectConfig)
+		);
 	}
 }

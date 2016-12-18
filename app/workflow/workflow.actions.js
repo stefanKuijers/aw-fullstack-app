@@ -65,13 +65,11 @@ export function workflowStopped() {
 }
 
 export function startBuild(projectId, workflow) {
-	console.log('startbuild', projectId);
 	return (dispatch: Function, getState: Function) => {
 		const project = getState().projects.filter(
 			item => item.id == projectId
 		)[0];
 		const workflow = workflow || getWorkflow(project, dispatch, getState);
-		console.log('startBuild', workflow);
 		workflow.build(() => {
 			dispatch(buildComplete(project.id))
 		});
@@ -108,16 +106,18 @@ export function workflowCreated(workflow, project) {
 }
 
 function getWorkflow(project, dispatch, getState) {
+	const config = getState().configs[project.configId];
 	let workflow;
 
 	if (project.workflowId) {
 		workflow = getState().workflows.filter(
 			item => item.id == project.workflowId
 		)[0];
+		workflow.loadConfig(config);
 	} else {
 		workflow = new Workflow(
 			project, 
-			getState().configs[project.configId]
+			config
 		);
 		dispatch(workflowCreated(workflow, project));
 	}
