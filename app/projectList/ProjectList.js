@@ -9,12 +9,14 @@ import AddIcon from 'material-ui/svg-icons/content/add';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import styles from './ProjectList.css';
 import Project from './Project.js';
 
 const fileSystem = require('fs'); 
-console.log('PATH', fileSystem);
 const dialog = remote.dialog;
 const removeLoader = function () {
 	const element = document.getElementById('app-container');
@@ -22,7 +24,28 @@ const removeLoader = function () {
 }
 
 
+
 export default class ProjectList extends Component {
+	state = {
+		createProjectModal: false,
+		addExistingProjectModal: false,
+		path: undefined
+	};
+
+	toggleModalBoxState = (modalName = null, path) => {
+		if (modalName === null) {
+			this.state = {
+				createProjectModal: false,
+				addExistingProjectModal: false
+			};
+		} else {
+			this.state[modalName] = !this.state[modalName];
+		}
+		this.state.path = path;
+
+		this.setState(this.state);
+	};
+
 	createListItems(actions) {
 		if (this.props.projects) {
 			return this.props.projects.map((project, index) => {
@@ -31,31 +54,53 @@ export default class ProjectList extends Component {
 		}
 	}
 
-	addExistingProject() {
+	promptForFolder(action, actions) {
 		dialog.showOpenDialog({
 		    properties: ['openDirectory']
 		}, (paths) => {
 		  	if (paths.length) {
-		  		console.log(`${paths[0]}/bower.json`);
-		  		fileSystem.exists(`${paths[0]}/bower.json`, function(exists) { 
-		  			console.log(exists)
-				    if(exists) {
-        				console.log('File exists');
-				    } else {
-				        console.log('NO FILE');
-				    }
-				}); 
+		  		fileSystem.exists(
+		  			`${paths[0]}\\.workflowconfig`, 
+		  			(exists) => {this.handleProjectCreation(action, actions, exists, paths[0])}); 
 		  	}
 		});
 	}
 
+	handleProjectCreation(action, actions, workflowconfigExists, path) {
+		if (action === 'createNew' && workflowconfigExists) {
+			this.toggleModalBoxState('addExistingProjectModal', path);
+		} 
+
+		// we want to create a new project and add its config. Lets do it.
+		if (action === 'createNew' && !workflowconfigExists) {
+			actions.createProject(path);
+		} 
+
+		// we want to add an existing project and there is a file to import. lets do it
+		if (action === 'addExistingProject' && workflowconfigExists) {
+			actions.addExistingProject(path)
+		} 
+
+		// we want to import a project but there is not file to import. 
+		if (action === 'addExistingProject' && !workflowconfigExists) {
+			this.toggleModalBoxState('createProjectModal', path);
+		} 
+	}
+
 	render() {
 		removeLoader();
+
 		const actions = { 
 			toggleProject: this.props.toggleProject,
 			startBuild: this.props.startBuild,
-			deleteProject: this.props.deleteProject
+			deleteProject: this.props.deleteProject,
+			createProject: this.props.createProject,
+			addExistingProject: this.props.addExistingProject
 		};
+		const modalCancelButton = <FlatButton label="Cancel" onTouchTap={() => {this.toggleModalBoxState()}} />;
+		const createProjectModalButton = <FlatButton label="Create new project" primary={true} onTouchTap={() => {actions.createProject(this.state.path); this.toggleModalBoxState()}}/>;
+		const addExistingProjectModalButton = <FlatButton label="Add existing project" primary={true} onTouchTap={() => {actions.addExistingProject(this.state.path); this.toggleModalBoxState()}}/>;
+
 		return (
 		    <article className="page">
 	        	<List>
@@ -78,12 +123,30 @@ export default class ProjectList extends Component {
 							</IconButton>
 						}
 					>
-						<MenuItem primaryText="Create New" onTouchTap={this.props.addProject} />
-						<MenuItem primaryText="Add Existing Project" onTouchTap={() => {this.addExistingProject()}} />
+						<MenuItem primaryText="Create New" onTouchTap={() => {this.promptForFolder('createNew', actions)}} />
+						<MenuItem primaryText="Add Existing Project" onTouchTap={() => {this.promptForFolder('addExistingProject', actions)}} />
 						<MenuItem primaryText="Create From Template" />
 					</IconMenu>
 
 			    </List>
+
+			    <Dialog
+		          title="Add Existing Project"
+		          actions={[modalCancelButton, addExistingProjectModalButton]}
+		          modal={false}
+		          open={this.state.addExistingProjectModal}
+		        >
+		          The folder you selected already contains a .workflowconfg file. Do you want to add this existing project to your project list?
+		        </Dialog>
+
+		        <Dialog
+		          title="Create New Project"
+		          actions={[modalCancelButton, createProjectModalButton]}
+		          modal={false}
+		          open={this.state.createProjectModal}
+		        >
+		          The folder you selected does not contain a .workflowconfg file. Do you want to create a new workflow project in this folder?
+		        </Dialog>
 		    </article>
 		);
 	}

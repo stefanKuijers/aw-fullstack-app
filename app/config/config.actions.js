@@ -6,13 +6,14 @@ export const RECIEVED_CONFIGS = 'RECIEVED_CONFIGS';
 export const SET_CURRENT_CONFIG_ID = 'SET_CURRENT_CONFIG_ID';
 export const SET_PROPERTY = 'SET_PROPERTY';
 export const SET_ROOT_PROPERTY = 'SET_ROOT_PROPERTY';
+export const DELETE_CONFIG = 'DELETE_CONFIG';
+export const CREATING_CONFIG = 'CREATING_CONFIG';
 
 // maybe features could have their own actions and reducure. Maybe even their own store
 export const SET_GLOB = 'SET_GLOB';
 export const ADD_GLOB = 'ADD_GLOB';
 export const REMOVE_GLOB = 'REMOVE_GLOB';
 export const MOVE_GLOB = 'MOVE_GLOB';
-export const DELETE_CONFIG = 'DELETE_CONFIG';
 
 
 export function fetchConfig(id) {
@@ -122,4 +123,14 @@ export function deleteConfig(configId) {
 		type: DELETE_CONFIG,
 		payload: configId
 	};
+}
+
+export function createConfig(path) {
+	return (dispatch: Function, getState: Function) => {
+
+		dispatch({
+			type: CREATING_CONFIG,
+			payload: path
+		});
+	}
 }

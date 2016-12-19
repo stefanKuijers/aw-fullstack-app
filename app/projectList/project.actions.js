@@ -2,7 +2,7 @@
 import { push } from 'react-router-redux';
 
 import { getStoredState, SAVE_STATE } from '../app/stateStorage';
-import { fetchConfig, deleteConfig } from '../config/config.actions';
+import { fetchConfig, deleteConfig, createConfig } from '../config/config.actions';
 import { startWorkflow, stopWorkflow } from '../workflow/workflow.actions';
 
 export const RECIEVED_PROJECTS = 'RECIEVED_PROJECTS';
@@ -36,23 +36,25 @@ export function recievedProjects(projects) {
 }
 
 
-export function addProject() {
-	return (dispatch: Function) => {
-		const id = Date.now();
-		dispatch({
-			type: ADD_PROJECT,
-			payload: {
-				id,
-				name: '',
-				url: null,
-				state: 'setting up',
-				running: false,
-				configId: id
-			}
-		});
-		dispatch(push(`/config/${id}`));
-		dispatch({type: SAVE_STATE});
-	}
+export function createProject(path) {
+	console.warn('createProject', path);
+	// return (dispatch: Function) => {
+	// 	const id = Date.now();
+	// 	dispatch({
+	// 		type: ADD_PROJECT,
+	// 		payload: {
+	// 			id,
+	// 			url: null,
+	// 			state: 'setting up',
+	// 			running: false,
+	// 			configId: id,
+	// 			workflowId: null
+	// 		}
+	// 	});
+	// 	dispatch(createConfig(id, path));
+	// 	dispatch(push(`/config/${id}`));
+	// 	dispatch({type: SAVE_STATE});
+	// }
 }
 
 export function deleteProject(project) {

@@ -1,5 +1,7 @@
 // @flow
 import React, { Component } from 'react';
+import { Link } from 'react-router';
+
 import {ListItem} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import FileFolder from 'material-ui/svg-icons/file/folder';
@@ -8,7 +10,6 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
-import { Link } from 'react-router';
 
 import styles from './Project.css';
 
