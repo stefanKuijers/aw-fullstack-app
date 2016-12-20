@@ -112,6 +112,10 @@ export function stateStorageMiddleware(store) {
     switch(action.type) {
 	    case SAVE_STATE:
 	    	saveState(action.payload, store);
+
+	    	if (action.payload === 'configs') {
+		    	dispatchWriteflowConfig(store);
+	    	}
 	    	break;
 
 	    case WRITE_WORKFLOWCONFIG:
@@ -156,8 +160,16 @@ function saveState(key, store) {
 	}, 1500);
 }
 
+function dispatchWriteflowConfig(store) {
+	const configs = store.getState().configs;
+
+	store.dispatch({
+		type: WRITE_WORKFLOWCONFIG,
+		payload: configs[configs.currentConfigId]
+	});
+}
+
 function writeWorkflowConfig(config, store) {
-	console.log('writeWorkflowConfig', config);
 	if (writeFileDebounce) clearTimeout(writeFileDebounce);
 
 	writeFileDebounce = setTimeout(() => {
