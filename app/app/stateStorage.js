@@ -1,8 +1,12 @@
 
 import storage from 'electron-json-storage';
 
+const jsonfile = require('jsonfile');
+
 export const SAVE_STATE = 'SAVE_STATE';
 export const STATE_SAVED = 'STATE_SAVED';
+export const WRITE_WORKFLOWCONFIG = 'WRITE_WORKFLOWCONFIG';
+export const WORKFLOWCONFIG_WRITTEN = 'WORKFLOWCONFIG_WRITTEN';
 
 const defaultData = {
 	projects: [
@@ -93,6 +97,7 @@ const defaultData = {
 	}
 };
 let saveStateDebounce = 0;
+let writeFileDebounce = 0;
 
 
 export function getStoredState(key, callback) {
@@ -109,6 +114,10 @@ export function stateStorageMiddleware(store) {
     switch(action.type) {
 	    case SAVE_STATE:
 	    	saveState(action.payload, store);
+	    	break;
+
+	    case WRITE_WORKFLOWCONFIG:
+	    	writeWorkflowConfig(action.payload, store);
 	    	break;
 	}
 	
@@ -146,6 +155,26 @@ function saveState(key, store) {
 		});
 
 		saveStateDebounce = 0;
+	}, 1500);
+}
+
+function writeWorkflowConfig(config, store) {
+	console.log('writeWorkflowConfig', config);
+	if (writeFileDebounce) clearTimeout(writeFileDebounce);
+
+	writeFileDebounce = setTimeout(() => {
+		jsonfile.writeFile(
+			`${config.path}.workflowconfig`,
+			config,
+			{spaces: 4},
+			() => {
+				store.dispatch({
+					type: WORKFLOWCONFIG_WRITTEN
+				});
+			}
+		);
+
+		writeFileDebounce = 0;
 	}, 1500);
 }
 

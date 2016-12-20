@@ -2,7 +2,7 @@
 import { push } from 'react-router-redux';
 
 import { getStoredState, SAVE_STATE } from '../app/stateStorage';
-import { fetchConfig, deleteConfig, createConfig } from '../config/config.actions';
+import { fetchConfig, deleteConfig, createConfig, loadExistingConfig } from '../config/config.actions';
 import { startWorkflow, stopWorkflow } from '../workflow/workflow.actions';
 
 export const RECIEVED_PROJECTS = 'RECIEVED_PROJECTS';
@@ -37,24 +37,22 @@ export function recievedProjects(projects) {
 
 
 export function createProject(path) {
-	console.warn('createProject', path);
-	// return (dispatch: Function) => {
-	// 	const id = Date.now();
-	// 	dispatch({
-	// 		type: ADD_PROJECT,
-	// 		payload: {
-	// 			id,
-	// 			url: null,
-	// 			state: 'setting up',
-	// 			running: false,
-	// 			configId: id,
-	// 			workflowId: null
-	// 		}
-	// 	});
-	// 	dispatch(createConfig(id, path));
-	// 	dispatch(push(`/config/${id}`));
-	// 	dispatch({type: SAVE_STATE});
-	// }
+	return (dispatch: Function) => {
+		const id = Date.now();
+		dispatch(addProject(id));
+		dispatch(createConfig(id, path));
+		dispatch(push(`/config/${id}`));
+		dispatch({type: SAVE_STATE});
+	}
+}
+
+export function addExistingProject(path) {
+	return (dispatch: Function) => {
+		const id = Date.now();
+		dispatch(addProject(id));
+		dispatch(loadExistingConfig(id, path));
+		dispatch({type: SAVE_STATE});
+	}
 }
 
 export function deleteProject(project) {
@@ -84,4 +82,18 @@ export function toggleProject(project) {
 			dispatch(startWorkflow(project))
 		}
 	};
+}
+
+export function addProject(id) {
+	return {
+		type: ADD_PROJECT,
+		payload: {
+			id,
+			url: null,
+			state: 'setting up',
+			running: false,
+			configId: id,
+			workflowId: null
+		}
+	}
 }

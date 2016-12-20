@@ -9,13 +9,16 @@ import {
 	ADD_GLOB,
 	REMOVE_GLOB,
 	MOVE_GLOB,
-	DELETE_CONFIG
+	CREATE_CONFIG,
+	DELETE_CONFIG,
+	EXISTING_CONFIG_LOADED
 } from './config.actions';
 import { deepCopy } from '../utils/reducer.js';
 
 
 const newConfig = {
 	name: '',
+	path: '',
 	server: {
 		type: '',
 		target: ''
@@ -86,12 +89,17 @@ export default function configs(
 			globs[payload.newIndex] = tmpGlob;
 			return Object.assign({}, newState);
 
-		case ADD_PROJECT:
-			newState[action.payload.configId] = Object.assign({}, deepCopy(newConfig));
+		case CREATE_CONFIG:
+			newState[payload.id] = Object.assign({}, deepCopy(newConfig));
+			newState[payload.id].path = payload.path; 
+			return Object.assign({}, newState);
+
+		case EXISTING_CONFIG_LOADED:
+			newState[payload.id] = Object.assign({}, payload.configData);
 			return Object.assign({}, newState);
 
 		case DELETE_CONFIG:
-			delete newState[action.payload];
+			delete newState[payload];
 			return Object.assign({}, newState);
 
 		default: return state;

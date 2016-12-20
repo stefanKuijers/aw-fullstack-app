@@ -1,5 +1,5 @@
 // @flow
-import { getStoredState, SAVE_STATE } from '../app/stateStorage';
+import { getStoredState, SAVE_STATE, WRITE_WORKFLOWCONFIG } from '../app/stateStorage';
 import { setProjectName } from '../projectList/project.actions';
 
 export const RECIEVED_CONFIGS = 'RECIEVED_CONFIGS';
@@ -7,13 +7,17 @@ export const SET_CURRENT_CONFIG_ID = 'SET_CURRENT_CONFIG_ID';
 export const SET_PROPERTY = 'SET_PROPERTY';
 export const SET_ROOT_PROPERTY = 'SET_ROOT_PROPERTY';
 export const DELETE_CONFIG = 'DELETE_CONFIG';
-export const CREATING_CONFIG = 'CREATING_CONFIG';
+export const CREATE_CONFIG = 'CREATE_CONFIG';
+export const EXISTING_CONFIG_LOADED = 'EXISTING_CONFIG_LOADED';
+
 
 // maybe features could have their own actions and reducure. Maybe even their own store
 export const SET_GLOB = 'SET_GLOB';
 export const ADD_GLOB = 'ADD_GLOB';
 export const REMOVE_GLOB = 'REMOVE_GLOB';
 export const MOVE_GLOB = 'MOVE_GLOB';
+
+const jsonfile = require('jsonfile');
 
 
 export function fetchConfig(id) {
@@ -125,12 +129,35 @@ export function deleteConfig(configId) {
 	};
 }
 
-export function createConfig(path) {
+export function createConfig(id, path) {
 	return (dispatch: Function, getState: Function) => {
+		dispatch({
+			type: CREATE_CONFIG,
+			payload: {
+				id,
+				path
+			}
+		});
 
 		dispatch({
-			type: CREATING_CONFIG,
-			payload: path
+			type: WRITE_WORKFLOWCONFIG,
+			payload: getState().configs[id]
 		});
+	}
+}
+
+export function loadExistingConfig(id, path) {
+	return (dispatch: Function, getState: Function) => {
+		jsonfile.readFile(
+			`${path}.workflowconfig`,
+			(err, configData) => {
+				if (err) return console.error(err);
+
+				dispatch({
+					type: EXISTING_CONFIG_LOADED,
+					payload: { id, configData }
+				});
+			}
+		);
 	}
 }

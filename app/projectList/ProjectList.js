@@ -17,6 +17,7 @@ import styles from './ProjectList.css';
 import Project from './Project.js';
 
 const fileSystem = require('fs'); 
+const Path = require('path'); 
 const dialog = remote.dialog;
 const removeLoader = function () {
 	const element = document.getElementById('app-container');
@@ -58,10 +59,11 @@ export default class ProjectList extends Component {
 		dialog.showOpenDialog({
 		    properties: ['openDirectory']
 		}, (paths) => {
-		  	if (paths.length) {
+		  	if (paths && paths.length) {
+		  		let path = paths[0] + Path.sep; 
 		  		fileSystem.exists(
-		  			`${paths[0]}\\.workflowconfig`, 
-		  			(exists) => {this.handleProjectCreation(action, actions, exists, paths[0])}); 
+		  			`${path}.workflowconfig`, 
+		  			(exists) => {this.handleProjectCreation(action, actions, exists, path)}); 
 		  	}
 		});
 	}
@@ -78,7 +80,7 @@ export default class ProjectList extends Component {
 
 		// we want to add an existing project and there is a file to import. lets do it
 		if (action === 'addExistingProject' && workflowconfigExists) {
-			actions.addExistingProject(path)
+			actions.addExistingProject(path);
 		} 
 
 		// we want to import a project but there is not file to import. 
