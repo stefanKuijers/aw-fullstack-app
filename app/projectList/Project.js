@@ -36,7 +36,7 @@ export default class Project extends Component {
 	}
 
 	render() {
-		const project = this.props.data;
+		const { project, name } = this.props.data;
 
 		return (
 			<ListItem
@@ -61,7 +61,7 @@ export default class Project extends Component {
 					    <MenuItem onTouchTap={() => {this.props.actions.deleteProject(project)}}>Delete</MenuItem>
 					</IconMenu>
 				}
-				primaryText={project.name}
+				primaryText={name}
 				secondaryText={project.state}
 				className={styles.listItem}
 			/>

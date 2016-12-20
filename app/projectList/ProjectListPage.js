@@ -9,7 +9,8 @@ import * as WorkflowActions from '../workflow/workflow.actions';
 
 function mapStateToProps(state) {
   return {
-  	projects: state.projects
+  	projects: state.projects,
+  	configs: state.configs
   };
 }
 

@@ -50,7 +50,10 @@ export default class ProjectList extends Component {
 	createListItems(actions) {
 		if (this.props.projects) {
 			return this.props.projects.map((project, index) => {
-				return (<Project key={index} data={project} actions={actions}/>);
+				let name = this.props.configs[project.configId] ?
+					this.props.configs[project.configId].name
+					: '';
+				return (<Project key={index} data={{project, name}} actions={actions}/>);
 			});
 		}
 	}

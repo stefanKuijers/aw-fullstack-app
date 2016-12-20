@@ -12,7 +12,6 @@ const defaultData = {
 	projects: [
 		{
 			id: 100,
-			name: '...',
 			url: null,
 			state: 'ready to be started',
 			running: false,
@@ -20,7 +19,6 @@ const defaultData = {
 		},
 		{
 			id: 101,
-			name: '...',
 			url: null,
 			state: 'ready to be started',
 			running: false,

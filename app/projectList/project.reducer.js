@@ -24,25 +24,6 @@ export default function projects(
 			}
 			return [...payload];
 
-		// probably not needed now the state persitence works
-		// case RECIEVED_CONFIGS:
-		// 	for (var i = newState.length - 1; i >= 0; i--) {
-		// 		newState[i].name = payload.configs[project.configId].name;
-		// 	}
-
-		// 	return newState;
-
-		case SET_ROOT_PROPERTY:			
-			if (payload.key === 'name') {
-				project = state.filter(project => project.id == payload.projectId)[0];
-				index = state.indexOf(project);
-				updatedProject = Object.assign({}, project, {name: payload.newValue});
-
-				return updateArrayItem(newState, index, updatedProject);
-			}
-
-			return newState;
-
 		case START_WORKFLOW:
 			project = getById(newState, payload.project.id);
 			index = newState.indexOf(project);
