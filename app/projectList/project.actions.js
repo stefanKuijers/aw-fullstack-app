@@ -90,7 +90,7 @@ export function addProject(id) {
 		payload: {
 			id,
 			url: null,
-			state: 'setting up',
+			state: 'ready to be started',
 			running: false,
 			configId: id,
 			workflowId: null

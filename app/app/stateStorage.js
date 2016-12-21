@@ -101,7 +101,7 @@ let writeFileDebounce = 0;
 export function getStoredState(key, callback) {
 	storage.get(key, function(error, data) {
 		if (error) throw error;
-		callback(verifyData(key, data));
+		callback(data);
 	});
 }
 
@@ -126,19 +126,6 @@ export function stateStorageMiddleware(store) {
     return result;
   };
 };
-
-function verifyData(key, data) {
-	switch(key) {
-		case 'projects':
-			return data.length ? data : defaultData[key];
-
-		case 'options':
-			return Object.keys().length ? data : defaultData[key];
-
-		default: return data;	
-	}
-}
-
 
 
 function saveState(key, store) {

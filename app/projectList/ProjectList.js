@@ -56,7 +56,12 @@ export default class ProjectList extends Component {
 				return (<Project key={index} data={{project, name}} actions={actions}/>);
 			});
 		} else {
-			return (<div className={styles.noProjectsMessage}><p>Add your first project by clicking on the button below</p></div>);
+			return (
+				<div className={styles.noProjectsMessage}>
+					<p>Add your first project by clicking on the button below</p>
+					<p>Tip: use a template for your first project</p>
+				</div>
+			);
 		}
 	}
 
