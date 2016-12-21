@@ -48,13 +48,15 @@ export default class ProjectList extends Component {
 	};
 
 	createListItems(actions) {
-		if (this.props.projects) {
+		if (this.props.projects && this.props.projects.length) {
 			return this.props.projects.map((project, index) => {
 				let name = this.props.configs[project.configId] ?
 					this.props.configs[project.configId].name
 					: '';
 				return (<Project key={index} data={{project, name}} actions={actions}/>);
 			});
+		} else {
+			return (<div className={styles.noProjectsMessage}><p>Add your first project by clicking on the button below</p></div>);
 		}
 	}
 
