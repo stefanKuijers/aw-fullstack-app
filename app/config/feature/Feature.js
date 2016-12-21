@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import styles from './Feature.css';
+import { remote } from 'electron';
+
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
@@ -14,7 +15,9 @@ import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
 
+import styles from './Feature.css';
 
+const dialog = remote.dialog;
 const iconButtonElement = (
   <IconButton touch={true}>
     <MoreVertIcon/>
@@ -22,6 +25,32 @@ const iconButtonElement = (
 );
 
 class Feature extends Component {
+	constructor(props) {
+		super(props);
+		this.globRefs = [];
+	}
+
+	openDirectorySelect(key, property, index, updateCallback) {
+		if (property === 'globs') return;
+
+		dialog.showOpenDialog({
+		    properties: ['openDirectory']
+		}, (paths) => {
+		  	if (paths && paths.length) {
+		  		const path = (paths[0]+'\\').replace(this.props.data.rootFolder, '');
+			  	updateCallback(key, property, path, index)
+		  	}
+		});
+	}
+
+	handleGlobEnter(el, actions, configId, key) {
+		console.log(el);
+		actions.addGlob(configId, key);
+		setTimeout(() => {
+			this.globRefs[this.globRefs.length-1].focus();
+		},300);
+	}
+
 	printState(flag) {
 		return flag ? "enabled":"disabled";
 	};
@@ -33,13 +62,13 @@ class Feature extends Component {
 	}
 
 	createInputListItem(
-		configId, index, actions, key, property, value, hintText = 'path/to/files/**/*'
+		configId, index, actions, key, property, value, hintText = 'relative/path/to/files/**/*'
 	) {
 		return (
 			<ListItem 
 				key={index} 
 				className={styles.listItem}
-				rightIconButton={
+				rightIconButton={ (property != 'globs') ? null :
 					<IconMenu 
 						iconButtonElement={iconButtonElement}
 						anchorOrigin={{horizontal: 'right', vertical: 'top'}}
@@ -53,7 +82,12 @@ class Feature extends Component {
 				}
 			>
 				<TextField 
+					onTouchTap={() => {this.openDirectorySelect(key, property, index, actions.updateProperty)}}
 					onChange={(e, val) => { actions.updateProperty(key, property, val, index) }}
+					onKeyDown={(e, el) => {if (property === 'globs' && e.keyCode === 13) this.handleGlobEnter(el, actions, configId, key) }}
+					ref={(textField) => {if (property === 'globs') {
+						this.globRefs.push(textField);
+					} }}
 					value={value}
 					style={{width: '100%'}}
 					hintText={hintText}

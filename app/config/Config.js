@@ -25,12 +25,12 @@ class Config extends Component {
   		this.props.fetchConfig(this.props.params.configId);
 	};
 
-	openDirectorySelect(updateCallback) {
+	openDirectorySelect(prop, updateCallback) {
 		dialog.showOpenDialog({
 		    properties: ['openDirectory']
 		}, (paths) => {
 		  	if (paths.length) {
-			  	updateCallback('path', undefined, paths[0]+'\\')
+			  	updateCallback(prop, undefined, paths[0]+'\\')
 		  	}
 		});
 	}
@@ -71,9 +71,10 @@ class Config extends Component {
 
 								    <ListItem key="path" className={styles.listItem}>
 										<TextField 
-											onTouchTap={() => {this.openDirectorySelect(actions.updateProperty)}}
+											onTouchTap={() => {this.openDirectorySelect('path', actions.updateProperty)}}
 											onChange={(e, val) => {actions.updateProperty('path', undefined, val)}}
 											value={config.path}
+											readOnly
 											style={{width: '100%'}}
 											hintText="Absolute Path to Project Folder"
 											hintStyle={{color: 'rgba(180,180,180,0.5)'}}
@@ -127,6 +128,7 @@ class Config extends Component {
 
 						<Feature data={{
 								configId,
+								rootFolder: config.path,
 								options: sass,
 								key: 'sass',
 								title: 'CSS Preprocessor',
@@ -136,6 +138,7 @@ class Config extends Component {
 
 						<Feature data={{
 								configId,
+								rootFolder: config.path,
 								options: javascript,
 								key: 'javascript',
 								title: 'JS Processing and ES6+',
