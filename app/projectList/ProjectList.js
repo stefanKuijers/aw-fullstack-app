@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { remote } from 'electron';
 import { getStoredState } from '../app/stateStorage';
 
-
+import {Card, CardTitle, CardText} from 'material-ui/Card';
 import Subheader from 'material-ui/Subheader';
 import {List, ListItem} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
@@ -16,7 +16,8 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import styles from './ProjectList.css';
-import Project from './Project.js';
+import Project from './Project';
+import OnlineProjectsPage from '../onlineProjects/OnlineProjectsPage';
 
 const fileSystem = require('fs'); 
 const Path = require('path'); 
@@ -145,60 +146,67 @@ export default class ProjectList extends Component {
 
 		return (
 		    <article className="page">
-	        	<List>
-			        <Subheader>Projects</Subheader>
+		    	<Card className="section">
+					<CardTitle title={"My Projects"}/>
+					<CardText>
+			        	<List>
+					        {this.createListItems(actions)}
 
-			        {this.createListItems(actions)}
+					        <IconMenu
+					        	className={styles.iconMenu}
+								anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
+								targetOrigin={{horizontal: 'middle', vertical: 'top'}}
+					        	iconButtonElement={
+									<IconButton className={styles.buttonListItem}>
+										<ListItem
+								        	key="addNew"
+											leftAvatar={<Avatar icon={<AddIcon/>} />}
+											primaryText="Add new project"
+											className={styles.listItem}
+										/>
+									</IconButton>
+								}
+							>
+								<MenuItem primaryText="Create New" onTouchTap={() => {this.promptForFolder('createNew', actions)}} />
+								<MenuItem primaryText="Add Existing Project" onTouchTap={() => {this.promptForFolder('addExistingProject', actions)}} />
+								<MenuItem primaryText="Create From Template" onTouchTap={() => {this.promptForFolder('createFromTemplate', actions);}}/>
+							</IconMenu>
+					    </List>
+						
+					</CardText>
 
-			        <IconMenu
-			        	className={styles.iconMenu}
-						anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
-						targetOrigin={{horizontal: 'middle', vertical: 'top'}}
-			        	iconButtonElement={
-							<IconButton className={styles.buttonListItem}>
-								<ListItem
-						        	key="addNew"
-									leftAvatar={<Avatar icon={<AddIcon/>} />}
-									primaryText="Add new project"
-									className={styles.listItem}
-								/>
-							</IconButton>
-						}
-					>
-						<MenuItem primaryText="Create New" onTouchTap={() => {this.promptForFolder('createNew', actions)}} />
-						<MenuItem primaryText="Add Existing Project" onTouchTap={() => {this.promptForFolder('addExistingProject', actions)}} />
-						<MenuItem primaryText="Create From Template" onTouchTap={() => {this.promptForFolder('createFromTemplate', actions);}}/>
-					</IconMenu>
+				    <Dialog
+			          title="Add Existing Project"
+			          actions={[modalCancelButton, addExistingProjectModalButton]}
+			          modal={false}
+			          open={this.state.addExistingProjectModal}
+			        >
+			          The folder you selected already contains a .workflowconfg file. Do you want to add this existing project to your project list?
+			        </Dialog>
 
-			    </List>
+			        <Dialog
+			          title="Create New Project"
+			          actions={[modalCancelButton, createProjectModalButton]}
+			          modal={false}
+			          open={this.state.createProjectModal}
+			        >
+			          The folder you selected does not contain a .workflowconfg file. Do you want to create a new workflow project in this folder?
+			        </Dialog>
 
-			    <Dialog
-		          title="Add Existing Project"
-		          actions={[modalCancelButton, addExistingProjectModalButton]}
-		          modal={false}
-		          open={this.state.addExistingProjectModal}
-		        >
-		          The folder you selected already contains a .workflowconfg file. Do you want to add this existing project to your project list?
-		        </Dialog>
+			        <Dialog
+			          title="Create From Template"
+			          actions={[modalCancelButton]}
+			          modal={false}
+			          open={this.state.createFromTemplate}
+			        >
+			          <header>Select a template</header>	
+			          <List>{this.getTemplates(actions)}</List>
+			        </Dialog>
+				</Card>
 
-		        <Dialog
-		          title="Create New Project"
-		          actions={[modalCancelButton, createProjectModalButton]}
-		          modal={false}
-		          open={this.state.createProjectModal}
-		        >
-		          The folder you selected does not contain a .workflowconfg file. Do you want to create a new workflow project in this folder?
-		        </Dialog>
 
-		        <Dialog
-		          title="Create From Template"
-		          actions={[modalCancelButton]}
-		          modal={false}
-		          open={this.state.createFromTemplate}
-		        >
-		          <header>Select a template</header>	
-		          <List>{this.getTemplates(actions)}</List>
-		        </Dialog>
+			    <OnlineProjectsPage />
+
 		    </article>
 		);
 	}

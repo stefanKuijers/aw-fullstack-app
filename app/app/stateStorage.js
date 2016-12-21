@@ -174,4 +174,3 @@ function writeWorkflowConfig(config, store) {
 		writeFileDebounce = 0;
 	}, 1500);
 }
-

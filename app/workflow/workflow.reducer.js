@@ -12,7 +12,6 @@ export default function projects(
 			break;
 
 		case WORKFLOW_STARTED:
-			console.log('started', action.payload);
 			return state;
 			break;	
 

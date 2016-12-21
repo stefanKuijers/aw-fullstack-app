@@ -1,5 +1,6 @@
 
 import Workflow from './Workflow';
+import {registerOnlineProject, unregisterOnlineProject} from '../onlineProjects/onlineProjects.actions';
 
 // @flow
 
@@ -34,6 +35,8 @@ export function stopWorkflow(project) {
 		const workflow = getWorkflow(project, dispatch, getState);
 		workflow.stop();
 
+		dispatch(unregisterOnlineProjects([project.id]));
+
 	    dispatch({
 			type: STOP_WORKFLOW,
 			payload: {
@@ -49,6 +52,11 @@ export function workflowStarted(projectId, workflow) {
 		const project = getState().projects.filter(
 			item => item.id == projectId
 		)[0];
+
+		dispatch(registerOnlineProject(
+			project, 
+			`${workflow.server.ip}:${workflow.server.port}`
+		));
 
 		dispatch({
 			type: WORKFLOW_STARTED,

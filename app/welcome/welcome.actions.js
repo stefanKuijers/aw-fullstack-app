@@ -7,7 +7,6 @@ export const ACTIVATE = 'ACTIVATE';
 export const UPDATE_USERNAME = 'UPDATE_USERNAME';
 
 export function activate() {
-	console.log('activate in actions');
 	return (dispatch: Function, getState: Function) => {
 		dispatch({
 			type: ACTIVATE
