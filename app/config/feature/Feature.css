@@ -2,11 +2,6 @@
 	padding: 0 16px !important;
 }
 
-.subHeader {
-	margin-top: 15px;
-	line-height: 30px !important;
-}
-
 .cardText {
 	padding: 0 16px !important;
 }
@@ -16,4 +11,55 @@
 	width: auto !important;
 	right: 15px;
 	top: 1.7rem;
+}
+
+.globsPopover {
+	padding: 15px;
+	width: 90%;
+}
+
+.globsPopover article {
+	font-size: 14px;
+}
+
+.globsPopover section {
+	margin: 40px 0;
+}
+
+.globsPopover tbody {
+	font-size: 12px;
+}
+.globsPopover caption {
+	text-align: left;
+}
+.globsPopover span {
+	text-decoration: underline;
+	opacity: 0.85;
+	cursor: pointer;
+	transition: opacity 0.3s ease;
+}
+
+.globsPopover span:hover {
+	opacity: 1;
+}
+
+
+.globsHeader {
+	cursor: pointer;
+	position: relative;
+	margin-top: 15px;
+	line-height: 30px !important;
+}
+
+.globsHeader:hover svg {
+	opacity: 1;
+}
+
+.globsHeader svg{
+	opacity: 0.1;
+	position: absolute;
+	top: 5px;
+	right: 15px;
+	transition: all 1s ease;
+
 }

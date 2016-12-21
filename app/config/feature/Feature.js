@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { remote } from 'electron';
+import { remote, shell } from 'electron';
 
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
@@ -9,9 +9,11 @@ import Toggle from 'material-ui/Toggle';
 import Avatar from 'material-ui/Avatar';
 import TextField from 'material-ui/TextField';
 import AddIcon from 'material-ui/svg-icons/content/add';
+import InfoIcon from 'material-ui/svg-icons/action/info';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import Popover from 'material-ui/Popover/Popover';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
 
@@ -24,10 +26,55 @@ const iconButtonElement = (
   </IconButton>
 );
 
+const globsPopover = (<article>
+	<header>
+		<h3>How to use globs</h3>
+	</header>
+	<section>
+		<p>Globs are strings which are used to match and filter through files. In this case we use the <span onTouchTap={(e) => {shell.openExternal("https://github.com/isaacs/minimatch")}}>minimatch</span> pattern.</p>
+		<p>All the globs will be executed relative to the root path of the current project.</p>
+		<p>A glob adds the matching files to the list. The following glob can add new files or take files of the list. Because of this reason order matters.</p>
+	</section>
+
+	<section>
+		<table style={{width: '100%'}}>
+			<caption>Examples</caption>
+			<tbody>
+				<tr>
+					<td>public_html/**/*.html</td>
+					<td>Adds any html-file any folder deep</td>
+				</tr>
+				<tr>
+					<td>!**/dist/**/*</td>
+					<td>Removes any files which are located in a folder named dist</td>
+				</tr>
+				<tr>
+					<td>assets/images/*.&#123;png,jpg&#125;</td>
+					<td>Adds only png and jpg files</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+
+	<footer>
+		<p>If you are not sure or your glob is correct checkout this <span onTouchTap={(e) => {shell.openExternal("http://www.globtester.com/")}}>glob-tester</span>.</p>
+	</footer>
+</article>);
+
 class Feature extends Component {
 	constructor(props) {
 		super(props);
 		this.globRefs = [];
+		this.state = {
+			globPopoverOpen: false,
+			globHeader: undefined
+		};
+	}
+
+	toggleGlobPopover = (e) => {
+		this.state.globPopoverOpen = !this.state.globPopoverOpen;
+		this.state.globHeader = e.currentTarget;
+		this.setState(this.state);
 	}
 
 	openDirectorySelect(key, property, index, updateCallback) {
@@ -44,7 +91,6 @@ class Feature extends Component {
 	}
 
 	handleGlobEnter(el, actions, configId, key) {
-		console.log(el);
 		actions.addGlob(configId, key);
 		setTimeout(() => {
 			this.globRefs[this.globRefs.length-1].focus();
@@ -122,7 +168,10 @@ class Feature extends Component {
 						</List>
 
 						<List>
-					        <Subheader className={styles.subHeader}>Globs</Subheader>
+					        <Subheader 
+					        	className={styles.globsHeader}
+					        	onTouchTap={this.toggleGlobPopover}
+					        >Globs <InfoIcon/></Subheader>
 
 					        {this.createInputListItems(configId, options.globs, key, 'globs', actions)}
 
@@ -133,6 +182,12 @@ class Feature extends Component {
 								primaryText="Add new glob"
 							/>
 					    </List>
+					    <Popover
+				          open={this.state.globPopoverOpen}
+				          anchorEl={this.state.globHeader}
+				          onRequestClose={this.toggleGlobPopover}
+				          className={styles.globsPopover}
+				        >{globsPopover}</Popover>
 					</CardText>
 			);
 		}
