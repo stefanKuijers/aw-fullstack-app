@@ -57,16 +57,16 @@ export default class ProjectList extends Component {
 
 	getTemplates(actions) {
 		const templates = getStoredState('templates');
-		console.log('TEmPLATes', templates);
 
 		return templates.map((template, index) => {
 			return (
 				<ListItem
 					key={index}
-					onTouchTap={() => {actions.createProjectFromTemplate(template.data)}}
+					onTouchTap={() => {actions.createProjectFromTemplate(this.state.path, template.data)}}
 					primaryText={`${template.name} - ${template.author}`}
 					secondaryText={template.desc}
 					className={styles.listItem}
+					secondaryTextLines={2}
 				/>
 			);
 		});
@@ -104,7 +104,7 @@ export default class ProjectList extends Component {
 	}
 
 	handleProjectCreation(action, actions, workflowconfigExists, path) {
-		if (action === 'createNew' && workflowconfigExists) {
+		if ((action === 'createNew' || action === 'createFromTemplate') && workflowconfigExists) {
 			this.toggleModalBoxState('addExistingProjectModal', path);
 		} 
 
@@ -122,6 +122,10 @@ export default class ProjectList extends Component {
 		if (action === 'addExistingProject' && !workflowconfigExists) {
 			this.toggleModalBoxState('createProjectModal', path);
 		} 
+
+		if (action === 'createFromTemplate' && !workflowconfigExists) {
+			this.toggleModalBoxState(action, path);
+		}
 	}
 
 	render() {
@@ -163,7 +167,7 @@ export default class ProjectList extends Component {
 					>
 						<MenuItem primaryText="Create New" onTouchTap={() => {this.promptForFolder('createNew', actions)}} />
 						<MenuItem primaryText="Add Existing Project" onTouchTap={() => {this.promptForFolder('addExistingProject', actions)}} />
-						<MenuItem primaryText="Create From Template" onTouchTap={() => {this.toggleModalBoxState('createFromTemplate');}}/>
+						<MenuItem primaryText="Create From Template" onTouchTap={() => {this.promptForFolder('createFromTemplate', actions);}}/>
 					</IconMenu>
 
 			    </List>

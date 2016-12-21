@@ -43,7 +43,9 @@ const newConfig = {
 };
 
 export default function configs(
-	state: Object = {}, 
+	state: Object = {
+		currentConfigId: null
+	}, 
 	action: Object
 ) {
 	const newState = deepCopy(state);

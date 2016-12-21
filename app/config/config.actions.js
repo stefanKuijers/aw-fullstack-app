@@ -160,3 +160,13 @@ export function loadExistingConfig(id, path) {
 		);
 	}
 }
+
+export function loadTemplateConfig(id, path, data) {
+	return {
+		type: EXISTING_CONFIG_LOADED,
+		payload: { 
+			id, 
+			configData: Object.assign(data, { path })
+		}
+	};
+}

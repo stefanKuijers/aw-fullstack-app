@@ -99,10 +99,9 @@ const defaultData = {
 		{
 			name: 'Frontend',
 			author: 'Stefan',
-			desc: 'A description',
+			desc: 'An example of how to setup the config using all features. Can be used with the gitlab:kuijers.stefan/aw-fullstack repo',
 			data: {
 				name: 'AW Fullstack',
-				path: 'C:/Users/Felhasznalo/dev/aw-fullstack/',
 				watch:  {
 					enabled: true,
 					globs: [
@@ -137,39 +136,37 @@ const defaultData = {
 			}
 		},
 		{
-			name: 'Frontend',
+			name: 'Legacy Web Project',
 			author: 'Stefan',
-			desc: 'A description',
+			desc: 'An example of using browserSync & file watch in a legacy web project like ACMS2. Remember to first start Vagrant or Docker.',
 			data: {
-				name: 'AW Fullstack',
-				path: 'C:/Users/Felhasznalo/dev/aw-fullstack/',
+				name: 'Legacy Web Project',
 				watch:  {
 					enabled: true,
 					globs: [
-						'public_html/**/*', 
-						'!public_html/**/dist/**/*',
-						'bower.json',
+						'*.php', 
+						'view/**/*', 
+						'view_admin/**/*', 
+						'controller/*.php',
+						'model/*.php',
+						'assets/css/**/*.css',
+						'assets/style/**/*.css',
+						'assets/js/**/*.js'
 					]
 				},
 				server:  {
-					type: 'express',
-					target: 'public_html/'
+					type: 'proxy',
+					target: 'project.dev'
 				},
 				sass: {
-					enabled: true,
-					outputDir: 'public_html/style/dist',
-					globs: [
-						'public_html/style/src/var.scss', 
-						'public_html/style/src/**/*.scss'
-					]
+					enabled: false,
+					outputDir: '',
+					globs: []
 				},
 				javascript: {
 					enabled: false,
-					outputDir: 'public_html/js/dist',
-					globs: [
-						'public_html/js/src/index.js',
-						'public_html/js/src/**/*.js',
-					]
+					outputDir: '',
+					globs: []
 				},
 				dependencyManagement: {
 					enabled: false
