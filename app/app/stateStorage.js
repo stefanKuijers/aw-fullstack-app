@@ -94,13 +94,99 @@ const defaultData = {
 				enabled: false
 			}
 		}
-	}
+	},
+	templates: [
+		{
+			name: 'Frontend',
+			author: 'Stefan',
+			desc: 'A description',
+			data: {
+				name: 'AW Fullstack',
+				path: 'C:/Users/Felhasznalo/dev/aw-fullstack/',
+				watch:  {
+					enabled: true,
+					globs: [
+						'public_html/**/*', 
+						'!public_html/**/dist/**/*',
+						'bower.json',
+					]
+				},
+				server:  {
+					type: 'express',
+					target: 'public_html/'
+				},
+				sass: {
+					enabled: true,
+					outputDir: 'public_html/style/dist',
+					globs: [
+						'public_html/style/src/var.scss', 
+						'public_html/style/src/**/*.scss'
+					]
+				},
+				javascript: {
+					enabled: false,
+					outputDir: 'public_html/js/dist',
+					globs: [
+						'public_html/js/src/index.js',
+						'public_html/js/src/**/*.js',
+					]
+				},
+				dependencyManagement: {
+					enabled: false
+				}
+			}
+		},
+		{
+			name: 'Frontend',
+			author: 'Stefan',
+			desc: 'A description',
+			data: {
+				name: 'AW Fullstack',
+				path: 'C:/Users/Felhasznalo/dev/aw-fullstack/',
+				watch:  {
+					enabled: true,
+					globs: [
+						'public_html/**/*', 
+						'!public_html/**/dist/**/*',
+						'bower.json',
+					]
+				},
+				server:  {
+					type: 'express',
+					target: 'public_html/'
+				},
+				sass: {
+					enabled: true,
+					outputDir: 'public_html/style/dist',
+					globs: [
+						'public_html/style/src/var.scss', 
+						'public_html/style/src/**/*.scss'
+					]
+				},
+				javascript: {
+					enabled: false,
+					outputDir: 'public_html/js/dist',
+					globs: [
+						'public_html/js/src/index.js',
+						'public_html/js/src/**/*.js',
+					]
+				},
+				dependencyManagement: {
+					enabled: false
+				}
+			}
+		}
+	]
 };
 let saveStateDebounce = 0;
 let writeFileDebounce = 0;
 
 
 export function getStoredState(key, callback) {
+	if (key === 'templates') {
+		return defaultData.templates;
+	}
+
 	storage.get(key, function(error, data) {
 		callback(error ? false : data);
 		if (error) console.warn(error);

@@ -157,7 +157,7 @@ class Config extends Component {
 
 					</article>
 					<footer>
-						<Link to={'/'} className={styles.link}>
+						<Link to={'/projects'} className={styles.link}>
 							<FlatButton label="Back" />
 						</Link>
 					</footer>
@@ -170,7 +170,7 @@ class Config extends Component {
 							Loading config:{this.props.configs.currentConfigId}
 						</header>
 						<footer>
-							<Link to={'/'} className={styles.link}>
+							<Link to={'/projects'} className={styles.link}>
 								<FlatButton label="Back" />
 							</Link>
 					</footer>

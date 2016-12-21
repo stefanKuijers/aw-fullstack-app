@@ -1,6 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { remote } from 'electron';
+import { getStoredState } from '../app/stateStorage';
+
 
 import Subheader from 'material-ui/Subheader';
 import {List, ListItem} from 'material-ui/List';
@@ -34,6 +36,7 @@ export default class ProjectList extends Component {
 	state = {
 		createProjectModal: false,
 		addExistingProjectModal: false,
+		createFromTemplate: false,
 		path: undefined
 	};
 
@@ -41,7 +44,8 @@ export default class ProjectList extends Component {
 		if (modalName === null) {
 			this.state = {
 				createProjectModal: false,
-				addExistingProjectModal: false
+				addExistingProjectModal: false,
+				createFromTemplate: false
 			};
 		} else {
 			this.state[modalName] = !this.state[modalName];
@@ -50,6 +54,23 @@ export default class ProjectList extends Component {
 
 		this.setState(this.state);
 	};
+
+	getTemplates(actions) {
+		const templates = getStoredState('templates');
+		console.log('TEmPLATes', templates);
+
+		return templates.map((template, index) => {
+			return (
+				<ListItem
+					key={index}
+					onTouchTap={() => {actions.createProjectFromTemplate(template.data)}}
+					primaryText={`${template.name} - ${template.author}`}
+					secondaryText={template.desc}
+					className={styles.listItem}
+				/>
+			);
+		});
+	}
 
 	createListItems(actions) {
 		if (this.props.projects && this.props.projects.length) {
@@ -111,7 +132,8 @@ export default class ProjectList extends Component {
 			startBuild: this.props.startBuild,
 			deleteProject: this.props.deleteProject,
 			createProject: this.props.createProject,
-			addExistingProject: this.props.addExistingProject
+			addExistingProject: this.props.addExistingProject,
+			createProjectFromTemplate: this.props.createProjectFromTemplate
 		};
 		const modalCancelButton = <FlatButton label="Cancel" onTouchTap={() => {this.toggleModalBoxState()}} />;
 		const createProjectModalButton = <FlatButton label="Create new project" primary={true} onTouchTap={() => {actions.createProject(this.state.path); this.toggleModalBoxState()}}/>;
@@ -141,7 +163,7 @@ export default class ProjectList extends Component {
 					>
 						<MenuItem primaryText="Create New" onTouchTap={() => {this.promptForFolder('createNew', actions)}} />
 						<MenuItem primaryText="Add Existing Project" onTouchTap={() => {this.promptForFolder('addExistingProject', actions)}} />
-						<MenuItem primaryText="Create From Template" />
+						<MenuItem primaryText="Create From Template" onTouchTap={() => {this.toggleModalBoxState('createFromTemplate');}}/>
 					</IconMenu>
 
 			    </List>
@@ -162,6 +184,16 @@ export default class ProjectList extends Component {
 		          open={this.state.createProjectModal}
 		        >
 		          The folder you selected does not contain a .workflowconfg file. Do you want to create a new workflow project in this folder?
+		        </Dialog>
+
+		        <Dialog
+		          title="Create From Template"
+		          actions={[modalCancelButton]}
+		          modal={false}
+		          open={this.state.createFromTemplate}
+		        >
+		          <header>Select a template</header>	
+		          <List>{this.getTemplates(actions)}</List>
 		        </Dialog>
 		    </article>
 		);
