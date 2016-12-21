@@ -3,6 +3,11 @@
   "productName": "AW-Fullstack",
   "version": "0.10.0",
   "description": "Workflow App which can compile SASS and ES6, watch files for changes, reload/stream resources and bundle vendor files",
+  "author": {
+    "name": "SKuijers",
+    "email": "stefan@kuijers.nl",
+    "url": "https://github.com/stefanKuijers/"
+  },
   "main": "main.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 mocha --retries 2 --compilers js:babel-register --recursive --require ./test/setup.js test/**/*.spec.js",

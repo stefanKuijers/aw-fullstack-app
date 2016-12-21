@@ -47,9 +47,9 @@ app.on('ready', async () => {
     width: 700,
     height: 1024,
     frame: false, 
-    webPreferences: {
-      devTools: true
-    }
+    // webPreferences: {
+    //   devTools: true
+    // }
   });
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);
@@ -57,7 +57,7 @@ app.on('ready', async () => {
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
     mainWindow.focus();
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
   });
 
   mainWindow.on('closed', () => {

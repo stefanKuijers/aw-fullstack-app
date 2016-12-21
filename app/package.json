@@ -1,8 +1,13 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "electron-react-boilerplate",
+  "name": "aw-fullstack",
+  "productName": "AW-Fullstack",
   "version": "1.0.0",
   "description": "Workflow App which can compile SASS and ES6, watch files for changes, reload/stream resources and bundle vendor files",
+  "author": {
+    "name": "SKuijers",
+    "email": "stefan@kuijers.nl",
+    "url": "https://github.com/stefanKuijers/"
+  },
   "main": "./main.js",
   "license": "MIT",
   "dependencies": {

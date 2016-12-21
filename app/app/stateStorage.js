@@ -9,7 +9,7 @@ export const WRITE_WORKFLOWCONFIG = 'WRITE_WORKFLOWCONFIG';
 export const WORKFLOWCONFIG_WRITTEN = 'WORKFLOWCONFIG_WRITTEN';
 
 const defaultData = {
-	projects: [
+	projects: (process.env.NODE_ENV === 'production') ? [] : [
 		{
 			id: 100,
 			url: null,
@@ -25,7 +25,9 @@ const defaultData = {
 			configId: 101
 		}
 	],
-	options: {
+	options: (process.env.NODE_ENV === 'production') ? {
+		currentConfigId: null
+	} : {
 		currentConfigId: 100,
 		'100': {
 			id: 100,
