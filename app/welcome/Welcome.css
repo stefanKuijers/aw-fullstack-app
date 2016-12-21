@@ -1,0 +1,34 @@
+
+.container {
+	position: absolute;
+	width: 100%;
+	top: 0;
+	bottom: 0;
+	background-color: #fac415;
+	text-align: center;
+}
+
+.container > section {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -75%);
+}
+
+.container footer {
+	margin-top: 30px;
+}
+
+.container h1 {
+	font-size: 5rem;
+	margin-bottom: 0;
+}
+
+.container input {
+	color: #444 !important;
+	text-align: center !important;
+}
+
+.container hr {
+	border-color: rgba(0,0,0,0.2) !important;
+}

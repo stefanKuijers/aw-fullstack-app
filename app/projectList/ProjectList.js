@@ -27,6 +27,10 @@ const removeLoader = function () {
 
 
 export default class ProjectList extends Component {
+	componentWillMount() {
+		removeLoader();
+	};
+
 	state = {
 		createProjectModal: false,
 		addExistingProjectModal: false,

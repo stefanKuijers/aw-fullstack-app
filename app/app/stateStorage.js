@@ -102,8 +102,8 @@ let writeFileDebounce = 0;
 
 export function getStoredState(key, callback) {
 	storage.get(key, function(error, data) {
-		if (error) throw error;
-		callback(data);
+		callback(error ? false : data);
+		if (error) console.warn(error);
 	});
 }
 
@@ -137,6 +137,7 @@ function saveState(key, store) {
 		const state = store.getState();
 
 		storage.set('projects', state['projects'], function(error) { if (error) throw error; });
+		storage.set('profile', state['profile'], function(error) { if (error) throw error; });
 		storage.set('configs', state['configs'], function(error) { 
 			if (error) throw error; 
 
