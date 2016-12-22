@@ -26,6 +26,8 @@ export function recievedProjects(projects) {
 	// resetting state in case the app was forced closed meanwhile running a workflow
 	for (var i = projects.length - 1; i >= 0; i--) {
 		projects[i].state = 'ready to be started';
+		projects[i].workflowId = undefined;
+		projects[i].starting = false;
 		projects[i].running = false;
 	}
 
@@ -102,6 +104,7 @@ export function addProject(id) {
 			url: null,
 			state: 'ready to be started',
 			running: false,
+			starting: false,
 			configId: id,
 			workflowId: null
 		}

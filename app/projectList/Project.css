@@ -10,3 +10,43 @@
 .listItem > div > div > div:last-child {
 	color: rgba(255, 255, 255, 0.5) !important;
 }
+
+.idle > div {
+	background-color: transparent;
+
+	transition: background-color 1s ease;
+}
+
+.idle span > div > div > div:nth-child(2) {
+	color: white;
+	transition: color 1s ease;
+}
+
+
+.starting {
+	opacity: 0.5;
+
+	transition: opacity 0.3s ease;
+}
+
+.running {
+	opacity: 1;
+}
+
+.starting > div,
+.running > div {
+	background-color: #fac415;
+}
+
+.starting span > div > div > div:last-child,
+.running span > div > div > div:last-child,
+.starting span > div > div > div > div,
+.running span > div > div > div > div,
+.starting span > div > div > div,
+.running span > div > div > div,
+.starting span > div > div > div > div,
+.running span > div > div > div > div,
+.starting span > div > div > div svg,
+.running span > div > div > div svg {
+	color: #444 !important;
+}

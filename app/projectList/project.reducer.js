@@ -18,10 +18,6 @@ export default function projects(
 
 	switch (action.type) {
 		case RECIEVED_PROJECTS:
-			// resetting the workflowIds as workflows cannot be persisted to state and are discared at app shutdown
-			for (var i = payload.length - 1; i >= 0; i--) {
-				payload[i].workflowId = undefined;
-			}
 			return [...payload];
 
 		case START_WORKFLOW:
@@ -29,7 +25,8 @@ export default function projects(
 			index = newState.indexOf(project);
 			updatedProject = Object.assign({}, project, {
 				state: 'starting',
-				running: true
+				starting: true,
+				running: false
 			});
 
 			return updateArrayItem(newState, index, updatedProject);
@@ -47,7 +44,9 @@ export default function projects(
 			project = getById(newState, payload.project.id);
 			index = newState.indexOf(project);
 			updatedProject = Object.assign({}, project, {
-				state: 'running'
+				state: 'running',
+				starting: false,
+				running: true
 			});
 
 			return updateArrayItem(newState, index, updatedProject);
@@ -57,7 +56,8 @@ export default function projects(
 			index = newState.indexOf(project);
 			updatedProject = Object.assign({}, project, {
 				state: 'stopped',
-				running: false
+				running: false,
+				starting: false
 			});
 
 			return updateArrayItem(newState, index, updatedProject);

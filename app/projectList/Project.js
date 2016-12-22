@@ -35,36 +35,49 @@ export default class Project extends Component {
 		return project.running ? "Stop" : "Start"
 	}
 
+	getProjectClassName() {
+		const project = this.props.data.project;
+		console.log(project.starting, project.running);
+
+		return (
+			((project.starting) ? 'starting' : '') +
+			((project.running) ? 'running' : '') +
+			((!project.running && !project.starting) ? 'idle' : '')
+		);
+	}
+
 	render() {
 		const { project, name } = this.props.data;
 
 		return (
-			<ListItem
-				leftAvatar={<Avatar icon={<FileFolder />} />}
-				rightIconButton={
-					<IconMenu 
-						iconButtonElement={iconButtonElement}
-						anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-						targetOrigin={{horizontal: 'right', vertical: 'top'}}
-					>
-					    <MenuItem onTouchTap={() => {this.props.actions.toggleProject(project)}}>{this.stateToggleLabel(project)}</MenuItem>
-					    <MenuItem onTouchTap={() => {this.props.actions.startBuild(project.id)}}>Build</MenuItem>
-					    <MenuItem disabled={project.running}>
-					    	<Link 
-					    		to={`/config/${project.configId}`} 
-					    		style={linkStyle}
-					    		className={styles.link}
-					    		disabled={project.running}
-					    	>Options</Link>
-					    </MenuItem>
-					    <Divider />
-					    <MenuItem onTouchTap={() => {this.props.actions.deleteProject(project)}}>Delete</MenuItem>
-					</IconMenu>
-				}
-				primaryText={name}
-				secondaryText={project.state}
-				className={styles.listItem}
-			/>
+			<div className={styles[this.getProjectClassName()]}>
+				<ListItem
+					leftAvatar={<Avatar icon={<FileFolder />} />}
+					rightIconButton={
+						<IconMenu 
+							iconButtonElement={iconButtonElement}
+							anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+							targetOrigin={{horizontal: 'right', vertical: 'top'}}
+						>
+						    <MenuItem onTouchTap={() => {this.props.actions.toggleProject(project)}}>{this.stateToggleLabel(project)}</MenuItem>
+						    <MenuItem onTouchTap={() => {this.props.actions.startBuild(project.id)}}>Build</MenuItem>
+						    <MenuItem disabled={project.running}>
+						    	<Link 
+						    		to={`/config/${project.configId}`} 
+						    		style={linkStyle}
+						    		className={styles.link}
+						    		disabled={project.running}
+						    	>Options</Link>
+						    </MenuItem>
+						    <Divider />
+						    <MenuItem onTouchTap={() => {this.props.actions.deleteProject(project)}}>Delete</MenuItem>
+						</IconMenu>
+					}
+					primaryText={name}
+					secondaryText={project.state}
+					className={styles.listItem}
+				/>
+			</div>
 		);
 	}
 }
