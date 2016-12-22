@@ -1,13 +1,13 @@
 // @flow
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import OnlineProjects from './OnlineProjects';
-import * as OnlineProjectsActions from './onlineProjects.actions';
+import NavBar from './NavBar';
+import * as OnlineProjectsActions from '../onlineProjects/onlineProjects.actions';
 
 
 function mapStateToProps(state) {
+	// console.log(state);
   return {
-  	onlineProjects: state.onlineProjects,
   	projects: state.projects
   };
 }
@@ -21,4 +21,4 @@ function mapDispatchToProps(dispatch) {
     );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OnlineProjects);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

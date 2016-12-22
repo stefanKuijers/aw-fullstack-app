@@ -1,6 +1,6 @@
 
 import Workflow from './Workflow';
-import {registerOnlineProject, unregisterOnlineProject} from '../onlineProjects/onlineProjects.actions';
+import {registerOnlineProject, unregisterOnlineProjects} from '../onlineProjects/onlineProjects.actions';
 
 // @flow
 

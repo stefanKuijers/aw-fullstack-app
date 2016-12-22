@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { shell } from 'electron';
+import { remote, shell } from 'electron';
 
 import {Card, CardTitle, CardText} from 'material-ui/Card';
 import Subheader from 'material-ui/Subheader';
@@ -16,6 +16,8 @@ const checkProjectsIntervalDelay = 5000;
 let checkProjectsInterval;
 let onlineProjectServer;
 
+const jsonfile = require('jsonfile');
+
 
 export default class OnlineProjects extends Component {
 	componentWillMount() {
@@ -29,6 +31,7 @@ export default class OnlineProjects extends Component {
 			starting: -1,
 			running: -1
 		});
+
 	}
 
 	componentWillUnmount() {

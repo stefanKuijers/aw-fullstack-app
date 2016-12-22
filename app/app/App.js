@@ -8,7 +8,7 @@ import React, { Component, PropTypes } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import NavBar from '../navbar/NavBar';
+import NavBarPage from '../navbar/NavBarPage';
 
 
 injectTapEventPlugin();
@@ -43,7 +43,7 @@ export default class App extends Component {
       <MuiThemeProvider muiTheme={appTheme}>
       	<section>
       		<header className="app-navbar">
-	      		<NavBar></NavBar>
+	      		<NavBarPage></NavBarPage>
       		</header>
 
 	        <section className="app-content">{this.props.children}</section>

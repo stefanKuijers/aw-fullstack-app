@@ -58,9 +58,12 @@ export function registeredOnlineProject() {
 	};
 }
 
-export function unregisterOnlineProjects(ids = []) {
+export function unregisterOnlineProjects(ids = [], callback) {
 	return (dispatch: Function) => {
-		dispatch({ type: UNREGISTER_ONLINE_PROJECTS });
+		dispatch({ 
+			type: UNREGISTER_ONLINE_PROJECTS,
+			payload: ids
+		});
 
 		axios.post('/users', {
 		    params: {
@@ -68,14 +71,16 @@ export function unregisterOnlineProjects(ids = []) {
 		    	ids
 		    }
 		}).then((response) => {
-			dispatch(unregisteredOnlineProjects());
+			dispatch(unregisteredOnlineProjects(ids));
+			callback();
 		});
 	};
 }
 
-export function unregisteredOnlineProjects() {
+export function unregisteredOnlineProjects(ids) {
 	return {
-		type: UNREGISTERED_ONLINE_PROJECTS
+		type: UNREGISTERED_ONLINE_PROJECTS,
+		payload: ids
 	};
 }
 
