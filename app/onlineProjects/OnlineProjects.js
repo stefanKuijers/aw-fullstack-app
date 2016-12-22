@@ -22,7 +22,7 @@ const jsonfile = require('jsonfile');
 export default class OnlineProjects extends Component {
 	componentWillMount() {
 		checkProjectsInterval = setInterval(() => {
-			this.props.getOnlineProjects();
+			// this.props.getOnlineProjects();
 		}, checkProjectsIntervalDelay);
 
 		this.onlineProjectServer = new OnlineProjectServer();
