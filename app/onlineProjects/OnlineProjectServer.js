@@ -1,32 +1,45 @@
 
-import proxy from 'express-http-proxy';
-const express = require('express');
+
 
 export default class OnlineProjectServer {
 	constructor() {
-		this.server = express();
-		this.server.get('/', function (req, res) {
-		  res.send('Workflow App Online Project Server')
-		});
+		this.name = 'online project server';
+		this.running = false;
+		this.options = {
+            open: false,
+            port: 8999,
+            ghostMode: false
+        };
 
-		this.server.listen(8999, function () {
-		  console.log('Online Project Server listening on 8999');
-		});
+        this.server = WORKFLOW_PLUGINS.browserSync.create(this.name);
 	}
 
-	registerNewProject(slug, url) {
-		this.server.use(`/${slug}`, proxy(url));
+	start(url, callback) {
+		this.stop();
+
+		setTimeout(() => {
+			this.initServer(url, callback);
+		}, 300);
+	}
+
+	initServer(url, callback) {
+		this.server.init(
+			Object.assign(
+				{}, 
+				this.options,
+				{proxy: url}
+			),
+			() => {
+				this.running = true;
+				callback();
+			}
+		);
 	}
 
 	stop() {
-		this.server.stop();
-	}
-
-	convertToSlug(text) {
-	    return text
-	        .toLowerCase()
-	        .replace(/[^\w ]+/g,'')
-	        .replace(/ +/g,'-')
-	        ;
+		if (this.running) {
+			this.server.exit();
+			this.running = false;
+		}
 	}
 }

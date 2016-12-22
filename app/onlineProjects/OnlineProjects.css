@@ -6,3 +6,36 @@
 	font-size: 16px;
 	line-height: 16px;
 }
+
+.idle > div {
+	background-color: transparent;
+
+	transition: background-color 1s ease;
+}
+
+.idle span > div > div > div:nth-child(2) {
+	color: white;
+	transition: color 1s ease;
+}
+
+
+.starting {
+	opacity: 0.5;
+
+	transition: opacity 0.3s ease;
+}
+
+.running {
+	opacity: 1;
+}
+
+.starting > div,
+.running > div {
+	background-color: #fac415;
+}
+
+.starting span > div > div > div:nth-child(2),
+.running span > div > div > div:nth-child(2) {
+	color: #444;
+}
+

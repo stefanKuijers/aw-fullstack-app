@@ -13,7 +13,7 @@ module.exports = function( gulp, plugin, config ) {
             config.watch.globs, 
             function(vinyl) {
 
-            	console.log(vinyl.extname);
+            	// console.log(vinyl.extname);
                 switch(vinyl.extname) {
                     case '.json':
                         // bower.json change means we did a bower install

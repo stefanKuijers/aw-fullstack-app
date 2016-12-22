@@ -12,7 +12,7 @@ import ActionLanguage from 'material-ui/svg-icons/action/language';
 import styles from './OnlineProjects.css';
 import OnlineProjectServer from './OnlineProjectServer';
 
-const checkProjectsIntervalDelay = 10000;
+const checkProjectsIntervalDelay = 5000;
 let checkProjectsInterval;
 let onlineProjectServer;
 
@@ -23,13 +23,25 @@ export default class OnlineProjects extends Component {
 			this.props.getOnlineProjects();
 		}, checkProjectsIntervalDelay);
 
-		onlineProjectServer = new OnlineProjectServer();
-		this.visitProject('AW Fullstack', 'www.stefankuijers.nl');
+		this.onlineProjectServer = new OnlineProjectServer();
+
+		this.setState({
+			starting: -1,
+			running: -1
+		});
 	}
 
 	componentWillUnmount() {
 		clearInterval(checkProjectsInterval);
-		onlineProjectServer.stop();
+		this.onlineProjectServer.stop();
+	}
+
+	getProjectClassName(id) {
+		return (
+			((this.state.starting === id) ? 'starting' : '') +
+			((this.state.running === id) ? 'running' : '') +
+			((this.state.running != id && this.state.starting != id ) ? 'idle' : '')
+		);
 	}
 
 	renderNoProjectsMessage() {
@@ -40,23 +52,39 @@ export default class OnlineProjects extends Component {
 		);
 	}
 
-	visitProject(name, url) {
-		const slug = onlineProjectServer.convertToSlug(name);
-		onlineProjectServer.registerNewProject(slug, url);
-		shell.openExternal(`http://localhost:8999/${slug}`);
+	visitProject(project) {
+		this.setState({
+			starting: project.id,
+			running: -1
+		});
+
+		this.onlineProjectServer.start(
+			project.url || 'http://192.168.0.41:3001',
+			() => {
+				shell.openExternal(`http://localhost:8999/`);
+				this.setState({
+					starting: -1,
+					running: project.id
+				});
+			}
+		);
 	}
 
 	renderOnlineProjects() {
 		return this.props.onlineProjects.map((project, index) => {
 			return(
-				<ListItem
+				<div 
 					key={index}
-					onTouchTap={(e) => {this.visitProjectshell(project.name, project.url)}}
-					leftAvatar={<Avatar icon={<ActionLanguage />} />}
-					primaryText={project.name}
-					secondaryText={project.author}
-					className={styles.listItem}
-				/>
+					className={styles[this.getProjectClassName(project.id)]}
+				>
+					<ListItem
+						onTouchTap={(e) => {this.visitProject(project)}}
+						leftAvatar={<Avatar icon={<ActionLanguage />} />}
+						primaryText={project.name}
+						secondaryText={project.author}
+						className={styles.listItem}
+					/>
+				</div>
 			);
 		});
 	}
