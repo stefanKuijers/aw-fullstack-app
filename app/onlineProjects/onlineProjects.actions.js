@@ -2,6 +2,8 @@
 import axios from 'axios';
 axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
 
+import OnlineProjectServer from './OnlineProjectServer';
+
 export const REFRESH_ONLINE_PROJECTS = 'REFRESH_ONLINE_PROJECTS';
 export const RECIEVED_ONLINE_PROJECTS = 'RECIEVED_ONLINE_PROJECTS';
 export const REGISTER_ONLINE_PROJECT = 'REGISTER_ONLINE_PROJECT';
@@ -78,3 +80,25 @@ export function unregisteredOnlineProjects() {
 }
 
 
+export function visitOnlineProject() {
+	return (dispatch: Function) => {
+		var options = {
+            open: 'external',
+            ghostMode: {
+                clicks: true,
+                location: true,
+                forms: true,
+                scroll: true
+            }
+        };
+
+        if (config.server.type === 'express') {
+            options.server = config.server.target;
+        } else {
+            options.proxy = config.server.target;
+        }
+
+        config.broswerSyncInstance = plugin.browserSync.create(serverName);
+        config.broswerSyncInstance.init(options, callback);
+	}
+}
