@@ -1,6 +1,6 @@
 
 import { RECIEVED_PROJECTS, SET_PROJECT_NAME, ADD_PROJECT, DELETE_PROJECT } from './project.actions';
-import { WORKFLOW_CREATED, START_WORKFLOW, WORKFLOW_STARTED, STOP_WORKFLOW } from '../workflow/workflow.actions';
+import { WORKFLOW_CREATED, START_WORKFLOW, WORKFLOW_STARTED, STOP_WORKFLOW, START_BUILD, BUILD_COMPLETE } from '../workflow/workflow.actions';
 import { RECIEVED_CONFIGS, SET_ROOT_PROPERTY } from '../config/config.actions';
 import { deleteArrayItem, getById, updateArrayItem, deepCopy } from '../utils/reducer.js';
 
@@ -64,6 +64,24 @@ export default function projects(
 
 		case ADD_PROJECT:
 			return [...newState, payload];
+
+		case START_BUILD:
+			project = getById(newState, payload.id);
+			index = newState.indexOf(project);
+			updatedProject = Object.assign({}, project, {
+				state: 'building'
+			});
+
+			return updateArrayItem(newState, index, updatedProject);
+
+		case BUILD_COMPLETE:
+			project = getById(newState, payload.id);
+			index = newState.indexOf(project);
+			updatedProject = Object.assign({}, project, {
+				state: 'build complete'
+			});
+
+			return updateArrayItem(newState, index, updatedProject);
 
 		case DELETE_PROJECT:
 			project = newState.filter(project => project.id == payload.id)[0];
