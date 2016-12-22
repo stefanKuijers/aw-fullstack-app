@@ -37,7 +37,6 @@ export default class Project extends Component {
 
 	getProjectClassName() {
 		const project = this.props.data.project;
-		console.log(project.starting, project.running);
 
 		return (
 			((project.starting) ? 'starting' : '') +

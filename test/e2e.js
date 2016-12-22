@@ -1,14 +1,15 @@
 import { Application } from 'spectron';
 import { expect } from 'chai';
-import electronPath from 'electron';
+import electronPath from 'electron-prebuilt';
 import path from 'path';
-import homeStyles from '../app/components/Home.css';
-import counterStyles from '../app/components/Counter.css';
+
+// import homeStyles from '../app/components/Home.css';
+// import counterStyles from '../app/components/Counter.css';
 
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
 describe('main window', function spec() {
-  this.timeout(10000);
+  this.timeout(15000);
 
   before(async () => {
     this.app = new Application({
@@ -24,80 +25,94 @@ describe('main window', function spec() {
     }
   });
 
-  const findCounter = () => this.app.client.element(`.${counterStyles.counter}`);
+  // const findCounter = () => this.app.client.element(`.${counterStyles.counter}`);
 
-  const findButtons = async () => {
-    const { value } = await this.app.client.elements(`.${counterStyles.btn}`);
-    return value.map(btn => btn.ELEMENT);
-  };
+  // const findButtons = async () => {
+  //   const { value } = await this.app.client.elements(`.${counterStyles.btn}`);
+  //   return value.map(btn => btn.ELEMENT);
+  // };
 
-  it('should open window', async () => {
+  // it('should open window', async () => {
+  //   const { client, browserWindow } = this.app;
+
+  // });
+
+  it('should open the Application and have a title', async () => {
     const { client, browserWindow } = this.app;
-
     await client.waitUntilWindowLoaded();
     await delay(500);
+    
     const title = await browserWindow.getTitle();
-    expect(title).to.equal('Hello Electron React!');
+    expect(title).to.equal('Workflow Fullstack');
   });
 
-  it('should to Counter with click "to Counter" link', async () => {
-    const { client } = this.app;
+  it('should have no errors during bundeling', async () => {
+    const { client, browserWindow } = this.app;
+    await client.waitUntilWindowLoaded();
+    await delay(5000);
 
-    await client.click(`.${homeStyles.container} > a`);
-    expect(await findCounter().getText()).to.equal('0');
+    const logs = await client.getRenderProcessLogs();
+
+    let errors = 0;
+    logs.forEach(function (log) {
+      if (log.level === 'ERROR') errors++;
+    });
+    
+    expect(errors).to.equal(0);
   });
 
-  it('should display updated count after increment button click', async () => {
-    const { client } = this.app;
 
-    const buttons = await findButtons();
-    await client.elementIdClick(buttons[0]);  // +
-    expect(await findCounter().getText()).to.equal('1');
-  });
 
-  it('should display updated count after descrement button click', async () => {
-    const { client } = this.app;
+  // it('should display updated count after increment button click', async () => {
 
-    const buttons = await findButtons();
-    await client.elementIdClick(buttons[1]);  // -
-    expect(await findCounter().getText()).to.equal('0');
-  });
+  //   const buttons = await findButtons();
+  //   await client.elementIdClick(buttons[0]);  // +
+  //   expect(await findCounter().getText()).to.equal('1');
+  // });
 
-  it('shouldnt change if even and if odd button clicked', async () => {
-    const { client } = this.app;
+  // it('should display updated count after descrement button click', async () => {
+  //   const { client } = this.app;
 
-    const buttons = await findButtons();
-    await client.elementIdClick(buttons[2]);  // odd
-    expect(await findCounter().getText()).to.equal('0');
-  });
+  //   const buttons = await findButtons();
+  //   await client.elementIdClick(buttons[1]);  // -
+  //   expect(await findCounter().getText()).to.equal('0');
+  // });
 
-  it('should change if odd and if odd button clicked', async () => {
-    const { client } = this.app;
+  // it('shouldnt change if even and if odd button clicked', async () => {
+  //   const { client } = this.app;
 
-    const buttons = await findButtons();
-    await client.elementIdClick(buttons[0]);  // +
-    await client.elementIdClick(buttons[2]);  // odd
-    expect(await findCounter().getText()).to.equal('2');
-  });
+  //   const buttons = await findButtons();
+  //   await client.elementIdClick(buttons[2]);  // odd
+  //   expect(await findCounter().getText()).to.equal('0');
+  // });
 
-  it('should change if async button clicked and a second later', async () => {
-    const { client } = this.app;
+  // it('should change if odd and if odd button clicked', async () => {
+  //   const { client } = this.app;
 
-    const buttons = await findButtons();
-    await client.elementIdClick(buttons[3]);  // async
-    expect(await findCounter().getText()).to.equal('2');
-    await delay(1000);
-    expect(await findCounter().getText()).to.equal('3');
-  });
+  //   const buttons = await findButtons();
+  //   await client.elementIdClick(buttons[0]);  // +
+  //   await client.elementIdClick(buttons[2]);  // odd
+  //   expect(await findCounter().getText()).to.equal('2');
+  // });
 
-  it('should back to home if back button clicked', async () => {
-    const { client } = this.app;
-    await client.element(
-      `.${counterStyles.backButton} > a`
-    ).click();
+  // it('should change if async button clicked and a second later', async () => {
+  //   const { client } = this.app;
 
-    expect(
-      await client.isExisting(`.${homeStyles.container}`)
-    ).to.be.true;
-  });
+  //   const buttons = await findButtons();
+  //   await client.elementIdClick(buttons[3]);  // async
+  //   expect(await findCounter().getText()).to.equal('2');
+  //   await delay(1000);
+  //   expect(await findCounter().getText()).to.equal('3');
+  // });
+
+  // it('should back to home if back button clicked', async () => {
+  //   const { client } = this.app;
+  //   await client.element(
+  //     `.${counterStyles.backButton} > a`
+  //   ).click();
+
+  //   expect(
+  //     await client.isExisting(`.${homeStyles.container}`)
+  //   ).to.be.true;
+  // });
 });

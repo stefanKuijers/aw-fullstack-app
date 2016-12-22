@@ -21,7 +21,6 @@ export function getOnlineProjects() {
 		    	c: 'getOnlineProjects'
 		    }
 		}).then((response) => {
-			console.log('state.profile', getState().profile);
 			dispatch(recievedOnlineProjects(
 				response.data, 
 				getState().profile.username
@@ -31,7 +30,6 @@ export function getOnlineProjects() {
 }
 
 export function recievedOnlineProjects(projects, currentUsername) {
-	console.log('currentUsername', currentUsername);
 	return {
 		type: RECIEVED_ONLINE_PROJECTS,
 		payload: projects.filter(project => project.username != currentUsername)
