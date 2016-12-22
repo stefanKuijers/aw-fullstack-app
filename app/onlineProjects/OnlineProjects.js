@@ -53,21 +53,31 @@ export default class OnlineProjects extends Component {
 	}
 
 	visitProject(project) {
-		this.setState({
-			starting: project.id,
-			running: -1
-		});
+		if (this.state.starting === project.id) return;
 
-		this.onlineProjectServer.start(
-			project.url || 'http://192.168.0.41:3001',
-			() => {
-				shell.openExternal(`http://localhost:8999/`);
-				this.setState({
-					starting: -1,
-					running: project.id
-				});
-			}
-		);
+		if (this.state.running === project.id) {
+			this.onlineProjectServer.stop();
+			this.setState({
+				starting: -1,
+				running: -1
+			});
+		} else {
+			this.setState({
+				starting: project.id,
+				running: -1
+			});
+
+			this.onlineProjectServer.start(
+				project.url || 'http://192.168.0.41:3001',
+				() => {
+					shell.openExternal(`http://localhost:8999/`);
+					this.setState({
+						starting: -1,
+						running: project.id
+					});
+				}
+			);
+		}
 	}
 
 	renderOnlineProjects() {
