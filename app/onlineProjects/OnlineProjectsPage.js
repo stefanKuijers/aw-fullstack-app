@@ -8,7 +8,8 @@ import * as OnlineProjectsActions from './onlineProjects.actions';
 function mapStateToProps(state) {
   return {
   	onlineProjects: state.onlineProjects,
-  	projects: state.projects
+  	projects: state.projects,
+  	profile: state.profile
   };
 }
 

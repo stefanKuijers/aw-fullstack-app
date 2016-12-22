@@ -21,15 +21,20 @@ export function getOnlineProjects() {
 		    	c: 'getOnlineProjects'
 		    }
 		}).then((response) => {
-			dispatch(recievedOnlineProjects(response.data));
+			console.log('state.profile', getState().profile);
+			dispatch(recievedOnlineProjects(
+				response.data, 
+				getState().profile.username
+			));
 		});
 	};
 }
 
-export function recievedOnlineProjects(projects) {
+export function recievedOnlineProjects(projects, currentUsername) {
+	console.log('currentUsername', currentUsername);
 	return {
 		type: RECIEVED_ONLINE_PROJECTS,
-		payload: projects
+		payload: projects.filter(project => project.username != currentUsername)
 	};
 }
 
