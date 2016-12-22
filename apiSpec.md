@@ -6,7 +6,7 @@ Data Send:
 	id: Int (Length 13),            // 1482308425857
 	name: String (max length 50),   // "AW Fullstack"
 	url: String	(Length 16-26),		// "192.168.0.41:3001"
-	author: String (Length )        // "Guti Balázs"
+	username: String (Length )        // "Guti Balázs"
 }```
 Response:
 ```{
@@ -26,11 +26,11 @@ Response:
 }```
 
 
-*getOnlineProject*
+*getOnlineProjects*
 Returns a list of online projects
 Data send:
 ```{
-	c: 'getOnlineProject'
+	c: 'getOnlineProjects'
 }```
 Response:
 ```{
@@ -39,7 +39,7 @@ Response:
 			id: Int (Length 13),            // 1482308425857
 			name: String (max length 50),   // "AW Fullstack"
 			url: String	(Length 16-26),		// "192.168.0.41:3001"
-			author: String (Length )		// "Guti Balázs"
+			username: String (Length )		// "Guti Balázs"
 		},
 		...etc
 	]

@@ -90,8 +90,8 @@ export default class OnlineProjects extends Component {
 					<ListItem
 						onTouchTap={(e) => {this.visitProject(project)}}
 						leftAvatar={<Avatar icon={<ActionLanguage />} />}
-						primaryText={project.name}
-						secondaryText={project.author}
+						primaryText={`${project.name} - ${project.username}`}
+						secondaryText={project.url}
 						className={styles.listItem}
 					/>
 				</div>

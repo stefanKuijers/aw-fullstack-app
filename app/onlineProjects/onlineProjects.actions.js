@@ -44,7 +44,7 @@ export function registerOnlineProject(project, url) {
 		    	id: project.id,
 		    	name: state.configs[project.configId].name,
 		    	url,
-		    	author: state.profile.username
+		    	username: state.profile.username
 		    }
 		}).then((response) => {
 			dispatch(registeredOnlineProject());
