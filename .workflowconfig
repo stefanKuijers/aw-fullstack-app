@@ -1,0 +1,34 @@
+{
+    "name": "Legacy Web Project",
+    "watch": {
+        "enabled": true,
+        "globs": [
+            "*.php",
+            "view/**/*",
+            "view_admin/**/*",
+            "controller/*.php",
+            "model/*.php",
+            "assets/css/**/*.css",
+            "assets/style/**/*.css",
+            "assets/js/**/*.js"
+        ]
+    },
+    "server": {
+        "type": "proxy",
+        "target": "project.dev"
+    },
+    "sass": {
+        "enabled": false,
+        "outputDir": "",
+        "globs": []
+    },
+    "javascript": {
+        "enabled": false,
+        "outputDir": "",
+        "globs": []
+    },
+    "dependencyManagement": {
+        "enabled": false
+    },
+    "path": "C:\\Users\\Felhasznalo\\Dev\\aw-fullstack-app\\"
+}

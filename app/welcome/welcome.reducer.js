@@ -4,7 +4,7 @@ import { ACTIVATE, UPDATE_USERNAME } from './welcome.actions';
 export default function projects(
 	state: Object = {
 		activated: false,
-		username: "initial"
+		username: ""
 	}, 
 	action: Object
 ) {

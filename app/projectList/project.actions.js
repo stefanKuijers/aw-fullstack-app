@@ -1,7 +1,7 @@
 // @flow
 import { push } from 'react-router-redux';
 
-import { getStoredState, SAVE_STATE } from '../app/stateStorage';
+import { getStoredState, SAVE_STATE, WRITE_WORKFLOWCONFIG } from '../app/stateStorage';
 import { fetchConfig, deleteConfig, createConfig, loadExistingConfig, loadTemplateConfig } from '../config/config.actions';
 import { startWorkflow, stopWorkflow } from '../workflow/workflow.actions';
 
@@ -58,12 +58,16 @@ export function addExistingProject(path) {
 }
 
 export function createProjectFromTemplate(path, data) {
-	return (dispatch: Function) => {
+	return (dispatch: Function, getState: Function) => {
 		const id = Date.now();
 		dispatch(addProject(id));
 		dispatch(loadTemplateConfig(id, path, data));
 		dispatch(push(`/config/${id}`));
-		// dispatch({type: SAVE_STATE});
+		dispatch({type: SAVE_STATE});
+		dispatch({
+			type: WRITE_WORKFLOWCONFIG,
+			payload: getState().configs[id]
+		});
 	}
 }
 

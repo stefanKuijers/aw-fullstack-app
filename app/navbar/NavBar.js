@@ -28,13 +28,13 @@ export default class NavBar extends Component {
       this.props.unregisterOnlineProjects(
         registredProjects, 
         () => {
-          console.warn('I QUIT!!!', registredProjects.length);
-          // remote.app.quit();
+          // console.warn('I QUIT!!!', registredProjects.length);
+          remote.app.quit();
         }
       );
     } else {
-      console.warn('I QUIT!!! 0');
-      // remote.app.quit();
+      // console.warn('I QUIT!!! 0');
+      remote.app.quit();
     }
 
   }
