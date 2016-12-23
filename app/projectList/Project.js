@@ -45,8 +45,21 @@ export default class Project extends Component {
 		);
 	}
 
+	renderBuildButton(project, config) {
+		console.log(config);
+		if (
+			config.javascript.enabled || 
+			config.sass.enabled || 
+			config.dependencyManagement.enabled
+		) {
+			return(<MenuItem onTouchTap={() => {this.props.actions.startBuild(project.id)}}>Build</MenuItem>)
+		} else {
+			return null;
+		}
+	}
+
 	render() {
-		const { project, name } = this.props.data;
+		const { project, config } = this.props.data;
 
 		return (
 			<div className={styles[this.getProjectClassName()]}>
@@ -59,7 +72,7 @@ export default class Project extends Component {
 							targetOrigin={{horizontal: 'right', vertical: 'top'}}
 						>
 						    <MenuItem onTouchTap={() => {this.props.actions.toggleProject(project)}}>{this.stateToggleLabel(project)}</MenuItem>
-						    <MenuItem onTouchTap={() => {this.props.actions.startBuild(project.id)}}>Build</MenuItem>
+						    {this.renderBuildButton(project, config)}
 						    <MenuItem disabled={project.running}>
 						    	<Link 
 						    		to={`/config/${project.configId}`} 
@@ -72,7 +85,7 @@ export default class Project extends Component {
 						    <MenuItem onTouchTap={() => {this.props.actions.deleteProject(project)}}>Delete</MenuItem>
 						</IconMenu>
 					}
-					primaryText={name}
+					primaryText={config.name}
 					secondaryText={project.state}
 					className={styles.listItem}
 				/>
