@@ -31,7 +31,7 @@ app/node_modules
 .DS_Store
 
 # App packaged
-release
+release/win-unpacked
 app/main.js
 app/main.js.map
 app/bundle.js
