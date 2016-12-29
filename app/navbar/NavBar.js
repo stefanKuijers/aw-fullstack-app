@@ -41,7 +41,7 @@ export default class NavBar extends Component {
 
   render() {
     return (
-      <AppBar showMenuIconButton={false} title={<div className={styles.titleBar}>Workflow Fullstack</div>}>
+      <AppBar showMenuIconButton={false} title={<div className={styles.titleBar}>{remote.app.getName()}</div>}>
 	  	<section className={styles.btnGroup}>
 		  	<IconButton onTouchTap={() => {this.minimize()}}><MinimizeIcon /></IconButton>
 		  	<IconButton onTouchTap={() => {this.quit()}}><CloseIcon /></IconButton>

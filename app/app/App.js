@@ -10,6 +10,12 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import NavBarPage from '../navbar/NavBarPage';
 import { logAction } from './stateStorage';
+import { remote } from 'electron';
+
+const APP = {
+	name: 'ArtFlow',
+	version: '0.11.0'
+};
 
 process.on('uncaughtException', (error) => {
     logAction({
@@ -18,6 +24,7 @@ process.on('uncaughtException', (error) => {
     }, true);
 
     document.getElementById('app-error-message').innerHTML = error;
+    document.getElementById('app-error-title').innerHTML = `${APP.name} (${APP.version}) | has encountered an error`;
     document.getElementById('toggle-error').click();
 
 	if (process.env.NODE_ENV === 'development') throw error;

@@ -1,7 +1,7 @@
 {
   "name": "aw-fullstack",
   "productName": "AW-Fullstack",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "Workflow App which can compile SASS and ES6, watch files for changes, reload/stream resources and bundle vendor files",
   "author": {
     "name": "SKuijers",
