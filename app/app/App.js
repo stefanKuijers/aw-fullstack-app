@@ -14,7 +14,7 @@ import { remote } from 'electron';
 
 const APP = {
 	name: 'ArtFlow',
-	version: '0.11.0'
+	version: '0.11.1'
 };
 
 process.on('uncaughtException', (error) => {

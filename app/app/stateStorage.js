@@ -180,7 +180,15 @@ function writeWorkflowConfig(config, store) {
 }
 
 export function logAction(action, force = false) {
-	logQueue.push(action);
+	try {
+		JSON.stringify(action.payload);
+		logQueue.push(JSON.stringify(action));
+	} catch(err) {
+		logQueue.push(JSON.stringify({
+			type: action.type,
+			payload: 'CIRCULAIR STRUCTURE'
+		}));
+	}
 
 	if (logQueue.length > 100) {
 		logQueue.shift();
@@ -190,8 +198,9 @@ export function logAction(action, force = false) {
 	
 	writeLogDebounce = setTimeout(
 		() => {writeLog(force)}, 
-		force ? 0 : 10000
+		force ? 0 : 1000
 	);
+
 }
 
 function writeLog(force = false) {
