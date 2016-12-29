@@ -22,6 +22,16 @@
     	<section class="loading">
 	    	<span></span>
 	    </section>
+      <article class="app-error">
+        <input type="checkbox" id="toggle-error">
+        <label for="toggle-error" class="app-error-icon"></label>
+        <section class="app-error-content">
+          <header>
+            Application has reported an error
+          </header>
+          <section id="app-error-message" class="message js-error-message">error text bla bla</section>
+        </section>
+      </article>
     	<section id="app"></section>
     </main>
 
@@ -36,5 +46,6 @@
         document.write(script.outerHTML);
       }
     </script>
+    <link rel="stylesheet" href="./error.css">
   </body>
 </html>

@@ -1,0 +1,73 @@
+.app-error {
+	position: absolute;
+	
+	bottom: 0;
+	width: 100%;
+	z-index: 3;
+
+	color: white;
+	font-weight: bold;
+}
+
+.app-error small {
+	font-size: 12px;
+}
+
+.app-error input {
+	display: none;
+}
+
+.app-error input:checked ~ .app-error-content {
+	display: block;
+}
+
+.app-error-content {
+	position: relative;
+	width: 100%;
+	
+	background-color: #a93a3a;
+	display: none;
+	padding: 10px;
+}
+
+.app-error input:checked .app-error-content {
+	transform: translate(0, -100%);
+}
+
+.app-error-content .message {
+	font-size: 14px;
+}
+
+.app-error-icon {
+	position: absolute;
+	z-index: 4;
+	
+	right: 10px;
+	top: 10px;
+	width: 19px;
+	height: 19px;
+
+	cursor: pointer;
+	opacity: 0.75;
+
+	transition: opacity 0.3s ease;
+}
+
+.app-error-icon:hover {
+  opacity: 1;
+}
+.app-error-icon:before, .app-error-icon:after {
+  position: absolute;
+  left: 10px;
+  content: ' ';
+  height: 20px;
+  width: 2px;
+  background-color: white;
+}
+.app-error-icon:before {
+  transform: rotate(45deg);
+}
+.app-error-icon:after {
+  transform: rotate(-45deg);
+}
+}

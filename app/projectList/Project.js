@@ -46,11 +46,12 @@ export default class Project extends Component {
 	}
 
 	renderBuildButton(project, config) {
-		console.log(config);
 		if (
-			config.javascript.enabled || 
-			config.sass.enabled || 
-			config.dependencyManagement.enabled
+			config && (
+				config.javascript.enabled || 
+				config.sass.enabled || 
+				config.dependencyManagement.enabled
+			)
 		) {
 			return(<MenuItem onTouchTap={() => {this.props.actions.startBuild(project.id)}}>Build</MenuItem>)
 		} else {
@@ -60,8 +61,8 @@ export default class Project extends Component {
 
 	render() {
 		const { project, config } = this.props.data;
-
-		return (
+		
+		return (config) ? (
 			<div className={styles[this.getProjectClassName()]}>
 				<ListItem
 					leftAvatar={<Avatar icon={<FileFolder />} />}
@@ -90,6 +91,6 @@ export default class Project extends Component {
 					className={styles.listItem}
 				/>
 			</div>
-		);
+		) : null;
 	}
 }

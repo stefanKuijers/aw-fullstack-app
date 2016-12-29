@@ -91,6 +91,8 @@ const defaultData = {
 };
 let saveStateDebounce = 0;
 let writeFileDebounce = 0;
+let writeLogDebounce = 0;
+let logQueue = [];
 
 
 export function getStoredState(key, callback) {
@@ -107,6 +109,8 @@ export function getStoredState(key, callback) {
 export function stateStorageMiddleware(store) {
   return (next) => (action) => {
     const result = next(action);
+
+    logAction(action);
 
     switch(action.type) {
 	    case SAVE_STATE:
@@ -173,4 +177,26 @@ function writeWorkflowConfig(config, store) {
 
 		writeFileDebounce = 0;
 	}, 1500);
+}
+
+export function logAction(action, force = false) {
+	logQueue.push(action);
+
+	if (logQueue.length > 100) {
+		logQueue.shift();
+	}
+
+	if (writeLogDebounce) clearTimeout(writeLogDebounce);
+	
+	writeLogDebounce = setTimeout(
+		() => {writeLog(force)}, 
+		force ? 0 : 10000
+	);
+}
+
+function writeLog(force = false) {
+	const logFileName = force ? `log.error.${Date.now()}` : 'log';
+	storage.set(logFileName, logQueue);
+
+	writeLogDebounce = 0;
 }

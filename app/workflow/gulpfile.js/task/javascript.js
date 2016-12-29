@@ -12,6 +12,7 @@ module.exports = function (gulp, plugin, config) {
             }))
             .pipe(plugin.concat('script.min.js'))
             .pipe(plugin.uglify())
+            // remove the global 'use strict'; which babel adds by default.
             .pipe(plugin.replace(/^"use strict";/, ''))
             // do not write source maps if production is set to true
             .pipe( plugin.sourcemaps.write(config.production ? '.' : null) )

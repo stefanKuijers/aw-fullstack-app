@@ -9,6 +9,19 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import NavBarPage from '../navbar/NavBarPage';
+import { logAction } from './stateStorage';
+
+process.on('uncaughtException', (error) => {
+    logAction({
+    	type: 'APPLICATION_ERROR',
+    	payload: error.message
+    }, true);
+
+    document.getElementById('app-error-message').innerHTML = error;
+    document.getElementById('toggle-error').click();
+
+	if (process.env.NODE_ENV === 'development') throw error;
+});
 
 
 injectTapEventPlugin();
