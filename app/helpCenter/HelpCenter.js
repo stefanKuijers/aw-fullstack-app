@@ -66,3 +66,14 @@ export const projectsExplenation = (<article>
 		<p>When a project is setup the <em>.workflowconfig</em> file is saved in the project root. This file is shared through git which makes it easy to share projects between developers. Just clone the repo and import the existing workflow project.</p>
 	</section>
 </article>);
+
+export const onlineProjectsExplenation = (<article>
+	<header>
+		<h3>Online Workflow Projects</h3>
+	</header>
+	<section>
+		<p>Running projects of other users will show up in this list. You can visit them by clicking on the item. When visiting the others project your clicks and scrolls <em>will not</em> be broadcasted to other users visiting or developing the project in question.</p>
+
+		<p>Your own projects are filtered out from this list. No worries, the others will see them.</p>
+	</section>
+</article>);

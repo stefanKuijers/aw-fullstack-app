@@ -8,15 +8,17 @@ import {List, ListItem} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import FileFolder from 'material-ui/svg-icons/file/folder';
 import ActionLanguage from 'material-ui/svg-icons/action/language';
+import InfoIcon from 'material-ui/svg-icons/action/info';
+import Popover from 'material-ui/Popover/Popover';
+
 
 import styles from './OnlineProjects.css';
 import OnlineProjectServer from './OnlineProjectServer';
+import { onlineProjectsExplenation, helpStyles } from '../helpCenter/HelpCenter';
 
 const checkProjectsIntervalDelay = 5000;
 let checkProjectsInterval;
 let onlineProjectServer;
-
-const jsonfile = require('jsonfile');
 
 
 export default class OnlineProjects extends Component {
@@ -31,8 +33,16 @@ export default class OnlineProjects extends Component {
 
 		this.setState({
 			starting: -1,
-			running: -1
+			running: -1,
+			projectPopoverOpen: false,
+			popoverAnchor: undefined
 		});
+	}
+
+	toggleProjectPopover = (e) => {
+		this.state.globPopoverOpen = !this.state.globPopoverOpen;
+		this.state.popoverAnchor = e.currentTarget;
+		this.setState(this.state);
 	}
 
 	componentWillUnmount() {
@@ -106,7 +116,17 @@ export default class OnlineProjects extends Component {
 	render() {
 		return (
 			<Card className="section">
-				<CardTitle title={"Online Projects"}/>
+				<CardTitle 
+					title={"Online Projects"}
+					className={helpStyles.header}
+					onTouchTap={this.toggleProjectPopover}
+				><InfoIcon/></CardTitle>
+				<Popover
+		          open={this.state.globPopoverOpen}
+		          anchorEl={this.state.popoverAnchor}
+		          onRequestClose={this.toggleProjectPopover}
+		          className={helpStyles.popover}
+		        >{onlineProjectsExplenation}</Popover>
 				<CardText>
 					<List>							
 						{(this.props.onlineProjects.length) ? 
