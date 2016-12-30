@@ -208,8 +208,7 @@ export function logAction(action, force = false) {
 	
 	writeLogDebounce = setTimeout(
 		() => {writeLog(force)}, 
-		0
-		// force ? 0 : 1000
+		force ? 0 : 1000
 	);
 
 }
