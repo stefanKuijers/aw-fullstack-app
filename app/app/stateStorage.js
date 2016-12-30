@@ -183,7 +183,6 @@ function writeWorkflowConfig(config, store) {
 export function logAction(action, force = false) {
     if (logIgnoreActionTypes.indexOf(action.type) != -1) return
 
-    if (action.payload === 'Converting circular structure to JSON') return;
     let circulair = false;
     let logPayload;
 	try {
