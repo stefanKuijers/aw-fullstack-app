@@ -65,6 +65,7 @@ export default class Project extends Component {
 		return (config) ? (
 			<div className={styles[this.getProjectClassName()]}>
 				<ListItem
+					onTouchTap={() => {this.props.actions.toggleProject(project)}}
 					leftAvatar={<Avatar icon={<FileFolder />} />}
 					rightIconButton={
 						<IconMenu 

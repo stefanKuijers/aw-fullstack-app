@@ -94,7 +94,7 @@ export function toggleProject(project) {
 	return (dispatch: Function, getState: Function) => {
 		if (project.running) {
 			dispatch(stopWorkflow(project))
-		} else {
+		} else if (!project.starting) {
 			dispatch(startWorkflow(project))
 		}
 	};
