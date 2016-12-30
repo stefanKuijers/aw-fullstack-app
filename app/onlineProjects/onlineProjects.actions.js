@@ -1,8 +1,9 @@
 // @flow
 import axios from 'axios';
-axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
+axios.defaults.baseURL = 'http://awfp2.dev53.arteries.hu/';
 
 import OnlineProjectServer from './OnlineProjectServer';
+import { onError } from '../index';
 
 export const REFRESH_ONLINE_PROJECTS = 'REFRESH_ONLINE_PROJECTS';
 export const RECIEVED_ONLINE_PROJECTS = 'RECIEVED_ONLINE_PROJECTS';
@@ -16,22 +17,20 @@ export function getOnlineProjects() {
 	return (dispatch: Function, getState: Function) => {
 		dispatch({ type: REFRESH_ONLINE_PROJECTS });
 		
-		axios.get('/users', {
-		    params: {
-		    	c: 'getOnlineProjects'
-		    }
-		}).then((response) => {
+		axios.post('/getOnlineProjects').then((response) => {
 			dispatch(recievedOnlineProjects(
-				response.data, 
+				response.data.data[0], 
 				getState().profile.username
 			));
-		});
+		}).catch(onError);
 	};
 }
 
 export function recievedOnlineProjects(projects, currentUsername) {
+	console.log();
 	return {
 		type: RECIEVED_ONLINE_PROJECTS,
+		// payload: projects
 		payload: projects.filter(project => project.username != currentUsername)
 	};
 }
@@ -41,17 +40,15 @@ export function registerOnlineProject(project, url) {
 		dispatch({ type: REGISTER_ONLINE_PROJECT });
 
 		const state = getState();
-		axios.post('/users', {
-		    params: {
-		    	c: 'registerOnlineProject',
+		axios.post('/registerOnlineProject', {
 		    	id: project.id,
 		    	name: state.configs[project.configId].name,
 		    	url,
 		    	username: state.profile.username
-		    }
-		}).then((response) => {
-			dispatch(registeredOnlineProject());
-		});
+		    }).then((response) => {
+				dispatch(registeredOnlineProject());
+			})
+			.catch(onError);
 	};
 }
 
@@ -61,22 +58,19 @@ export function registeredOnlineProject() {
 	};
 }
 
-export function unregisterOnlineProjects(ids = [], callback) {
+export function unregisterOnlineProjects(ids = [], callback = Function) {
 	return (dispatch: Function) => {
 		dispatch({ 
 			type: UNREGISTER_ONLINE_PROJECTS,
 			payload: ids
 		});
 
-		axios.post('/users', {
-		    params: {
-		    	c: 'unregisterOnlineProjects',
-		    	ids
-		    }
-		}).then((response) => {
-			dispatch(unregisteredOnlineProjects(ids));
-			callback();
-		});
+		axios.post('/unregisterOnlineProjects', { ids })
+			.then((response) => {
+				dispatch(unregisteredOnlineProjects(ids));
+				callback();
+			})
+			.catch(onError);
 	};
 }
 
