@@ -189,12 +189,13 @@ export function logAction(action, force = false) {
 	} catch(err) {
 		circulair = true;
 	} finally {
-		logQueue.push(JSON.stringify({
+		logQueue.push({
 			type: action.type,
+			time: new Date().toString(),
 			payload: circulair ? 
 				`CIRCULAIR STRUCTURE: ${Object.keys(action.payload).toString()}` : 
 				action.payload
-		}));
+		});
 	}
 
 	if (logQueue.length > 100) {
