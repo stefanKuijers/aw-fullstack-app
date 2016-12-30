@@ -1,0 +1,58 @@
+.popover {
+	padding: 15px;
+	width: 90%;
+}
+
+.popover article {
+	font-size: 14px;
+}
+
+.popover section {
+	margin: 40px 0;
+}
+
+.popover tbody {
+	font-size: 12px;
+}
+.popover caption {
+	text-align: left;
+}
+.popover span {
+	text-decoration: underline;
+	opacity: 0.85;
+	cursor: pointer;
+	transition: opacity 0.3s ease;
+}
+
+.popover span:hover {
+	opacity: 1;
+}
+
+.subHeader,
+.header {
+	cursor: pointer;
+	position: relative;
+	margin-top: 15px;
+	line-height: 30px !important;
+}
+
+.subHeader:hover svg,
+.header:hover svg {
+	opacity: 1;
+}
+
+.subHeader svg,
+.header svg {
+	opacity: 0.1;
+	position: absolute;
+	right: 15px;
+	transition: all 1s ease;
+}
+
+.subHeader svg {
+	top: 5px;
+}
+
+.header svg {
+	top: 25px;
+}

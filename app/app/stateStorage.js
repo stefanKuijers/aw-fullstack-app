@@ -183,9 +183,11 @@ function writeWorkflowConfig(config, store) {
 export function logAction(action, force = false) {
     if (logIgnoreActionTypes.indexOf(action.type) != -1) return
 
+    if (action.payload === 'Converting circular structure to JSON') return;
     let circulair = false;
+    let logPayload;
 	try {
-		JSON.stringify(action.payload);
+		logPayload = JSON.stringify(action.payload || '');
 	} catch(err) {
 		circulair = true;
 	} finally {
@@ -194,11 +196,11 @@ export function logAction(action, force = false) {
 			time: new Date().toString(),
 			payload: circulair ? 
 				`CIRCULAIR STRUCTURE: ${Object.keys(action.payload).toString()}` : 
-				action.payload
+				JSON.parse(logPayload)
 		});
 	}
 
-	if (logQueue.length > 100) {
+	if (logQueue.length > 500) {
 		logQueue.shift();
 	}
 
@@ -206,13 +208,15 @@ export function logAction(action, force = false) {
 	
 	writeLogDebounce = setTimeout(
 		() => {writeLog(force)}, 
-		force ? 0 : 1000
+		0
+		// force ? 0 : 1000
 	);
 
 }
 
 function writeLog(force = false) {
 	const logFileName = force ? `log.error.${Date.now()}` : 'log';
+	console.log(logQueue);
 	storage.set(logFileName, logQueue);
 
 	writeLogDebounce = 0;

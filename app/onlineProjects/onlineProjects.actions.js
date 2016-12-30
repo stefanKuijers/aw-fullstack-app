@@ -37,7 +37,7 @@ export function recievedOnlineProjects(projects, currentUsername) {
 
 export function registerOnlineProject(project, url) {
 	return (dispatch: Function, getState: Function) => {
-		dispatch({ type: REGISTER_ONLINE_PROJECT });
+		dispatch({ type: REGISTER_ONLINE_PROJECT, payload: project });
 
 		const state = getState();
 		axios.post('/registerOnlineProject', {
@@ -46,15 +46,16 @@ export function registerOnlineProject(project, url) {
 		    	url,
 		    	username: state.profile.username
 		    }).then((response) => {
-				dispatch(registeredOnlineProject());
+				dispatch(registeredOnlineProject(project));
 			})
 			.catch(onError);
 	};
 }
 
-export function registeredOnlineProject() {
+export function registeredOnlineProject(project) {
 	return {
-		type: REGISTERED_ONLINE_PROJECT
+		type: REGISTERED_ONLINE_PROJECT,
+		payload: project
 	};
 }
 

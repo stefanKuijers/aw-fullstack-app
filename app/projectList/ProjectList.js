@@ -8,16 +8,21 @@ import Subheader from 'material-ui/Subheader';
 import {List, ListItem} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import AddIcon from 'material-ui/svg-icons/content/add';
+import InfoIcon from 'material-ui/svg-icons/action/info';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import Popover from 'material-ui/Popover/Popover';
+
 
 import styles from './ProjectList.css';
 import Project from './Project';
 import OnlineProjectsPage from '../onlineProjects/OnlineProjectsPage';
+import { projectsExplenation, helpStyles } from '../helpCenter/HelpCenter';
+
 
 const fileSystem = require('fs'); 
 const Path = require('path'); 
@@ -27,6 +32,12 @@ const removeLoader = function () {
 	element.className = 'app-loaded';
 }
 
+const initialState = {
+	createProjectModal: false,
+	addExistingProjectModal: false,
+	createFromTemplate: false,
+	path: undefined
+};
 
 
 export default class ProjectList extends Component {
@@ -39,16 +50,16 @@ export default class ProjectList extends Component {
 		createProjectModal: false,
 		addExistingProjectModal: false,
 		createFromTemplate: false,
-		path: undefined
+		path: undefined,
+		projectPopoverOpen: false,
+		popoverAnchor: undefined
 	};
 
 	toggleModalBoxState = (modalName = null, path) => {
 		if (modalName === null) {
-			this.state = {
-				createProjectModal: false,
-				addExistingProjectModal: false,
-				createFromTemplate: false
-			};
+			this.state.createProjectModal = false;
+			this.state.addExistingProjectModal = false;
+			this.state.createFromTemplate = false;
 		} else {
 			this.state[modalName] = !this.state[modalName];
 		}
@@ -56,6 +67,12 @@ export default class ProjectList extends Component {
 
 		this.setState(this.state);
 	};
+
+	toggleProjectPopover = (e) => {
+		this.state.globPopoverOpen = !this.state.globPopoverOpen;
+		this.state.popoverAnchor = e.currentTarget;
+		this.setState(this.state);
+	}
 
 	getTemplates(actions) {
 		const templates = getStoredState('templates');
@@ -146,7 +163,17 @@ export default class ProjectList extends Component {
 		return (
 		    <article className="page">
 		    	<Card className="section">
-					<CardTitle title={"My Projects"}/>
+					<CardTitle 
+						title={"My Projects"} 
+						className={helpStyles.header}
+						onTouchTap={this.toggleProjectPopover}
+					><InfoIcon/></CardTitle>
+					<Popover
+			          open={this.state.globPopoverOpen}
+			          anchorEl={this.state.popoverAnchor}
+			          onRequestClose={this.toggleProjectPopover}
+			          className={helpStyles.popover}
+			        >{projectsExplenation}</Popover>
 					<CardText>
 			        	<List>
 					        {this.createListItems(actions)}
