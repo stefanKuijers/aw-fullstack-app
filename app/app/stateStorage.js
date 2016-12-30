@@ -214,7 +214,6 @@ export function logAction(action, force = false) {
 
 function writeLog(force = false) {
 	const logFileName = force ? `log.error.${Date.now()}` : 'log';
-	console.log(logQueue);
 	storage.set(logFileName, logQueue);
 
 	writeLogDebounce = 0;
