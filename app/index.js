@@ -13,7 +13,6 @@ import { fetchConfig } from './config/config.actions';
 import { logAction } from './app/stateStorage';
 
 
-const isOnline = require('is-online');
 const store = configureStore();
 const history = syncHistoryWithStore(hashHistory, store);
 let offlineMessageTimeout = false;
