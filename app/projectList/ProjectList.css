@@ -21,8 +21,19 @@
 	width: 100% !important;
 }
 
-.listItem > div > div > div:last-child {
+.listItem div > div > div:last-child {
 	color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.idle > div {
+	background-color: transparent;
+
+	transition: background-color 1s ease;
+}
+
+.idle span > div > div > div > div:nth-child(2) {
+	color: white;
+	transition: color 1s ease;
 }
 
 .iconMenu {

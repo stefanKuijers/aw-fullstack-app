@@ -5,6 +5,7 @@ import ProjectList from './ProjectList';
 import * as ProjectActions from './project.actions';
 import * as ConfigActions from '../config/config.actions';
 import * as WorkflowActions from '../workflow/workflow.actions';
+import * as WelcomeActions from '../welcome/welcome.actions';
 
 
 function mapStateToProps(state) {
@@ -19,7 +20,8 @@ function mapDispatchToProps(dispatch) {
 		{ 
 			...ProjectActions, 
 			...ConfigActions,
-			...WorkflowActions
+			...WorkflowActions,
+			...WelcomeActions
 		}, 
 		dispatch
     );

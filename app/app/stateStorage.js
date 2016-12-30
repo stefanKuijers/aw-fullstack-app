@@ -8,6 +8,7 @@ export const STATE_SAVED = 'STATE_SAVED';
 export const WRITE_WORKFLOWCONFIG = 'WRITE_WORKFLOWCONFIG';
 export const WORKFLOWCONFIG_WRITTEN = 'WORKFLOWCONFIG_WRITTEN';
 
+const logIgnoreActionTypes = ['REFRESH_ONLINE_PROJECTS', 'RECIEVED_ONLINE_PROJECTS'];
 const defaultData = {
 	templates: [
 		{
@@ -180,13 +181,19 @@ function writeWorkflowConfig(config, store) {
 }
 
 export function logAction(action, force = false) {
+    if (logIgnoreActionTypes.indexOf(action.type) != -1) return
+
+    let circulair = false;
 	try {
 		JSON.stringify(action.payload);
-		logQueue.push(JSON.stringify(action));
 	} catch(err) {
+		circulair = true;
+	} finally {
 		logQueue.push(JSON.stringify({
 			type: action.type,
-			payload: 'CIRCULAIR STRUCTURE'
+			payload: circulair ? 
+				`CIRCULAIR STRUCTURE: ${Object.keys(action.payload).toString()}` : 
+				action.payload
 		}));
 	}
 

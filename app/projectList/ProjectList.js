@@ -32,6 +32,7 @@ const removeLoader = function () {
 export default class ProjectList extends Component {
 	componentWillMount() {
 		removeLoader();
+		this.props.checkActivation({redirect: false});
 	};
 
 	state = {

@@ -6,13 +6,16 @@ import { getStoredState, SAVE_STATE } from '../app/stateStorage';
 export const ACTIVATE = 'ACTIVATE';
 export const UPDATE_USERNAME = 'UPDATE_USERNAME';
 
-export function activate() {
+export function activate(redirect = true) {
 	return (dispatch: Function, getState: Function) => {
 		dispatch({
 			type: ACTIVATE
 		});
 		dispatch({ type: SAVE_STATE });
-		dispatch(push('projects'));
+
+		if (redirect) {
+			dispatch(push('projects'));
+		}
 	};
 }
 
@@ -23,7 +26,7 @@ export function updateName(name) {
 	};
 }
 
-export function checkActivation() {
+export function checkActivation(params = {redirect: true}) {
 	return (dispatch: Function, getState: Function) => {
 		// check or we have stored data. 
 		getStoredState('profile', (data) => {
@@ -31,7 +34,7 @@ export function checkActivation() {
 				// if we do we put that user name in
 				dispatch(updateName(data.username));
 				// and after activate
-				dispatch(activate());
+				dispatch(activate(params.redirect));
 			}
 		});
 	};
