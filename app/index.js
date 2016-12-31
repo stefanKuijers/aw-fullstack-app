@@ -19,7 +19,7 @@ let offlineMessageTimeout = false;
 
 function init() {
 	remote.app.setName('ArtFlow');
-	remote.app.setVersion('0.11.1');
+	remote.app.setVersion('0.12.0');
 	
 	// pretty sure this is not the right place for this
 	// leaving it here for now as both views depend on 
