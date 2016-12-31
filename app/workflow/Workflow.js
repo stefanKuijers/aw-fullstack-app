@@ -32,10 +32,10 @@ export default class Workflow {
 		if (this.config.watch.enabled) {this.watch = this.config.watch.task();}
 	}
 
-	build(callback = Function) {
-		if (this.config.dependencyManagement.enabled) {this.config.dependencyManagement.task()}
-		if (this.config.sass.enabled) {this.config.sass.task()}
-		if (this.config.javascript.enabled) {this.config.javascript.task()}
+	build(production = false, callback = Function) {
+		if (this.config.dependencyManagement.enabled) {this.config.dependencyManagement.task(production)}
+		if (this.config.sass.enabled) {this.config.sass.task(production)}
+		if (this.config.javascript.enabled) {this.config.javascript.task(null, production)}
 
 		setTimeout(() => {
 			callback();

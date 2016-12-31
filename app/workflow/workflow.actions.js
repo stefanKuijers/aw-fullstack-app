@@ -72,13 +72,13 @@ export function workflowStopped() {
 	
 }
 
-export function startBuild(projectId, workflow) {
+export function startBuild(projectId, workflow, production = false) {
 	return (dispatch: Function, getState: Function) => {
 		const project = getState().projects.filter(
 			item => item.id == projectId
 		)[0];
 		const workflow = workflow || getWorkflow(project, dispatch, getState);
-		workflow.build(() => {
+		workflow.build(production, () => {
 			dispatch(buildComplete(project.id))
 		});
 

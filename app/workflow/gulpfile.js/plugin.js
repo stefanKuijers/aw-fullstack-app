@@ -10,6 +10,7 @@ module.exports = {
 
     filter:            require('gulp-filter'),
     flatten:           require('gulp-flatten'),
+    if:                require('gulp-if'),
 
     mainBowerFiles:    require('gulp-main-bower-files'),
     notify:            require('gulp-notify'),

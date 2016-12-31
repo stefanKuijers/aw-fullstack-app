@@ -53,7 +53,10 @@ export default class Project extends Component {
 				config.dependencyManagement.enabled
 			)
 		) {
-			return(<MenuItem onTouchTap={() => {this.props.actions.startBuild(project.id)}}>Build</MenuItem>)
+			return(<MenuItem 
+					onTouchTap={() => {this.props.actions.startBuild(project.id, undefined, true)}}
+					disabled={project.running}
+				><span className={styles.span} disabled={project.running}>Build</span></MenuItem>)
 		} else {
 			return null;
 		}

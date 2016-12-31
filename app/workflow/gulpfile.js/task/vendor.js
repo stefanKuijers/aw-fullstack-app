@@ -1,7 +1,8 @@
 /* Sass */
 
 module.exports = function (gulp, plugin, config) {
-    return function () {
+    return function (production) {
+    	// console.log('vendor task', production)
         const filterJS = plugin.filter('**/*.js', { restore: true, dot: true });
         const filterCss = plugin.filter('**/*.css', { restore: true, dot: true });
         const filterFonts = plugin.filter('**/fonts/*.*', { restore: true, dot: true });
@@ -15,8 +16,10 @@ module.exports = function (gulp, plugin, config) {
 
             // creating vendor.min.js from all js
             .pipe(filterJS)
+            .pipe( plugin.if(!production, plugin.sourcemaps.init()) )
             .pipe(plugin.concat('vendor.min.js'))
             .pipe(plugin.uglify())
+            .pipe( plugin.if(!production, plugin.sourcemaps.write()) )
             .pipe(gulp.dest(config.javascript.outputDir))
             .pipe(filterJS.restore)
 
