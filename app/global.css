@@ -39,6 +39,10 @@ main {
 	padding: 15px;
 }
 
+.page > footer {
+	margin: 30px 0;
+}
+
 .section + .section {
 	margin-top: 15px;
 }

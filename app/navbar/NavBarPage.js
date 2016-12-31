@@ -3,10 +3,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import NavBar from './NavBar';
 import * as OnlineProjectsActions from '../onlineProjects/onlineProjects.actions';
+import * as NavbarActions from './navbar.actions';
 
 
 function mapStateToProps(state) {
-	// console.log(state);
   return {
   	projects: state.projects
   };
@@ -15,7 +15,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(
 		{ 
-			...OnlineProjectsActions
+			...OnlineProjectsActions,
+			...NavbarActions
 		}, 
 		dispatch
     );

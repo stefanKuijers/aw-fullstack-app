@@ -8,6 +8,8 @@ import FlatButton from 'material-ui/FlatButton';
 import { List, ListItem } from 'material-ui/List';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
+import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+
 
 import styles from './Config.css';
 import Feature from './feature/Feature';
@@ -158,7 +160,10 @@ class Config extends Component {
 					</article>
 					<footer>
 						<Link to={'/projects'} className={styles.link}>
-							<FlatButton label="Back" />
+							<FlatButton 
+								label="Back"
+								icon={<NavigationArrowBack />}
+							/>
 						</Link>
 					</footer>
 				</section>
@@ -171,7 +176,10 @@ class Config extends Component {
 						</header>
 						<footer>
 							<Link to={'/projects'} className={styles.link}>
-								<FlatButton label="Back" />
+								<FlatButton 
+									label="Back"
+									icon={<NavigationArrowBack />}
+								/>
 							</Link>
 					</footer>
 				</section>
