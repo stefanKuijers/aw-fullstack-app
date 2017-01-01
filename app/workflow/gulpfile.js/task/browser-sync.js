@@ -2,9 +2,9 @@
 
 module.exports = function( gulp, plugin, config ) {
 
-    return function(serverName, callback = Function) {
+    return function(serverName = undefined, callback = Function) {
         var options = {
-            open: 'external',
+            open: !!(serverName) ? false : 'external',
             ghostMode: {
                 clicks: true,
                 location: true,

@@ -1,3 +1,4 @@
+import { shell } from 'electron';
 
 export default class Workflow {
 
@@ -6,7 +7,7 @@ export default class Workflow {
 		this.loadConfig(projectConfig);
 
 		this.id = Date.now();
-		this.name = project.name;
+		this.name = projectConfig.name;
 		this.projectId = project.id;
 		this.configId = projectConfig.id;
 
@@ -17,14 +18,15 @@ export default class Workflow {
 		this.browserSync = this.config.browserSync.task(
 			this.name, 
 			(e, browserSyncInstance) => {
-
 				const portKey = browserSyncInstance.server._connectionKey;
 				
 				this.server = {
-					ip: browserSyncInstance.utils.devIp[0],
+					ip: browserSyncInstance.utils.devIp[browserSyncInstance.utils.devIp.length-1],
 					port: portKey.slice(portKey.length-4)
 				};
-
+				this.server.url = `http://${this.server.ip}:${this.server.port}`;
+				
+				shell.openExternal(this.server.url);
 				callback(this);
 			}
 		);
