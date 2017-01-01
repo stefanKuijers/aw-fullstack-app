@@ -52,7 +52,8 @@ export const projectsExplenation = (<article>
 	<section>
 		<h4>Build</h4>
 		<p>Use this command to execute the active features (Sass, Javascript, etc) in production mode. This means the files will be ready for deployment.</p>
-		<p>Please note that <em>cache bust and optimizing images will only run during the build task</em></p>
+		<p>Please note that <em>cache bust and optimizing images will only run during the build task</em>.</p>
+		<p>Just run this when you are ready to deploy a new version.</p>
 	</section>
 
 	<section>
