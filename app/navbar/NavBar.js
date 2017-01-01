@@ -15,13 +15,19 @@ import styles from './NavBar.css';
 
 const appWindow = remote.getCurrentWindow();
 
-
 export default class NavBar extends Component {
   componentWillMount() {
   	browserHistory.listen((location) =>  {
 	 this.state.onConfigPage = (location.hash.indexOf('config') != -1);
 	 this.setState(this.state);
 	});
+
+	// prevent initial close 
+	window.onbeforeunload = () => {
+	  	this.quit();
+
+	    return false;
+	};
   }
 
   state = {
@@ -33,6 +39,9 @@ export default class NavBar extends Component {
   }
 
   quit() {
+    // hacky solution to overwriting the initial onbeforeunload listener to make sure we don't prevent quit anymore
+    window.onbeforeunload = () => {};
+
     let registredProjects = [];
     for (var i = this.props.projects.length - 1; i >= 0; i--) {
       if(this.props.projects[i].running) {
@@ -44,15 +53,12 @@ export default class NavBar extends Component {
       this.props.unregisterOnlineProjects(
         registredProjects, 
         () => {
-          // console.warn('I QUIT!!!', registredProjects.length);
-          remote.app.quit();
+          appWindow.close();
         }
       );
     } else {
-      // console.warn('I QUIT!!! 0');
-      remote.app.quit();
+      appWindow.close();
     }
-
   }
 
   getTopLeftButton() {
