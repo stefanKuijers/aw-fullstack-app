@@ -38,15 +38,22 @@ const defaultData = {
 					]
 				},
 				javascript: {
-					enabled: false,
+					enabled: true,
 					outputDir: 'public_html/js/dist',
 					globs: [
 						'public_html/js/src/index.js',
 						'public_html/js/src/**/*.js',
 					]
 				},
+				cachebust: {
+					enabled: true,
+					outputDir: 'public_html/',
+					globs: [
+						'public_html/index.html',
+					]
+				},
 				dependencyManagement: {
-					enabled: false
+					enabled: true
 				}
 			}
 		},
@@ -79,6 +86,11 @@ const defaultData = {
 					globs: []
 				},
 				javascript: {
+					enabled: false,
+					outputDir: '',
+					globs: []
+				},
+				cachebust: {
 					enabled: false,
 					outputDir: '',
 					globs: []

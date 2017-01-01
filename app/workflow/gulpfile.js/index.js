@@ -31,6 +31,7 @@ config.load(gulpConfig);
 gulp.task('browserSync', config.browserSync.task);
 gulp.task('watch', config.watch.task);
 gulp.task('javascript', config.javascript.task);
+gulp.task('cachebust', config.cachebust.task);
 gulp.task('sass', config.sass.task);
 gulp.task('vendor', config.dependencyManagement.task);
 
@@ -57,6 +58,7 @@ var buildTasks = [];
 if (config.javascript.enabled) {buildTasks.push('javascript');}
 if (config.sass.enabled) {buildTasks.push('sass');}
 if (config.dependencyManagement.enabled) {buildTasks.push('vendor');}
+if (config.cachebust.enabled) {defaultTasks.unshift('cachebust');}
 
 gulp.task(
     'build', 

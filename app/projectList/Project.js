@@ -49,6 +49,7 @@ export default class Project extends Component {
 		if (
 			config && (
 				config.javascript.enabled || 
+				config.cachebust.enabled || 
 				config.sass.enabled || 
 				config.dependencyManagement.enabled
 			)

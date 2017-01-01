@@ -38,6 +38,14 @@
         ]
     },
 
+    "cachebust":  {
+        "enabled": true,
+        "outputDir": "public_html/",
+        "globs": [
+            "public_html/*.html"
+        ]
+    },
+
     "dependencyManagement": {
         "enabled": true,
         "overrides": {}

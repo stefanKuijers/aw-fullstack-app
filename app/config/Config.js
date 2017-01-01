@@ -47,7 +47,7 @@ class Config extends Component {
 				moveGlob: this.props.moveGlob 
 			};
 			let configId = this.props.configs.currentConfigId;
-			let {watch, sass, javascript, dependencyManagement} = this.props.configs[configId];
+			let {watch, sass, javascript, dependencyManagement, cachebust} = this.props.configs[configId];
 			let config = this.props.configs[configId];
 
 			return (
@@ -144,6 +144,16 @@ class Config extends Component {
 								options: javascript,
 								key: 'javascript',
 								title: 'JS Processing and ES6+',
+							}}
+							actions={actions}
+						/>
+
+						<Feature data={{
+								configId,
+								rootFolder: config.path,
+								options: cachebust,
+								key: 'cachebust',
+								title: 'Cache Bust Static Resources',
 							}}
 							actions={actions}
 						/>

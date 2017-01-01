@@ -4,8 +4,9 @@ module.exports = {
     browserSync:       require('browser-sync'),
     babel:             require('gulp-babel'),
 
-    concat:            require('gulp-concat'),
+    cachebust:         require('gulp-cache-bust'),
     cleanCss:          require('gulp-clean-css'),
+    concat:            require('gulp-concat'),
     debug:             require('gulp-debug'),
 
     filter:            require('gulp-filter'),

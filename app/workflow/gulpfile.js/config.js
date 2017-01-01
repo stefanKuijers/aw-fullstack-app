@@ -35,6 +35,8 @@ module.exports = function(gulp, plugin) {
         params.sass.globs = normalizeGlobs(params.path, params.sass.globs);
         params.javascript.globs = normalizeGlobs(params.path, params.javascript.globs);
         params.javascript.outputDir = params.path + params.javascript.outputDir;
+        params.cachebust.globs = normalizeGlobs(params.path, params.cachebust.globs);
+        params.cachebust.outputDir = params.path + params.cachebust.outputDir;
         params.dependencyManagement.path = params.path + 'bower.json';
 
         return params;
@@ -56,6 +58,7 @@ module.exports = function(gulp, plugin) {
             config.browserSync.task = getTask('browser-sync');
             config.dependencyManagement.task = getTask('vendor');
             config.javascript.task = getTask('javascript');
+            config.cachebust.task = getTask('cache-bust');
             config.sass.task = getTask('sass');
             config.watch.task = getTask('watch');
         },

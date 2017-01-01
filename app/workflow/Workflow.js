@@ -38,7 +38,9 @@ export default class Workflow {
 		if (this.config.dependencyManagement.enabled) {this.config.dependencyManagement.task(production)}
 		if (this.config.sass.enabled) {this.config.sass.task(production)}
 		if (this.config.javascript.enabled) {this.config.javascript.task(null, production)}
+		if (this.config.cachebust.enabled && production) {this.config.cachebust.task(production)}
 
+		// each task should call report when finished. when all tasks finished we call the build callback
 		setTimeout(() => {
 			callback();
 		}, 2000);

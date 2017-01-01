@@ -48,7 +48,7 @@ export function onError(error) {
 
 	showError(error);
 
-	if (process.env.NODE_ENV === 'development') throw error;
+	// if (process.env.NODE_ENV === 'development') throw error;
 }
 
 function showError(error) {

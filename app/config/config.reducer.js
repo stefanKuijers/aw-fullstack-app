@@ -37,6 +37,11 @@ const newConfig = {
 		outputDir: '',
 		globs: []
 	},
+	cachebust: {
+		enabled: false,
+		outputDir: '',
+		globs: []
+	},
 	dependencyManagement: {
 		enabled: false
 	}
