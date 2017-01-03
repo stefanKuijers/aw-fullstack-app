@@ -31,7 +31,7 @@ class Config extends Component {
 		dialog.showOpenDialog({
 		    properties: ['openDirectory']
 		}, (paths) => {
-		  	if (paths.length) {
+		  	if (paths && paths.length) {
 			  	updateCallback(prop, undefined, paths[0]+'\\')
 		  	}
 		});
