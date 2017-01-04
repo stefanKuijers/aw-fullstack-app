@@ -1,10 +1,8 @@
 import { shell } from 'electron';
-import network from 'network';	
+import { getGatewayIp, getIpOnGateway } from '../utils/network';	
 
 
 export default class Workflow {
-
-
 	constructor(project, projectConfig, callback) {
 		this.config = require('./gulpfile.js/config.js')(gulp, WORKFLOW_PLUGINS);
 		this.loadConfig(projectConfig);
@@ -14,9 +12,10 @@ export default class Workflow {
 		this.projectId = project.id;
 		this.configId = projectConfig.id;
 
-		network.get_gateway_ip((err, ip) => {
-		  	this.gatewayIp = err ? '' : ip;
+		getGatewayIp((ip) => {
+			this.gatewayIp = ip;
 		});
+
 
 		return this;
 	}
@@ -28,7 +27,7 @@ export default class Workflow {
 				const portKey = browserSyncInstance.server._connectionKey;
 				
 				this.server = {
-					ip: this.getIpOnDefaultGateway(browserSyncInstance.utils.devIp),
+					ip: getIpOnGateway(this.gatewayIp, browserSyncInstance.utils.devIp),
 					port: portKey.slice(portKey.length-4)
 				};
 				this.server.url = `http://${this.server.ip}:${this.server.port}`;
@@ -65,28 +64,5 @@ export default class Workflow {
 		this.config.load(
 			JSON.stringify(projectConfig)
 		);
-	}
-
-	getIpOnDefaultGateway(ips) {
-		let ipIndex = 0;
-	
-		if (ips.length > 1) {
-			const gatewayIpParts = this.gatewayIp.split('.');
-
-			for (var i = ips.length - 1; i >= 0; i--) {
-				let ipParts = ips[i].split('.');
-				let matches = 0;
-
-				for (var j = gatewayIpParts.length - 1; j >= 0; j--) {
-					if (ipParts[j] === gatewayIpParts[j]) {
-						matches++;
-					}
-				}
-
-				if (matches === 3) ipIndex = i;
-			}
-		}
-
-		return ips[ipIndex];
 	}
 }

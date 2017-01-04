@@ -1,4 +1,5 @@
 
+import { getGatewayIp, getIpOnGateway } from '../utils/network';	
 
 
 export default class OnlineProjectServer {
@@ -7,9 +8,12 @@ export default class OnlineProjectServer {
 		this.running = false;
 		this.options = {
             open: false,
-            port: 8999,
-            ghostMode: false
+            port: 8999
         };
+
+        getGatewayIp((ip) => {
+			this.gatewayIp = ip;
+		});
 
         this.server = WORKFLOW_PLUGINS.browserSync.create(this.name);
 	}
@@ -19,7 +23,7 @@ export default class OnlineProjectServer {
 
 		setTimeout(() => {
 			this.initServer(url, callback);
-		}, 300);
+		}, 200);
 	}
 
 	initServer(url, callback) {
@@ -29,9 +33,12 @@ export default class OnlineProjectServer {
 				this.options,
 				{proxy: url}
 			),
-			() => {
+			(e, serverInstance) => {
 				this.running = true;
-				callback();
+				callback({
+					ip: getIpOnGateway(this.gatewayIp, serverInstance.utils.devIp),
+					port: serverInstance.server._connectionKey.slice(-4)
+				});
 			}
 		);
 	}

@@ -82,9 +82,9 @@ export default class OnlineProjects extends Component {
 			});
 
 			this.onlineProjectServer.start(
-				project.url || 'http://192.168.0.41:3001',
-				() => {
-					shell.openExternal(`http://localhost:8999/`);
+				project.url,
+				(address) => {
+					shell.openExternal(`http://${address.ip}:${address.port}/`);
 					this.setState({
 						starting: -1,
 						running: project.id
