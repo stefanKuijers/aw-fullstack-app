@@ -30,8 +30,8 @@ export function recievedOnlineProjects(projects, currentUsername) {
 	console.log();
 	return {
 		type: RECIEVED_ONLINE_PROJECTS,
-		payload: projects
-		// payload: projects.filter(project => project.username != currentUsername)
+		// payload: projects
+		payload: projects.filter(project => project.username != currentUsername)
 	};
 }
 
