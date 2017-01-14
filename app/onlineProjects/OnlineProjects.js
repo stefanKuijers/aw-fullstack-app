@@ -126,6 +126,7 @@ export default class OnlineProjects extends Component {
 		          anchorEl={this.state.popoverAnchor}
 		          onRequestClose={this.toggleProjectPopover}
 		          className={helpStyles.popover}
+		          zDepth={4}
 		        >{onlineProjectsExplenation}</Popover>
 				<CardText>
 					<List>							

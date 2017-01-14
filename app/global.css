@@ -24,7 +24,7 @@ main {
 	overflow: hidden;
 	opacity: 0;
 	
-	background-color: #3b3a3a;
+	background-color: #4e4d4d;
 
 	transition: opacity 1s ease;
 	transition-delay: 2s;

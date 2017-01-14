@@ -153,6 +153,7 @@ class Feature extends Component {
 				          anchorEl={this.state.globHeader}
 				          onRequestClose={this.toggleGlobPopover}
 				          className={helpStyles.popover}
+				          zDepth={4}
 				        >{globsExplenation}</Popover>
 					</CardText>
 			);
