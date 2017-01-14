@@ -35,14 +35,31 @@ export default class Project extends Component {
 		return project.running ? "Stop" : "Start"
 	}
 
+	projectStarting() {
+		return this.props.data.projects.filter(project => project.starting).length > 0
+	}
+
 	getProjectClassName() {
 		const project = this.props.data.project;
 
-		return (
-			((project.starting) ? 'starting' : '') +
-			((project.running) ? 'running' : '') +
-			((!project.running && !project.starting) ? 'idle' : '')
+		console.log(
+			this.props.data.config.name,
+			(this.projectStarting() && !project.starting && !project.running),
 		);
+
+		let elClass;
+
+		if (this.projectStarting() && !project.starting && !project.running) {
+			elClass = 'disabled';
+		} else {
+			elClass = (
+				((project.starting) ? 'starting' : '') +
+				((project.running) ? 'running' : '') +
+				((!project.running && !project.starting) ? 'idle' : '')
+			);
+		}
+
+		return elClass;
 	}
 
 	renderBuildButton(project, config) {

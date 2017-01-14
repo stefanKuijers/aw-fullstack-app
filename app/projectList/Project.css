@@ -39,6 +39,12 @@
 	background-color: #fac415;
 }
 
+.disabled {
+	pointer-events: none;
+	cursor: default !important;
+	opacity: 0.2;
+}
+
 .starting span > div > div > div:last-child,
 .running span > div > div > div:last-child,
 .starting span > div > div > div > div,

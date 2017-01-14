@@ -95,7 +95,7 @@ export default class ProjectList extends Component {
 		if (this.props.projects && this.props.projects.length) {
 			return this.props.projects.map((project, index) => {
 				const config = this.props.configs[project.configId];
-				return (<Project key={index} data={{project, config}} actions={actions}/>);
+				return (<Project key={index} data={{project, config, projects: this.props.projects}} actions={actions}/>);
 			});
 		} else {
 			return (
