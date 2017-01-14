@@ -1,16 +1,29 @@
 
 import network from 'network';	
 
+import { logAction } from '../app/stateStorage';
+
 
 export function getGatewayIp(callback) {
 	network.get_gateway_ip((err, ip) => {
-		callback(err ? '' : ip);
+		let response = err ? '' : ip;
+		logAction({
+			type: 'RECIEVED_GATEWAY_IP',
+			payload: response
+		});
+
+		callback(response);
 		if (err) throw err;
 	});
 }
 
 export function getIpOnGateway(gatewayIp, ips) {
 	let ipIndex = 0;
+
+	logAction({
+		type: 'RECIEVED_AVAILABLE_IPS',
+		payload: ips
+	});
 
 	if (ips.length > 1) {
 		const lanIp = getLanIp(gatewayIp);
@@ -20,9 +33,20 @@ export function getIpOnGateway(gatewayIp, ips) {
 		}
 	}
 
+	logAction({
+		type: 'RETURN_IP_ON_GATEWAY',
+		payload: ips[ipIndex]
+	});
+
 	return ips[ipIndex];
 }
 
 export function getLanIp(ip) {
-	return ip.split('.').slice(0,3).join('.');
+	const lanIP = ip.split('.').slice(0,3).join('.');
+	logAction({
+		type: 'EXTRACTED_LAN_IP',
+		payload: lanIP
+	});
+
+	return lanIP;
 }

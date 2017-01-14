@@ -29,6 +29,11 @@ function init() {
 	fetchConfig(null)(store.dispatch, store.getState);
 
 	process.on('uncaughtException', onError);
+
+	logAction({
+		type: `APP START: ${remote.app.getName()}`,
+		payload: `VERSION: ${remote.app.getVersion()}`
+	});
 }
 
 export function onError(error) {
