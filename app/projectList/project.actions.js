@@ -41,8 +41,8 @@ export function recievedProjects(projects) {
 export function createProject(path) {
 	return (dispatch: Function) => {
 		const id = Date.now();
-		dispatch(addProject(id));
-		dispatch(createConfig(id, path));
+		dispatch(addProject(id, path));
+		dispatch(createConfig(id));
 		dispatch(push(`/config/${id}`));
 		dispatch({type: SAVE_STATE});
 	}
@@ -51,7 +51,7 @@ export function createProject(path) {
 export function addExistingProject(path) {
 	return (dispatch: Function) => {
 		const id = Date.now();
-		dispatch(addProject(id));
+		dispatch(addProject(id, path));
 		dispatch(loadExistingConfig(id, path));
 		dispatch({type: SAVE_STATE});
 	}
@@ -60,8 +60,8 @@ export function addExistingProject(path) {
 export function createProjectFromTemplate(path, data) {
 	return (dispatch: Function, getState: Function) => {
 		const id = Date.now();
-		dispatch(addProject(id));
-		dispatch(loadTemplateConfig(id, path, data));
+		dispatch(addProject(id, path));
+		dispatch(loadTemplateConfig(id, data));
 		dispatch(push(`/config/${id}`));
 		dispatch({type: SAVE_STATE});
 		dispatch({
@@ -100,11 +100,12 @@ export function toggleProject(project) {
 	};
 }
 
-export function addProject(id) {
+export function addProject(id, path) {
 	return {
 		type: ADD_PROJECT,
 		payload: {
 			id,
+			path,
 			url: null,
 			state: 'ready to be started',
 			running: false,

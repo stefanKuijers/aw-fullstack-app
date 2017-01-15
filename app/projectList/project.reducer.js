@@ -1,7 +1,7 @@
 
 import { RECIEVED_PROJECTS, SET_PROJECT_NAME, ADD_PROJECT, DELETE_PROJECT } from './project.actions';
 import { WORKFLOW_CREATED, START_WORKFLOW, WORKFLOW_STARTED, STOP_WORKFLOW, START_BUILD, BUILD_COMPLETE } from '../workflow/workflow.actions';
-import { RECIEVED_CONFIGS, SET_ROOT_PROPERTY } from '../config/config.actions';
+import { UPDATE_PATH, RECIEVED_CONFIGS } from '../config/config.actions';
 import { deleteArrayItem, getById, updateArrayItem, deepCopy } from '../utils/reducer.js';
 
 
@@ -88,6 +88,26 @@ export default function projects(
 			index = newState.indexOf(project);
 
 			return deleteArrayItem(newState, index);
+
+		case UPDATE_PATH:
+			project = newState.find(project => project.id == payload.projectId);
+			index = newState.indexOf(project);
+			updatedProject = Object.assign({}, project, {
+				path: payload.path
+			});
+
+			return updateArrayItem(newState, index, updatedProject);
+
+
+		case RECIEVED_CONFIGS:
+			console.warn('BACKWARDS COMPATIBILITY MODE ON', 'project path checked on project and on config');
+
+			return newState.map(project => {
+				return (project.path && project.path != '') ?
+					project :
+					Object.assign(project, {path: payload.configs[project].path})
+				;
+			});
 
 		default: return state;
 	}

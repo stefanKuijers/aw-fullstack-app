@@ -5,7 +5,7 @@ import { getGatewayIp, getIpOnGateway } from '../utils/network';
 export default class Workflow {
 	constructor(project, projectConfig, callback) {
 		this.config = require('./gulpfile.js/config.js')(gulp, WORKFLOW_PLUGINS);
-		this.loadConfig(projectConfig);
+		this.loadConfig(projectConfig, project.path);
 
 		this.id = Date.now();
 		this.name = projectConfig.name;
@@ -60,9 +60,15 @@ export default class Workflow {
 	    }
 	}
 
-	loadConfig(projectConfig) {
+	loadConfig(projectConfig, path) {
 		this.config.load(
-			JSON.stringify(projectConfig)
+			JSON.stringify(
+				Object.assign(
+					{}, 
+					projectConfig, 
+					{path}
+				)
+			)
 		);
 	}
 }

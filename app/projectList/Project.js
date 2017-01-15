@@ -41,12 +41,6 @@ export default class Project extends Component {
 
 	getProjectClassName() {
 		const project = this.props.data.project;
-
-		console.log(
-			this.props.data.config.name,
-			(this.projectStarting() && !project.starting && !project.running),
-		);
-
 		let elClass;
 
 		if (this.projectStarting() && !project.starting && !project.running) {

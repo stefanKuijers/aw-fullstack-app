@@ -120,42 +120,42 @@ class Feature extends Component {
 	renderContent(configId, key, options, actions) {
 		if (key !== 'dependencyManagement') {
 			return(
-					<CardText 
-						expandable={true}
-						className={styles.cardText}
-					>
-						<List>
-							{((key !== 'watch') ? this.createInputListItem(
-								configId, 'outputDir', actions, key, 'outputDir', options.outputDir, 'Output Folder'
-							) : null)}
-							{((key === 'sass') ? this.createInputListItem(
-								configId, 'fontsDir', actions, key, 'fontsDir', options.fontsDir, 'Path to Font Folder'
-							) : null)}
-						</List>
+				<CardText 
+					expandable={true}
+					className={styles.cardText}
+				>
+					<List>
+						{((key !== 'watch') ? this.createInputListItem(
+							configId, 'outputDir', actions, key, 'outputDir', options.outputDir, 'Output Folder'
+						) : null)}
+						{((key === 'sass') ? this.createInputListItem(
+							configId, 'fontsDir', actions, key, 'fontsDir', options.fontsDir, 'Path to Font Folder'
+						) : null)}
+					</List>
 
-						<List>
-					        <Subheader 
-					        	className={helpStyles.subHeader}
-					        	onTouchTap={this.toggleGlobPopover}
-					        >Globs <InfoIcon/></Subheader>
+					<List>
+				        <Subheader 
+				        	className={helpStyles.subHeader}
+				        	onTouchTap={this.toggleGlobPopover}
+				        >Globs <InfoIcon/></Subheader>
 
-					        {this.createInputListItems(configId, options.globs, key, 'globs', actions)}
+				        {this.createInputListItems(configId, options.globs, key, 'globs', actions)}
 
-					        <ListItem
-					        	key="addNew"
-					        	onTouchTap={() => {actions.addGlob(configId, key)}}
-								leftAvatar={<Avatar icon={<AddIcon/>} />}
-								primaryText="Add new glob"
-							/>
-					    </List>
-					    <Popover
-				          open={this.state.globPopoverOpen}
-				          anchorEl={this.state.globHeader}
-				          onRequestClose={this.toggleGlobPopover}
-				          className={helpStyles.popover}
-				          zDepth={4}
-				        >{globsExplenation}</Popover>
-					</CardText>
+				        <ListItem
+				        	key="addNew"
+				        	onTouchTap={() => {actions.addGlob(configId, key)}}
+							leftAvatar={<Avatar icon={<AddIcon/>} />}
+							primaryText="Add new glob"
+						/>
+				    </List>
+				    <Popover
+			          open={this.state.globPopoverOpen}
+			          anchorEl={this.state.globHeader}
+			          onRequestClose={this.toggleGlobPopover}
+			          className={helpStyles.popover}
+			          zDepth={4}
+			        >{globsExplenation}</Popover>
+				</CardText>
 			);
 		}
 	}

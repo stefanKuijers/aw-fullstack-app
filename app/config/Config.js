@@ -27,12 +27,17 @@ class Config extends Component {
   		this.props.fetchConfig(this.props.params.configId);
 	};
 
-	openDirectorySelect(prop, updateCallback) {
+	openDirectorySelect(prop, updateCallback, projectId) {
 		dialog.showOpenDialog({
 		    properties: ['openDirectory']
 		}, (paths) => {
 		  	if (paths && paths.length) {
-			  	updateCallback(prop, undefined, paths[0]+'\\')
+		  		const path = paths[0]+'\\'
+		  		if (prop === 'path') {
+		  			updateCallback(path, projectId);
+		  		} else {
+				  	updateCallback(prop, undefined, path)
+		  		}
 		  	}
 		});
 	}
@@ -44,11 +49,13 @@ class Config extends Component {
 				updateProperty: this.props.updateProperty, 
 				addGlob: this.props.addGlob,
 				removeGlob: this.props.removeGlob,
-				moveGlob: this.props.moveGlob 
+				moveGlob: this.props.moveGlob,
+				updatePath: this.props.updatePath
 			};
 			let configId = this.props.configs.currentConfigId;
 			let {watch, sass, javascript, dependencyManagement, cachebust} = this.props.configs[configId];
 			let config = this.props.configs[configId];
+			let project = this.props.projects.find(project => project.configId == configId);
 
 			return (
 				<section className="page">
@@ -73,9 +80,9 @@ class Config extends Component {
 
 								    <ListItem key="path" className={styles.listItem}>
 										<TextField 
-											onTouchTap={() => {this.openDirectorySelect('path', actions.updateProperty)}}
-											onChange={(e, val) => {actions.updateProperty('path', undefined, val)}}
-											value={config.path}
+											onTouchTap={() => {this.openDirectorySelect('path', actions.updatePath, project.id)}}
+											onChange={(e, val) => {actions.updatePath(val, project.id)}}
+											value={project.path}
 											readOnly
 											style={{width: '100%'}}
 											hintText="Absolute Path to Project Folder"
@@ -130,7 +137,7 @@ class Config extends Component {
 
 						<Feature data={{
 								configId,
-								rootFolder: config.path,
+								rootFolder: project.path,
 								options: sass,
 								key: 'sass',
 								title: 'CSS Preprocessor',
@@ -140,7 +147,7 @@ class Config extends Component {
 
 						<Feature data={{
 								configId,
-								rootFolder: config.path,
+								rootFolder: project.path,
 								options: javascript,
 								key: 'javascript',
 								title: 'JS Processing and ES6+',
@@ -150,7 +157,7 @@ class Config extends Component {
 
 						<Feature data={{
 								configId,
-								rootFolder: config.path,
+								rootFolder: project.path,
 								options: cachebust,
 								key: 'cachebust',
 								title: 'Cache Bust Static Resources',
@@ -170,7 +177,7 @@ class Config extends Component {
 					</article>
 					<footer>
 						<Link to={'/projects'} className={styles.link}>
-							<FlatButton 
+							<FlatButton
 								label="Back"
 								icon={<NavigationArrowBack />}
 							/>
@@ -195,7 +202,6 @@ class Config extends Component {
 				</section>
 			);
 		}
-
 	}
 }
 

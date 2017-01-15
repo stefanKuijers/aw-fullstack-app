@@ -18,7 +18,6 @@ import { deepCopy } from '../utils/reducer.js';
 
 const newConfig = {
 	name: '',
-	path: '',
 	server: {
 		type: '',
 		target: ''
@@ -98,7 +97,6 @@ export default function configs(
 
 		case CREATE_CONFIG:
 			newState[payload.id] = Object.assign({}, deepCopy(newConfig));
-			newState[payload.id].path = payload.path; 
 			return Object.assign({}, newState);
 
 		case EXISTING_CONFIG_LOADED:

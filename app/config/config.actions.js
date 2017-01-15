@@ -9,6 +9,7 @@ export const SET_ROOT_PROPERTY = 'SET_ROOT_PROPERTY';
 export const DELETE_CONFIG = 'DELETE_CONFIG';
 export const CREATE_CONFIG = 'CREATE_CONFIG';
 export const EXISTING_CONFIG_LOADED = 'EXISTING_CONFIG_LOADED';
+export const UPDATE_PATH = 'UPDATE_PATH';
 
 
 // maybe features could have their own actions and reducure. Maybe even their own store
@@ -65,6 +66,16 @@ export function updateProperty(key, property, newValue, globIndex = false) {
 
 		dispatch({type: SAVE_STATE, payload: 'configs'});
 	}
+}
+
+export function updatePath(path, id) {
+	return {
+		type: UPDATE_PATH,
+		payload: {
+			path, 
+			projectId: id
+		}
+	};
 }
 
 export function setGlob(key, property, newValue, globIndex) {
@@ -128,14 +139,11 @@ export function deleteConfig(configId) {
 	};
 }
 
-export function createConfig(id, path) {
+export function createConfig(id) {
 	return (dispatch: Function, getState: Function) => {
 		dispatch({
 			type: CREATE_CONFIG,
-			payload: {
-				id,
-				path
-			}
+			payload: { id }
 		});
 
 		dispatch({
@@ -161,12 +169,12 @@ export function loadExistingConfig(id, path) {
 	}
 }
 
-export function loadTemplateConfig(id, path, data) {
+export function loadTemplateConfig(id, data) {
 	return {
 		type: EXISTING_CONFIG_LOADED,
 		payload: { 
 			id, 
-			configData: Object.assign(data, { path })
+			configData: data
 		}
 	};
 }

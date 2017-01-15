@@ -121,7 +121,7 @@ function getWorkflow(project, dispatch, getState) {
 		workflow = getState().workflows.filter(
 			item => item.id == project.workflowId
 		)[0];
-		workflow.loadConfig(config);
+		workflow.loadConfig(config, project.path);
 	} else {
 		workflow = new Workflow(
 			project, 

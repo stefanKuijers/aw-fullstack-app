@@ -175,10 +175,11 @@ function dispatchWriteflowConfig(store) {
 
 function writeWorkflowConfig(config, store) {
 	if (writeFileDebounce) clearTimeout(writeFileDebounce);
-
+	const state = store.getState()
+	const project = state.projects.find(project => project.configId == state.configs.currentConfigId)
 	writeFileDebounce = setTimeout(() => {
 		jsonfile.writeFile(
-			`${config.path}.workflowconfig`,
+			`${project.path}.workflowconfig`,
 			config,
 			{spaces: 4},
 			() => {
