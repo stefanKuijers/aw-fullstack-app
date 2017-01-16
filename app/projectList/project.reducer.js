@@ -101,12 +101,15 @@ export default function projects(
 
 		case RECIEVED_CONFIGS:
 			console.warn('BACKWARDS COMPATIBILITY MODE ON', 'project path checked on project and on config');
-
 			return newState.map(project => {
-				return (project.path && project.path != '') ?
-					project :
-					Object.assign(project, {path: payload.configs[project].path})
-				;
+				if (
+					(project.path && project.path != '') ||
+					!(payload.configs[project.configId])
+				) {
+					return project;
+				} else {
+					return Object.assign(project, {path: payload.configs[project.configId].path})
+				}
 			});
 
 		default: return state;
