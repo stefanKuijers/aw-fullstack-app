@@ -20,7 +20,7 @@ import Popover from 'material-ui/Popover/Popover';
 
 import styles from './ProjectList.css';
 import Project from './Project';
-import OnlineProjectsPage from '../onlineProjects/OnlineProjectsPage';
+// import OnlineProjectsPage from '../onlineProjects/OnlineProjectsPage';
 import { projectsExplenation, helpStyles } from '../helpCenter/HelpCenter';
 
 
@@ -232,9 +232,9 @@ export default class ProjectList extends Component {
 				</Card>
 
 
-			    <OnlineProjectsPage />
 
 		    </article>
 		);
 	}
+			   /* <OnlineProjectsPage /> */
 }

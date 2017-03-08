@@ -1,5 +1,6 @@
 import { shell } from 'electron';
 import { getGatewayIp, getIpOnGateway } from '../utils/network';	
+import { logAction } from '../app/stateStorage';
 
 
 export default class Workflow {
@@ -21,6 +22,10 @@ export default class Workflow {
 	}
 
 	start(callback) {
+		logAction({
+			type: `WORKFLOW START: ${this.name}`,
+			payload: `CONFIG: ${this.config}`
+		});
 		this.browserSync = this.config.browserSync.task(
 			this.name, 
 			(e, browserSyncInstance) => {
@@ -31,6 +36,11 @@ export default class Workflow {
 					port: portKey.slice(portKey.length-4)
 				};
 				this.server.url = `http://${this.server.ip}:${this.server.port}`;
+
+				logAction({
+					type: `WORKFLOW STARTED: ${this.name}`,
+					payload: `SERVER: ${this.server}`
+				});
 				
 				shell.openExternal(this.server.url);
 				callback(this);

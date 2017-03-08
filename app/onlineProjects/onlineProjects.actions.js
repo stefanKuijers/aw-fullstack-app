@@ -2,7 +2,7 @@
 import axios from 'axios';
 axios.defaults.baseURL = 'http://awfp2.dev53.arteries.hu/';
 
-import OnlineProjectServer from './OnlineProjectServer';
+// import OnlineProjectServer from './OnlineProjectServer';
 import { onError } from '../index';
 
 export const REFRESH_ONLINE_PROJECTS = 'REFRESH_ONLINE_PROJECTS';
@@ -17,17 +17,16 @@ export function getOnlineProjects() {
 	return (dispatch: Function, getState: Function) => {
 		dispatch({ type: REFRESH_ONLINE_PROJECTS });
 		
-		axios.post('/getOnlineProjects').then((response) => {
-			dispatch(recievedOnlineProjects(
-				response.data.data[0], 
-				getState().profile.username
-			));
-		}).catch(onError);
+		// axios.post('/getOnlineProjects').then((response) => {
+		// 	dispatch(recievedOnlineProjects(
+		// 		response.data.data[0], 
+		// 		getState().profile.username
+		// 	));
+		// }).catch(onError);
 	};
 }
 
 export function recievedOnlineProjects(projects, currentUsername) {
-	console.log();
 	return {
 		type: RECIEVED_ONLINE_PROJECTS,
 		// payload: projects
@@ -39,16 +38,16 @@ export function registerOnlineProject(project, url) {
 	return (dispatch: Function, getState: Function) => {
 		dispatch({ type: REGISTER_ONLINE_PROJECT, payload: project });
 
-		const state = getState();
-		axios.post('/registerOnlineProject', {
-		    	id: project.id,
-		    	name: state.configs[project.configId].name,
-		    	url,
-		    	username: state.profile.username
-		    }).then((response) => {
-				dispatch(registeredOnlineProject(project));
-			})
-			.catch(onError);
+		// const state = getState();
+		// axios.post('/registerOnlineProject', {
+		//     	id: project.id,
+		//     	name: state.configs[project.configId].name,
+		//     	url,
+		//     	username: state.profile.username
+		//     }).then((response) => {
+		// 		dispatch(registeredOnlineProject(project));
+		// 	})
+		// 	.catch(onError);
 	};
 }
 
@@ -66,12 +65,12 @@ export function unregisterOnlineProjects(ids = [], callback = Function) {
 			payload: ids
 		});
 
-		axios.post('/unregisterOnlineProjects', { ids })
-			.then((response) => {
-				dispatch(unregisteredOnlineProjects(ids));
-				callback();
-			})
-			.catch(onError);
+		// axios.post('/unregisterOnlineProjects', { ids })
+		// 	.then((response) => {
+		// 		dispatch(unregisteredOnlineProjects(ids));
+		// 		callback();
+		// 	})
+		// 	.catch(onError);
 	};
 }
 

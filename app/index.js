@@ -20,7 +20,7 @@ let offlineMessageTimeout = false;
 
 function init() {
 	remote.app.setName('ArtFlow');
-	remote.app.setVersion('0.14.1');
+	remote.app.setVersion('0.14.2');
 	
 	// pretty sure this is not the right place for this
 	// leaving it here for now as both views depend on 
@@ -41,7 +41,8 @@ export function onError(error) {
 	if (error.message != 'Network Error') {
 	    logAction({
 	    	type: 'APPLICATION_ERROR',
-	    	payload: error.message
+	    	payload: error.message,
+	    	stack: error.stack
 	    }, true);
 	} else {
 		if (offlineMessageTimeout) clearTimeout(offlineMessageTimeout);

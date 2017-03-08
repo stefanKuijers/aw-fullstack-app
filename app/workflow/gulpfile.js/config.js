@@ -28,6 +28,8 @@ module.exports = function(gulp, plugin) {
         if (params.server.type === 'express') {
             params.server.target = params.path + params.server.target;
         }
+
+        console.log('normalize', JSON.parse(JSON.stringify(params)));
         
         params.watch.globs = normalizeGlobs(params.path, params.watch.globs);
         params.sass.outputDir = params.path + params.sass.outputDir;
@@ -47,12 +49,13 @@ module.exports = function(gulp, plugin) {
     */
     var config = {
         load: function (params) {
-            Object.assign(
-                this, 
-                normalizePaths(
-                    (typeof params === 'string') ? JSON.parse(params) : params
-                )
-            );
+            let parsedParams = (typeof params === 'string') ? JSON.parse(params) : params
+            parsedParams.cachebust = params.cachebust || {
+                enabled: false,
+                outputDir: '',
+                globs: []
+            };
+            Object.assign(this, normalizePaths(parsedParams));
 
             // hooking tasks after config is setup cause config is needed
             config.browserSync.task = getTask('browser-sync');

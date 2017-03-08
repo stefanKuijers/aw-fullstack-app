@@ -118,6 +118,7 @@ class Feature extends Component {
 	}
 
 	renderContent(configId, key, options, actions) {
+		console.log('Render feature content', options);
 		if (key !== 'dependencyManagement') {
 			return(
 				<CardText 
@@ -161,8 +162,9 @@ class Feature extends Component {
 	}
 
 	render() {
-		const options = this.props.data.options;
-		const data = this.props.data;
+		const options = this.props.data.options || {};
+		const data = this.props.data || {};
+
 		const actions = this.props.actions;
 		const imgUrl = `./config/feature/${data.key}_logo.png`;
 

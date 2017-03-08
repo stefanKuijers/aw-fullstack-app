@@ -194,7 +194,7 @@ function writeWorkflowConfig(config, store) {
 }
 
 export function logAction(action, force = false) {
-    if (logIgnoreActionTypes.indexOf(action.type) != -1) return
+    if (logIgnoreActionTypes.indexOf(action.type) != -1) return;
 
     let circulair = false;
     let logPayload;
@@ -203,13 +203,17 @@ export function logAction(action, force = false) {
 	} catch(err) {
 		circulair = true;
 	} finally {
-		logQueue.push({
+		let entry = {
 			type: action.type,
 			time: new Date().toString(),
 			payload: circulair ? 
 				`CIRCULAIR STRUCTURE: ${Object.keys(action.payload).toString()}` : 
 				JSON.parse(logPayload)
-		});
+		};
+
+		if (action.stack) entry.stack = action.stack;
+
+		logQueue.push(entry);
 	}
 
 	if (logQueue.length > 500) {
