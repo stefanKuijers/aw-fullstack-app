@@ -1,6 +1,5 @@
 // @flow
 import axios from 'axios';
-axios.defaults.baseURL = 'http://awfp2.dev53.arteries.hu/';
 
 // import OnlineProjectServer from './OnlineProjectServer';
 import { onError } from '../index';
